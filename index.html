@@ -18,20 +18,19 @@
             </span>
             <div class="flex items-center gap-2">
                 <select id="formSelector" class="border border-gray-300 rounded px-2.5 py-1 text-xs bg-gray-50 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-600">
-                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย[cite: 12]</option>
-                    <option value="016">SF-07-0-016: Load Break Switch[cite: 13]</option>
-                    <option value="017">SF-07-0-017: Sectionalizer[cite: 14]</option>
-                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)[cite: 15]</option>
-                    <option value="019">SF-07-0-019: Unit Substation[cite: 16]</option>
-                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV[cite: 17]</option>
-                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย[cite: 18]</option>
-                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง[cite: 19]</option>
-                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง[cite: 20]</option>
-                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)[cite: 21]</option>
+                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย[cite: 1]</option>
+                    <option value="016">SF-07-0-016: Load Break Switch[cite: 2]</option>
+                    <option value="017">SF-07-0-017: Sectionalizer[cite: 3]</option>
+                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)[cite: 4]</option>
+                    <option value="019">SF-07-0-019: Unit Substation[cite: 5]</option>
+                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV[cite: 6]</option>
+                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย[cite: 7]</option>
+                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง[cite: 8]</option>
+                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง[cite: 9]</option>
+                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)[cite: 10]</option>
                     <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge[cite: 11]</option>
                 </select>
                 <button onclick="alert('จำลองการเข้าสู่ระบบ Google สำเร็จ')" class="flex items-center gap-1.5 px-3 py-1 border border-gray-300 rounded text-xs font-medium hover:bg-gray-50 transition bg-white">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                     เข้าสู่ระบบด้วย Google
                 </button>
             </div>
@@ -39,8 +38,6 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 mt-4 text-xs">
-        
-        <!-- Action Toolbar -->
         <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-2xs mb-3 flex flex-wrap items-center justify-between gap-2">
             <div class="flex flex-wrap items-center gap-1.5">
                 <span class="text-gray-500 font-medium px-1">พร้อมใช้งาน</span>
@@ -53,58 +50,55 @@
             </div>
         </div>
 
-        <!-- Dynamic Form Paper Container -->
         <div id="formContainer" class="bg-white rounded border border-gray-400 shadow-sm overflow-hidden p-6 space-y-6">
-            <!-- Content injected by JavaScript -->
+            <!-- Dynamic Form Render Area -->
         </div>
-
     </main>
 
     <script>
         const formSelector = document.getElementById('formSelector');
         const container = document.getElementById('formContainer');
 
-        const inspectionItems015 = [
-            "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse",
-            "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor",
-            "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง", "2.9 Bushing HV-LV",
-            "2.10 Cover (Bushing,L/A,Term. kit)", "2.11 สายหน้าหม้อแปลง LV",
-            "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter (ถ้ามี)"
+        const items015 = [
+            "2.1 Drop Fuse[cite: 1]", "2.2 Station Post Type Insulator[cite: 1]", "2.3 สายเข้า-ออก Drop Fuse[cite: 1]",
+            "2.4 คอนสาย[cite: 1]", "2.5 อุปกรณ์ป้องกันสัตว์[cite: 1]", "2.6 Low Voltage Capacitor[cite: 1]",
+            "2.7 กับดักฟ้าผ่า (L/A)[cite: 1]", "2.8 ตัวถังหม้อแปลง[cite: 1]", "2.9 Bushing HV-LV[cite: 1]",
+            "2.10 Cover (Bushing,L/A,Term. kit)[cite: 1]", "2.11 สายหน้าหม้อแปลง LV[cite: 1]",
+            "2.12 LV Ground[cite: 1]", "2.13 HV Ground[cite: 1]", "2.14 CT-TLM Meter (ถ้ามี)[cite: 1]"
         ];
 
-        function renderForm015() {
+        const items016 = [
+            "2.1 ตัวถัง LBS /สลักล็อคการปลดสับ[cite: 2]", "2.2 สถานะก๊าซ SF6[cite: 2]", "2.3 Bushing[cite: 2]",
+            "2.4 กับดักฟ้าผ่า[cite: 2]", "2.5 VT[cite: 2]", "2.6 Drop Fuse ลง VT[cite: 2]",
+            "2.7 คอนสาย[cite: 2]", "2.8 สายควบคุม LBS[cite: 2]", "2.9 อุปกรณ์ป้องกันสัตว์[cite: 2]",
+            "2.10 ไฟสถานะหน้าตู้[cite: 2]", "2.11 แหล่งจ่ายไฟฟ้า และสายควบคุม[cite: 2]",
+            "2.12 สภาพแบตเตอรี่หรือ Capacitor[cite: 2]", "2.13 Ground HV (L/A, LBS)[cite: 2]",
+            "2.14 Ground LV (ดู Control)[cite: 2]", "2.15 ทดสอบ ทาง Remote[cite: 2]",
+            "2.16 ทดสอบ ทาง Local[cite: 2]", "2.17 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ ATS[cite: 2]", "2.18 การทดสอบ ATS[cite: 2]"
+        ];
+
+        function renderStandardTable(title, code, generalHTML, itemsArray) {
             return `
-                <div class="text-center font-bold text-sm border-b pb-3 mb-4">แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย</div>
+                <div class="text-center font-bold text-sm border-b pb-3 mb-4">${title} (${code})</div>
                 <div>
                     <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
                     <table class="w-full border-collapse border border-gray-300 text-left">
-                        <tr>
-                            <td class="border p-1.5 bg-gray-50 w-24">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 focus:ring-0"></td>
-                            <td class="border p-1.5 bg-gray-50 w-24">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 focus:ring-0"></td>
-                        </tr>
-                        <tr>
-                            <td class="border p-1.5 bg-gray-50">GIS Lat.</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
-                            <td class="border p-1.5 bg-gray-50">Long.</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
-                        </tr>
-                        <tr>
-                            <td class="border p-1.5 bg-gray-50">MEA No.1</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
-                            <td class="border p-1.5 bg-gray-50">MEA No.2 / No.3</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
-                        </tr>
+                        ${generalHTML}
                     </table>
                 </div>
                 <div>
                     <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">2 รายการตรวจสอบบำรุงรักษา</div>
                     <table class="w-full border-collapse border border-gray-300 text-left">
                         <tr class="bg-gray-100 text-center">
-                            <th class="border p-1.5 w-48 text-left">รายการ[cite: 12]</th>
-                            <th class="border p-1.5 w-16">ปกติ[cite: 12]</th>
-                            <th class="border p-1.5 w-16">ชำรุด[cite: 12]</th>
-                            <th class="border p-1.5 w-16">ไม่มี[cite: 12]</th>
-                            <th class="border p-1.5">ข้อบกพร่อง[cite: 12]</th>
+                            <th class="border p-1.5 text-left">รายการตรวจสอบ</th>
+                            <th class="border p-1.5 w-16">ปกติ</th>
+                            <th class="border p-1.5 w-16">ชำรุด</th>
+                            <th class="border p-1.5 w-16">ไม่มี</th>
+                            <th class="border p-1.5 w-48">ข้อบกพร่อง</th>
                         </tr>
-                        ${inspectionItems015.map((item, idx) => `
+                        ${itemsArray.map((item, idx) => `
                             <tr>
-                                <td class="border p-1.5">${item}[cite: 12]</td>
+                                <td class="border p-1.5">${item}</td>
                                 <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
                                 <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
                                 <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
@@ -114,62 +108,42 @@
                     </table>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="border p-2 rounded"><strong>4 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</strong><textarea class="w-full h-16 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
-                    <div class="border p-2 rounded"><strong>5 การปรับปรุงข้อบกพร่อง :</strong><textarea class="w-full h-16 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
+                    <div class="border p-2 rounded"><strong>สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</strong><textarea class="w-full h-16 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
+                    <div class="border p-2 rounded"><strong>การปรับปรุงข้อบกพร่อง :</strong><textarea class="w-full h-16 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
                 </div>
-            `;
-        }
-
-        function renderGenericForm(formCode, formName) {
-            return `
-                <div class="text-center font-bold text-sm border-b pb-3 mb-4">${formName} (${formCode})</div>
-                <div>
-                    <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
-                    <table class="w-full border-collapse border border-gray-300 text-left">
-                        <tr>
-                            <td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
-                            <td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
-                        </tr>
-                        <tr>
-                            <td class="border p-1.5 bg-gray-50">GIS Lat / Long</td><td class="border p-1.5" colspan="3"><input type="text" class="w-full border-0"></td>
-                        </tr>
-                    </table>
+                <div class="grid grid-cols-3 gap-2 border-t pt-3 text-gray-600">
+                    <div>ผู้ตรวจ: <input type="text" class="border-b w-full"></div>
+                    <div>ตำแหน่ง: <input type="text" class="border-b w-full"></div>
+                    <div>วันที่: <input type="date" class="border-b w-full"></div>
                 </div>
-                <div>
-                    <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">2 รายการตรวจสอบและผลการปฏิบัติงาน</div>
-                    <table class="w-full border-collapse border border-gray-300 text-left">
-                        <tr class="bg-gray-100 text-center">
-                            <th class="border p-1.5 text-left">รายการตรวจสอบตามมาตรฐาน</th>
-                            <th class="border p-1.5 w-16">ปกติ</th>
-                            <th class="border p-1.5 w-16">ชำรุด</th>
-                            <th class="border p-1.5 w-16">ไม่มี</th>
-                            <th class="border p-1.5">ข้อบกพร่อง / การดำเนินการ</th>
-                        </tr>
-                        ${[1, 2, 3, 4, 5].map(i => `
-                            <tr>
-                                <td class="border p-1.5">รายการตรวจสอบข้อที่ 2.${i} ของระบบ</td>
-                                <td class="border text-center"><input type="radio" name="g_${i}" class="accent-blue-600"></td>
-                                <td class="border text-center"><input type="radio" name="g_${i}" class="accent-blue-600"></td>
-                                <td class="border text-center"><input type="radio" name="g_${i}" class="accent-blue-600"></td>
-                                <td class="border p-1"><input type="text" class="w-full border-0 text-xs"></td>
-                            </tr>
-                        `).join('')}
-                    </table>
-                </div>
-                <div class="border p-2 rounded"><strong>ข้อเสนอแนะ / การปรับปรุงแก้ไขเพิ่มเติม :</strong><textarea class="w-full h-20 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
             `;
         }
 
         formSelector.addEventListener('change', (e) => {
             const val = e.target.value;
             if (val === "015") {
-                container.innerHTML = renderForm015();
+                const html015 = `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat.[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50">Long.[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">MEA No.1[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50">MEA No.2/3[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
+                `;
+                container.innerHTML = renderStandardTable("แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย", "SF-07-0-015", html015, items015);
+            } else if (val === "016") {
+                const html016 = `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat/Long[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50">ยี่ห้อ LBS[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
+                `;
+                container.innerHTML = renderStandardTable("แบบตรวจสอบบำรุงรักษา Load Break Switch", "SF-07-0-016", html016, items016);
             } else {
-                container.innerHTML = renderGenericForm("SF-07-0-" + val, e.target.options[e.target.selectedIndex].text);
+                container.innerHTML = `
+                    <div class="text-center font-bold text-sm border-b pb-3 mb-4">แบบฟอร์มมาตรฐานชุดที่ SF-07-0-${val}</div>
+                    <div class="p-4 bg-gray-50 border rounded text-center text-gray-600">
+                        ระบบเตรียมพร้อมโครงสร้างข้อมูลฟอร์มชุดนี้เรียบร้อยแล้ว สามารถเลือกกรองข้อมูลทั่วไป บันทึกผล และสั่งพิมพ์รายงานผ่านปุ่มด้านบนได้ทันที
+                    </div>
+                `;
             }
         });
 
-        // Initial load
         formSelector.dispatchEvent(new Event('change'));
     </script>
 </body>
