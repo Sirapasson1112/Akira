@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Google Fonts (Sarabun สำหรับเอกสารทางการ) -->
+    <!-- Google Fonts (Sarabun) -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Sarabun', sans-serif; }
@@ -18,47 +18,46 @@
             padding: 15mm;
             margin: 0 auto;
             background: white;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
         }
         @media print {
             body { background: white; }
             .no-print { display: none !important; }
             .a4-page { box-shadow: none; padding: 0; width: 100%; }
         }
-        /* Custom Scrollbar for Horizontal Navigation */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased" x-data="inspectionApp()">
+<body class="bg-slate-100 text-slate-800 antialiased" x-data="inspectionApp()">
 
-    <!-- TOP HEADER BAR -->
-    <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg border-b border-slate-800 px-6 py-4 flex flex-wrap justify-between items-center">
+    <!-- HEADER / SUPER FAST NAVIGATION BAR -->
+    <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3.5 flex flex-wrap justify-between items-center border-b border-slate-800">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-xl font-bold shadow-md">⚡</div>
+            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-xl font-bold shadow">⚡</div>
             <div>
-                <h1 class="text-lg font-bold tracking-wide text-white">Digital Inspection System</h1>
-                <p class="text-xs text-slate-400">ระบบใบตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้า (MEA Standard)</p>
+                <h1 class="text-base font-bold tracking-wide text-white">Digital Inspection (Easy Mode)</h1>
+                <p class="text-xs text-slate-400">ระบบใบตรวจสอบไฟฟ้า กฟน. ใช้งานง่าย บันทึกออโต้</p>
             </div>
         </div>
         <div class="flex items-center space-x-3 text-sm mt-2 sm:mt-0">
-            <span class="text-xs bg-slate-800 text-emerald-400 px-3 py-1.5 rounded-full border border-slate-700 flex items-center gap-1.5 font-medium" x-text="autoSaveStatus"></span>
+            <span class="text-xs bg-slate-800 text-emerald-400 px-3 py-1.5 rounded-full border border-slate-700 font-medium" x-text="autoSaveStatus"></span>
             <template x-if="activeFormCode">
-                <button @click="exportPDF()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition font-medium text-xs shadow-sm flex items-center gap-1">
-                    ⬇ Export PDF A4
+                <button @click="exportPDF()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition font-medium text-xs shadow flex items-center gap-1.5">
+                    🖨️ พิมพ์ / Export PDF
                 </button>
             </template>
         </div>
     </header>
 
-    <!-- HORIZONTAL SELECTION BAR (แถบเลือกใบงานแนวยาวด้านบน) -->
-    <nav class="no-print bg-white border-b border-slate-200 shadow-sm px-6 py-3 sticky top-[73px] z-40">
-        <div class="max-w-7xl mx-auto flex items-center space-x-3 overflow-x-auto no-scrollbar py-1">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap mr-2">เลือกใบตรวจสอบ:</span>
+    <!-- HORIZONTAL SCROLLABLE FORM SELECTOR -->
+    <nav class="no-print bg-white border-b border-slate-200 shadow-sm px-6 py-3 sticky top-[69px] z-40">
+        <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap mr-2">เลือกใบงาน:</span>
             <template x-for="form in formsList" :key="form.code">
                 <button @click="selectForm(form.code)" 
-                    :class="activeFormCode === form.code ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20 border-blue-600' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'"
-                    class="px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition border flex items-center gap-2">
+                    :class="activeFormCode === form.code ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20 border-blue-600 scale-105' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'"
+                    class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 border flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full" :class="activeFormCode === form.code ? 'bg-white' : 'bg-blue-500'"></span>
                     <span x-text="form.code + ' : ' + form.name"></span>
                 </button>
@@ -66,208 +65,94 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTAINER (แสดงข้อมูลด้านล่างเมื่อกดเลือก) -->
-    <main class="py-8 px-4 max-w-7xl mx-auto">
+    <!-- MAIN CONTENT AREA -->
+    <main class="py-6 px-4 max-w-7xl mx-auto">
 
-        <!-- Initial State: เมื่อยังไม่ได้เลือกใบงาน -->
+        <!-- Welcome State -->
         <template x-if="!activeFormCode">
-            <div class="text-center py-20 space-y-4 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-3xl mx-auto p-8">
-                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">📄</div>
-                <h2 class="text-2xl font-bold text-slate-900">กรุณาเลือกประเภทใบตรวจสอบจากแถบด้านบน</h2>
-                <p class="text-sm text-slate-500 max-w-md mx-auto">เลือกหัวข้อใบงานที่ต้องการเพื่อแสดงแบบฟอร์มบันทึกข้อมูลภาคสนามรูปแบบดิจิทัล A4 ที่พร้อมใช้งานทันที</p>
+            <div class="text-center py-24 space-y-4 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-2xl mx-auto p-10">
+                <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner">⚡</div>
+                <h2 class="text-2xl font-bold text-slate-900">เลือกประเภทใบตรวจสอบจากด้านบนได้เลยครับ</h2>
+                <p class="text-sm text-slate-500 max-w-md mx-auto">ระบบถูกออกแบบให้ใช้งานง่าย กรอกสะดวก มีปุ่มลัดติ๊กปกติทั้งหมด และบันทึกข้อมูลให้อัตโนมัติทันทีที่คุณพิมพ์</p>
             </div>
         </template>
 
-        <!-- Form Display State: แสดงแบบฟอร์ม A4 ด้านล่าง -->
+        <!-- Active Form Layout -->
         <template x-if="activeFormCode">
             <div class="space-y-6">
                 
-                <!-- Progress & Action Bar -->
+                <!-- Quick Control Toolbar (ตัวช่วยให้ทำงานเร็วขึ้น) -->
                 <div class="max-w-[210mm] mx-auto bg-white p-4 rounded-2xl shadow-sm border border-slate-200 no-print flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="w-full sm:w-1/2">
-                        <div class="flex justify-between text-xs font-semibold mb-1 text-slate-600">
-                            <span x-text="'ความคืบหน้าการตรวจสอบ: ' + checkedCount + ' / ' + totalItems + ' รายการ'"></span>
-                            <span x-text="progressPercentage + '%'" class="text-blue-600 font-bold"></span>
-                        </div>
-                        <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-200">
-                            <div class="bg-blue-600 h-full rounded-full transition-all duration-300" :style="'width: ' + progressPercentage + '%'"></div>
-                        </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                            ✅ ติ๊ก "ปกติ" ทั้งหมดด่วน
+                        </button>
+                        <button @click="resetForm()" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold transition">
+                            🔄 ล้างข้อมูลใหม่
+                        </button>
                     </div>
-                    <div>
-                        <button @click="validateAndSubmit()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-medium text-xs transition shadow-sm shadow-emerald-600/20 flex items-center gap-2">
-                            ✓ ส่งใบตรวจสอบสมบูรณ์
+                    <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                        <div class="text-xs font-semibold text-slate-600">
+                            ตรวจแล้ว: <span class="text-blue-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> ข้อ (<span x-text="progressPercentage"></span>%)
+                        </div>
+                        <button @click="validateAndSubmit()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
+                            ✓ ส่งใบตรวจสอบ
                         </button>
                     </div>
                 </div>
 
-                <!-- A4 Document Layout -->
+                <!-- A4 Form Sheet -->
                 <div class="a4-page rounded-2xl border border-slate-200 text-slate-900 text-sm space-y-6">
                     
-                    <!-- Document Header -->
+                    <!-- Header -->
                     <div class="border-b border-slate-200 pb-4 flex justify-between items-start">
                         <div>
-                            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100" x-text="activeFormCode"></span>
+                            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100" x-text="activeFormCode"></span>
                             <h2 class="text-xl font-bold text-slate-900 mt-2" x-text="activeFormTitle"></h2>
-                            <p class="text-xs text-slate-400 mt-0.5">การไฟฟ้านครหลวง (MEA) • ระบบสารสนเทศงานบำรุงรักษาอุปกรณ์ไฟฟ้า</p>
+                            <p class="text-xs text-slate-400 mt-0.5">การไฟฟ้านครหลวง (MEA) • ระบบบันทึกข้อมูลภาคสนามดิจิทัล</p>
                         </div>
-                        <div class="text-right">
-                            <div class="text-xs text-slate-500 font-medium">วันที่บันทึก: <span class="text-slate-900 font-semibold" x-text="currentDate"></span></div>
+                        <div class="text-right text-xs text-slate-500 font-medium">
+                            วันที่: <span class="text-slate-900 font-semibold" x-text="currentDate"></span>
                         </div>
                     </div>
 
-                    <!-- Section 1: Dynamic General Info (ข้อมูลทั่วไปเฉพาะของแต่ละใบ) -->
+                    <!-- Section 1: General Info -->
                     <div class="space-y-3">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
+                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">1. ข้อมูลทั่วไป (กรอกเฉพาะข้อมูลที่จำเป็น)</h3>
                         
-                        <!-- Form 015: หม้อแปลงจำหน่าย[cite: 1] -->
+                        <!-- Dynamic Inputs based on Form -->
                         <template x-if="activeFormCode === 'SF-07-0-015'">
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
                                 <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl hover:bg-blue-500 transition">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.1</label><input type="text" x-model="formData.mea_no1" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.2</label><input type="text" x-model="formData.mea_no2" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.3</label><input type="text" x-model="formData.mea_no3" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">จำนวนเฟส</label><input type="text" x-model="formData.phases" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ (TR)</label><input type="text" x-model="formData.brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ขนาด</label><input type="text" x-model="formData.capacity" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ชนิด</label><input type="text" x-model="formData.type" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ลักษณะการติดตั้ง</label><input type="text" x-model="formData.install_style" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl hover:bg-blue-500 transition">📍 ดึงพิกัด</button></div></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.1</label><input type="text" x-model="formData.mea_no1" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">ขนาด (kVA)</label><input type="text" x-model="formData.capacity" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อหม้อแปลง</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">ลักษณะติดตั้ง</label><input type="text" x-model="formData.install_style" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
                             </div>
                         </template>
 
-                        <!-- Form 016: Load Break Switch[cite: 2] -->
-                        <template x-if="activeFormCode === 'SF-07-0-016'">
+                        <!-- Standard General Info for other forms -->
+                        <template x-if="activeFormCode !== 'SF-07-0-015'">
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">Station ID / FIX ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่ติดตั้ง</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
                                 <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ LBS</label><input type="text" x-model="formData.lbs_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">LBS MEA No.</label><input type="text" x-model="formData.lbs_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">Switch No.</label><input type="text" x-model="formData.switch_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ VT</label><input type="text" x-model="formData.vt_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">VT MEA No.</label><input type="text" x-model="formData.vt_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ตู้ OFDF No.</label><input type="text" x-model="formData.ofdf_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍 ดึงพิกัด</button></div></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">MEA No. / Equipment No.</label><input type="text" x-model="formData.mea_no" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้ออุปกรณ์ (Brand)</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
                             </div>
                         </template>
-
-                        <!-- Form 017: Sectionalizer[cite: 3] -->
-                        <template x-if="activeFormCode === 'SF-07-0-017'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ SZ</label><input type="text" x-model="formData.sz_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">SZ MEA No.</label><input type="text" x-model="formData.sz_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">Switch No.</label><input type="text" x-model="formData.switch_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
-                        <!-- Form 018: Ring Main Unit (RMU)[cite: 4] -->
-                        <template x-if="activeFormCode === 'SF-07-0-018'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ RMU</label><input type="text" x-model="formData.rmu_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">RMU MEA No.</label><input type="text" x-model="formData.rmu_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
-                        <!-- Form 019: UNITSUBSTATION[cite: 5] -->
-                        <template x-if="activeFormCode === 'SF-07-0-019'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ TR</label><input type="text" x-model="formData.tr_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">TR MEA No.</label><input type="text" x-model="formData.tr_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ RMU</label><input type="text" x-model="formData.rmu_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">RMU MEA No.</label><input type="text" x-model="formData.rmu_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
-                        <!-- Form 020: Capacitor Bank[cite: 6] -->
-                        <template x-if="activeFormCode === 'SF-07-0-020'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สายป้อน</label><input type="text" x-model="formData.feeder" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ชนิด Control</label><input type="text" x-model="formData.ctrl_type" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ (Control)</label><input type="text" x-model="formData.ctrl_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ชนิด Switch</label><input type="text" x-model="formData.switch_type" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ (Switch)</label><input type="text" x-model="formData.switch_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
-                        <!-- Form 021 & 022: Mesh Network Transformer[cite: 7, 8] -->
-                        <template x-if="activeFormCode === 'SF-07-0-021' || activeFormCode === 'SF-07-0-022'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">STATION / สถานที่</label><input type="text" x-model="formData.station" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">FIX ID</label><input type="text" x-model="formData.fix_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">WLN</label><input type="text" x-model="formData.wln" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA NO.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <template x-if="activeFormCode === 'SF-07-0-021'">
-                                    <>
-                                    <div><label class="block font-medium text-slate-500 mb-1">ACB NO.</label><input type="text" x-model="formData.acb_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                    <div><label class="block font-medium text-slate-500 mb-1">RELAY NO.</label><input type="text" x-model="formData.relay_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                    </>
-                                </template>
-                                <template x-if="activeFormCode === 'SF-07-0-022'">
-                                    <div><label class="block font-medium text-slate-500 mb-1">SW. MEA NO.</label><input type="text" x-model="formData.sw_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                </template>
-                            </div>
-                        </template>
-
-                        <!-- Form 023: Oil Filtering[cite: 9] -->
-                        <template x-if="activeFormCode === 'SF-07-0-023'">
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">STATION ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">SW. ยี่ห้อ</label><input type="text" x-model="formData.sw_brand" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">TR. MEA No.</label><input type="text" x-model="formData.tr_mea" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
-                        <!-- Form 024: Hot Spot[cite: 10] -->
-                        <template x-if="activeFormCode === 'SF-07-0-024'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สายป้อน</label><input type="text" x-model="formData.feeder" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">อุปกรณ์</label><input type="text" x-model="formData.equipment" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">Emissivity</label><input type="text" x-model="formData.emissivity" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50" value="0.95"></div>
-                            </div>
-                        </template>
-
-                        <!-- Form 025: Acoustic Camera[cite: 11] -->
-                        <template x-if="activeFormCode === 'SF-07-0-025'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สายป้อน</label><input type="text" x-model="formData.feeder" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">อุปกรณ์</label><input type="text" x-model="formData.equipment" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
                     </div>
 
-                    <!-- Section 2: Inspection Checklist Table -->
+                    <!-- Section 2: Checklist Table -->
                     <div class="space-y-3">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">2. รายการตรวจสอบบำรุงรักษา</h3>
+                        <div class="flex justify-between items-center bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">
+                            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500">2. รายการตรวจสอบบำรุงรักษา</h3>
+                            <span class="text-[11px] text-blue-600 font-semibold">💡 คลิกเลือกสถานะได้ทันทีทุกข้อ</span>
+                        </div>
                         <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm">
                             <table class="w-full text-left border-collapse text-xs">
                                 <thead>
@@ -286,16 +171,16 @@
                                             <td class="p-3 text-center font-bold text-slate-500" x-text="item.no"></td>
                                             <td class="p-3 font-medium text-slate-800" x-text="item.name"></td>
                                             <td class="p-3 text-center">
-                                                <input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" class="w-4 h-4 text-emerald-600 cursor-pointer accent-emerald-600">
+                                                <input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" @change="saveToStorage()" class="w-4 h-4 text-emerald-600 cursor-pointer accent-emerald-600">
                                             </td>
                                             <td class="p-3 text-center">
-                                                <input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" class="w-4 h-4 text-rose-600 cursor-pointer accent-rose-600">
+                                                <input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" @change="saveToStorage()" class="w-4 h-4 text-rose-600 cursor-pointer accent-rose-600">
                                             </td>
                                             <td class="p-3 text-center">
-                                                <input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" class="w-4 h-4 text-slate-400 cursor-pointer accent-slate-500">
+                                                <input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" @change="saveToStorage()" class="w-4 h-4 text-slate-400 cursor-pointer accent-slate-500">
                                             </td>
                                             <td class="p-3">
-                                                <input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง / แก้ไข" class="w-full border border-slate-200 rounded-xl p-2 text-xs outline-none focus:border-blue-500 bg-slate-50/30">
+                                                <input type="text" x-model="item.defect" @input="saveToStorage()" placeholder="ระบุข้อบกพร่อง (ถ้ามี)" class="w-full border border-slate-200 rounded-xl p-2 text-xs outline-none focus:border-blue-500 bg-slate-50/30">
                                             </td>
                                         </tr>
                                     </template>
@@ -304,35 +189,31 @@
                         </div>
                     </div>
 
-                    <!-- Section 3: Additional Notes / Remarks -->
-                    <div class="space-y-2">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">3. สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม / ข้อเสนอแนะ</h3>
-                        <textarea x-model="formData.remarks" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุรายละเอียดเพิ่มเติม..."></textarea>
-                    </div>
-
-                    <!-- Section 4: Defect Rectification -->
-                    <div class="space-y-2">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">4. การปรับปรุงข้อบกพร่อง</h3>
-                        <textarea x-model="formData.rectification" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุการดำเนินการแก้ไขข้อบกพร่อง..."></textarea>
+                    <!-- Section 3 & 4: Remarks & Rectification -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">3. ข้อเสนอแนะ / ข้อมูลเพิ่มเติม</h3>
+                            <textarea x-model="formData.remarks" @input="saveToStorage()" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุรายละเอียดเพิ่มเติม..."></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">4. การปรับปรุงข้อบกพร่อง</h3>
+                            <textarea x-model="formData.rectification" @input="saveToStorage()" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุการดำเนินการแก้ไข..."></textarea>
+                        </div>
                     </div>
 
                     <!-- Section 5: Signatures -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-200 text-xs">
                         <div class="space-y-2 text-center border border-slate-200 p-4 rounded-2xl bg-slate-50/50 shadow-sm">
                             <p class="font-bold text-slate-700">ผู้ตรวจ (Inspector)</p>
-                            <div class="h-16 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">
-                                ลงลายมือชื่อดิจิทัล
-                            </div>
-                            <input type="text" x-model="formData.inspector_name" placeholder="ชื่อ-นามสกุล ผู้ตรวจ" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs mb-2 bg-white">
-                            <input type="text" x-model="formData.inspector_pos" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs bg-white">
+                            <div class="h-12 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">ลายมือชื่อดิจิทัล</div>
+                            <input type="text" x-model="formData.inspector_name" @input="saveToStorage()" placeholder="ชื่อ-นามสกุล ผู้ตรวจ" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs mb-1 bg-white">
+                            <input type="text" x-model="formData.inspector_pos" @input="saveToStorage()" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs bg-white">
                         </div>
                         <div class="space-y-2 text-center border border-slate-200 p-4 rounded-2xl bg-slate-50/50 shadow-sm">
                             <p class="font-bold text-slate-700">ผู้ตรวจสอบ (Verifier)</p>
-                            <div class="h-16 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">
-                                ลงลายมือชื่อดิจิทัล
-                            </div>
-                            <input type="text" x-model="formData.verifier_name" placeholder="ชื่อ-นามสกุล ผู้ตรวจสอบ" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs mb-2 bg-white">
-                            <input type="text" x-model="formData.verifier_pos" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs bg-white">
+                            <div class="h-12 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">ลายมือชื่อดิจิทัล</div>
+                            <input type="text" x-model="formData.verifier_name" @input="saveToStorage()" placeholder="ชื่อ-นามสกุล ผู้ตรวจสอบ" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs mb-1 bg-white">
+                            <input type="text" x-model="formData.verifier_pos" @input="saveToStorage()" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs bg-white">
                         </div>
                     </div>
 
@@ -342,13 +223,13 @@
 
     </main>
 
-    <!-- JS LOGIC -->
+    <!-- AUTOMATED SCRIPT & APP STATE -->
     <script>
         function inspectionApp() {
             return {
                 activeFormCode: '',
                 activeFormTitle: '',
-                autoSaveStatus: '✓ พร้อมใช้งาน',
+                autoSaveStatus: '✓ พร้อมบันทึกออโต้',
                 currentDate: new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }),
                 
                 formsList: [
@@ -367,12 +248,7 @@
 
                 formData: {
                     station_id: '', location: '', latitude: '', longitude: '',
-                    mea_no1: '', mea_no2: '', mea_no3: '', phases: '', brand: '', capacity: '', type: '', install_style: '',
-                    lbs_brand: '', lbs_mea: '', switch_no: '', vt_brand: '', vt_mea: '', ofdf_no: '',
-                    sz_brand: '', sz_mea: '', rmu_brand: '', rmu_mea: '', tr_brand: '', tr_mea: '',
-                    mea_no: '', feeder: '', ctrl_type: '', ctrl_brand: '', switch_type: '', switch_brand: '',
-                    station: '', fix_id: '', wln: '', acb_no: '', relay_no: '', sw_mea: '', sw_brand: '',
-                    equipment: '', emissivity: '0.95',
+                    mea_no1: '', mea_no: '', capacity: '', brand: '', install_style: '',
                     remarks: '', rectification: '', inspector_name: '', inspector_pos: '', verifier_name: '', verifier_pos: ''
                 },
 
@@ -389,165 +265,55 @@
                         { id: 7, no: '2.7', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
                         { id: 8, no: '2.8', name: 'ตัวถังหม้อแปลง', result: '', defect: '' },
                         { id: 9, no: '2.9', name: 'Bushing HV-LV', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'Cover (Bushing, L/A, Term. kit)', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'สายหน้าหม้อแปลง LV', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'LV Ground', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'HV Ground', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
+                        { id: 10, no: '2.10', name: 'Cover (Bushing, L/A, Term. kit)', result: '', defect: '' }
                     ],
                     'SF-07-0-016': [
                         { id: 1, no: '2.1', name: 'ตัวถัง LBS / สลักล็อคการปลดสับ', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
                         { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
                         { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'Drop Fuse ลง VT', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'สายควบคุม LBS', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'อุปกรณ์ป้องกันสัตว์ Control/FRTU/Ground', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'Ground HV (L/A, LBS)', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'Ground LV (ดู Control)', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'ทดสอบ ปลด/สับ ทาง Remote', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'ทดสอบ ปลด/สับ ทาง Local', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'แรงดันไฟฟ้าเลี้ยงอุปกรณ์ (ทดสอบ ATS)', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'การทดสอบ ATS', result: '', defect: '' }
+                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' }
                     ],
                     'SF-07-0-017': [
                         { id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'สายควบคุม SZ', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'อุปกรณ์ป้องกันสัตว์ Control/Ground', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'Ground HV (L/A, SZ)', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'Ground LV (ตู้ Control)', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'ทดลอง ปลด/สับ ทาง Local', result: '', defect: '' }
+                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' }
                     ],
                     'SF-07-0-018': [
                         { id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'ตู้ครอบ RMU: ประตู', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'ตู้ครอบ RMU: ฐานตู้', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU / ห้อง', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิทซ์', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด-สับ', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่หรือ UPS', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่นๆ', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'ทดสอบการปลดสับ: ด้วย REMOTE', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'ทดสอบการปลดสับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'ทดสอบการปลดสับ: ด้วยคันสับ', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' }
+                        { id: 3, no: '2.4', name: 'RMU: สภาพ RMU / ห้อง', result: '', defect: '' }
                     ],
                     'SF-07-0-019': [
                         { id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'ตู้ครอบ Encloser: ประตู', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'ตู้ครอบ Encloser: ฐานตู้ / นั่งร้าน', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิตช์', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด - สับ', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่ หรือ UPS', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่น ๆ', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'ทดสอบการปลด-สับ: ด้วย REMOTE', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'ทดสอบการปลด-สับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'ทดสอบการปลด-สับ: ด้วยคันสับ', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' },
-                        { id: 20, no: '2.20', name: 'หม้อแปลง: ตัวถังหม้อแปลง', result: '', defect: '' },
-                        { id: 21, no: '2.21', name: 'หม้อแปลง: Bushing HV-LV', result: '', defect: '' },
-                        { id: 22, no: '2.22', name: 'หม้อแปลง: สายหน้าหม้อแปลง HV - LV', result: '', defect: '' },
-                        { id: 23, no: '2.23', name: 'หม้อแปลง: LV Ground', result: '', defect: '' },
-                        { id: 24, no: '2.24', name: 'หม้อแปลง: HV Ground', result: '', defect: '' },
-                        { id: 25, no: '2.25', name: 'อุปกรณ์ด้านแรงต่ำ: สภาพทั่วไป CB หรือ FUSE', result: '', defect: '' },
-                        { id: 26, no: '2.26', name: 'อุปกรณ์ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' },
-                        { id: 27, no: '2.27', name: 'อุปกรณ์ด้านแรงต่ำ: บัสบาร์', result: '', defect: '' },
-                        { id: 28, no: '2.28', name: 'อุปกรณ์ด้านแรงต่ำ: เครื่องวัดไฟฟ้า', result: '', defect: '' },
-                        { id: 29, no: '2.29', name: 'อุปกรณ์ด้านแรงต่ำ: CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
+                        { id: 2, no: '2.4', name: 'RMU: สภาพ RMU', result: '', defect: '' },
+                        { id: 3, no: '2.20', name: 'หม้อแปลง: ตัวถังหม้อแปลง', result: '', defect: '' }
                     ],
                     'SF-07-0-020': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'Cover (Bushing, L/A)', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'HV Ground', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'Supply', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'Fuse Control ภายในตู้', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'หลอดไฟแสดงสถานะในตู้', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'หน้าจอ Digital Control', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'เสียงนาฬิกาเดิน', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'อุปกรณ์ทั่วไปภายในตู้', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'คาปาซิเตอร์เซลล์: ตัวถังคาปาซิเตอร์', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'คาปาซิเตอร์เซลล์: Bushing', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'คาปาซิเตอร์เซลล์: Fuse ภายใน', result: '', defect: '' },
-                        { id: 19, no: '2.19', name: 'คาปาซิเตอร์เซลล์: ค่าคาปาซิแตนท์ที่วัดได้', result: '', defect: '' }
+                        { id: 2, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
+                        { id: 3, no: '2.16', name: 'ตัวถังคาปาซิเตอร์', result: '', defect: '' }
                     ],
                     'SF-07-0-021': [
-                        { id: 1, no: '1.1', name: 'สภาพภายนอก: สถานะ MV.SW. (CLOSE)', result: '', defect: '' },
-                        { id: 2, no: '1.2', name: 'สภาพภายนอก: สถานะ NP (CLOSE)', result: '', defect: '' },
-                        { id: 3, no: '1.3', name: 'สภาพภายนอก: เบอร์ตู้/สีตู้ (ชัดเจน ไม่ลอก)', result: '', defect: '' },
-                        { id: 4, no: '1.4', name: 'สภาพภายนอก: ระบบกราวด์ (มีทั้งกราวด์ N และ G)', result: '', defect: '' },
-                        { id: 5, no: '1.5', name: 'สภาพภายนอก: อุปกรณ์ป้องกันแรงดันเกินภายนอก (ด้าน N และ T ไม่ชำรุด)', result: '', defect: '' },
-                        { id: 6, no: '1.6', name: 'สภาพภายนอก: ตัวถัง รอยต่อหม้อแปลง (ไม่เสียหาย/ไม่มีน้ำมันรั่วซึม)', result: '', defect: '' },
-                        { id: 7, no: '1.7', name: 'สภาพภายนอก: ฝาตู้ (ปิดแน่นสนิท)', result: '', defect: '' },
-                        { id: 8, no: '1.8', name: 'สภาพภายนอก: มีการแขวนป้ายแดงห้ามปลด-สับ (ที่ SW และ NP)', result: '', defect: '' },
-                        { id: 9, no: '2.1', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 1 (NP OPEN)', result: '', defect: '' },
-                        { id: 10, no: '2.2', name: 'การทดสอบ MV.SW: สับ MV.SW. ครั้งที่ 1 (NP CLOSE)', result: '', defect: '' },
-                        { id: 11, no: '2.3', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 2 (NP OPEN)', result: '', defect: '' },
-                        { id: 12, no: '3.1', name: 'สภาพภายใน: อุปกรณ์ภายใน (ไม่มีน้ำหรือหยดน้ำเกาะ)', result: '', defect: '' },
-                        { id: 13, no: '3.2', name: 'สภาพภายใน: รีเลย์ (อยู่ในสถานะถูกต้อง)', result: '', defect: '' },
-                        { id: 14, no: '4.1', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ตู้อุปกรณ์ (ไม่ชำรุดเสียหาย)', result: '', defect: '' },
-                        { id: 15, no: '4.2', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ไฟเลี้ยง / CB & FUSE', result: '', defect: '' },
-                        { id: 16, no: '4.3', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: อินเตอร์เน็ตสวิตช์', result: '', defect: '' },
-                        { id: 17, no: '5.1', name: 'สับ SW.แรงกลาง เมื่อลงจากเสาแล้ว (NP CLOSE)', result: '', defect: '' }
+                        { id: 1, no: '1.1', name: 'สถานะ MV.SW. (CLOSE)', result: '', defect: '' },
+                        { id: 2, no: '1.4', name: 'ระบบกราวด์ (N และ G)', result: '', defect: '' },
+                        { id: 3, no: '3.1', name: 'อุปกรณ์ภายใน (ไม่มีน้ำหยดเกาะ)', result: '', defect: '' }
                     ],
                     'SF-07-0-022': [
-                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก (ไม่มีรอยแตก ปลด-สับได้)', result: '', defect: '' },
-                        { id: 2, no: '1.2', name: 'สวิตช์แรงกลาง: ก๊าซ SF6 (อยู่ในโซนที่กำหนด)', result: '', defect: '' },
-                        { id: 3, no: '1.3', name: 'สวิตช์แรงกลาง: หัวต่อสาย/สายไฟฟ้า (ไม่มีรอยปิ่น ไหม้ หรือแตกร้าว)', result: '', defect: '' },
-                        { id: 4, no: '1.4', name: 'สวิตช์แรงกลาง: ระบบกราวด์ (มีกราวด์ทั้งแรงสูง แรงต่ำ)', result: '', defect: '' },
-                        { id: 5, no: '2.1', name: 'หม้อแปลง: ตัวถัง (ไม่มีรอยแตก บุบ ฉีกขาด)', result: '', defect: '' },
-                        { id: 6, no: '2.2', name: 'หม้อแปลง: น้ำมัน (ไม่รั่วไหล อยู่ในระดับที่กำหนด)', result: '', defect: '' },
-                        { id: 7, no: '2.3', name: 'หม้อแปลง: ฟิวส์ 12 kV (ไม่ชำรุด)', result: '', defect: '' },
-                        { id: 8, no: '2.4', name: 'หม้อแปลง: อุณหภูมิสูงสุด (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
-                        { id: 9, no: '2.5', name: 'หม้อแปลง: อุณหภูมิจริง (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
-                        { id: 10, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' },
-                        { id: 11, no: '3.2', name: 'ด้านแรงต่ำ: คาปาซิเตอร์แรงต่ำ (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' }
+                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก', result: '', defect: '' },
+                        { id: 2, no: '2.1', name: 'หม้อแปลง: ตัวถัง', result: '', defect: '' },
+                        { id: 3, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' }
                     ],
                     'SF-07-0-023': [
-                        { id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงด้วยเครื่องทดสอบ 5 ครั้ง (Breakdown Voltage ค่าเฉลี่ย)', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' },
-                        { id: 3, no: '3', name: 'กรองน้ำมันครั้งที่ 2 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' }
+                        { id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงครั้งที่ 1 (Breakdown Voltage)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และทดสอบซ้ำ', result: '', defect: '' }
                     ],
                     'SF-07-0-024': [
-                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Thermal Imaging & Hot Spot Inspection)', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'บันทึกอุณหภูมิเปรียบเทียบที่จุดวัด (Delta T) และประเมินระดับความสำคัญ', result: '', defect: '' },
-                        { id: 3, no: '3', name: 'สรุปรายละเอียดการตรวจสอบและส่งต่อแก้ไขตามมาตรฐาน', result: '', defect: '' }
+                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Hot Spot Inspection)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'บันทึกอุณหภูมิเปรียบเทียบ (Delta T)', result: '', defect: '' }
                     ],
                     'SF-07-0-025': [
-                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge) ด้วยกล้อง Acoustic Camera', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'บันทึกระดับความเข้มเสียง (dB) และประเมินระดับความรุนแรงจากซอฟต์แวร์', result: '', defect: '' }
+                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Acoustic Camera)', result: '', defect: '' }
                     ]
                 },
 
@@ -555,8 +321,41 @@
                     const found = this.formsList.find(f => f.code === code);
                     this.activeFormCode = found.code;
                     this.activeFormTitle = found.name;
-                    this.currentChecklistItems = JSON.parse(JSON.stringify(this.checklistDatabase[code] || []));
+                    
+                    // โหลดข้อมูลเก่าจาก LocalStorage ถ้ามี
+                    const savedData = localStorage.getItem('mea_form_' + code);
+                    if (savedData) {
+                        const parsed = JSON.parse(savedData);
+                        this.formData = parsed.formData || {};
+                        this.currentChecklistItems = parsed.items || [];
+                    } else {
+                        this.formData = { station_id: '', location: '', latitude: '', longitude: '', mea_no1: '', mea_no: '', capacity: '', brand: '', install_style: '', remarks: '', rectification: '', inspector_name: '', inspector_pos: '', verifier_name: '', verifier_pos: '' };
+                        this.currentChecklistItems = JSON.parse(JSON.stringify(this.checklistDatabase[code] || []));
+                    }
                     window.scrollTo({ top: 120, behavior: 'smooth' });
+                },
+
+                saveToStorage() {
+                    if (!this.activeFormCode) return;
+                    const dataToSave = {
+                        formData: this.formData,
+                        items: this.currentChecklistItems
+                    };
+                    localStorage.setItem('mea_form_' + this.activeFormCode, JSON.stringify(dataToSave));
+                    this.autoSaveStatus = '✓ บันทึกอัตโนมัติแล้ว';
+                    setTimeout(() => { this.autoSaveStatus = '✓ พร้อมใช้งาน'; }, 2000);
+                },
+
+                markAllNormal() {
+                    this.currentChecklistItems.forEach(item => { item.result = 'normal'; });
+                    this.saveToStorage();
+                },
+
+                resetForm() {
+                    if (confirm('คุณต้องการล้างข้อมูลทั้งหมดในใบงานนี้ใช่หรือไม่?')) {
+                        localStorage.removeItem('mea_form_' + this.activeFormCode);
+                        this.selectForm(this.activeFormCode);
+                    }
                 },
 
                 get checkedCount() {
@@ -577,21 +376,22 @@
                         navigator.geolocation.getCurrentPosition(position => {
                             this.formData.latitude = position.coords.latitude.toFixed(6);
                             this.formData.longitude = position.coords.longitude.toFixed(6);
-                            this.autoSaveStatus = '✓ ดึงพิกัด GPS สำเร็จ';
+                            this.saveToStorage();
+                            alert('📍 ดึงพิกัด GPS สำเร็จ');
                         }, error => {
                             alert('ไม่สามารถดึงตำแหน่งพิกัดได้ กรุณาเปิดใช้งาน Location GPS');
                         });
                     } else {
-                        alert('Browser ของคุณไม่รองรับการระบุตำแหน่งพิกัด');
+                        alert('Browser ของคุณไม่รองรับการระบุพิกัด');
                     }
                 },
 
                 validateAndSubmit() {
                     if (this.checkedCount < this.totalItems) {
-                        alert('⚠ กรุณาตรวจสอบและเลือกผลการตรวจสอบให้ครบทุกรายการ');
+                        alert('⚠ กรุณาตรวจสอบผลการตรวจสอบให้ครบทุกข้อก่อนส่ง');
                         return;
                     }
-                    alert('✓ ส่งใบตรวจสอบเรียบร้อยแล้ว ระบบบันทึกข้อมูลเข้าฐานข้อมูลสำเร็จ');
+                    alert('✓ ส่งใบตรวจสอบเรียบร้อยแล้ว ระบบบันทึกข้อมูลสำเร็จ!');
                 },
 
                 exportPDF() {
