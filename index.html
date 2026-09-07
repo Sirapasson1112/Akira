@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบตรวจสอบและบำรุงรักษาอุปกรณ์ไฟฟ้า PEA</title>
+    <title>ระบบแบบฟอร์มตรวจสอบและบำรุงรักษาอุปกรณ์ไฟฟ้า PEA</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Sarabun', sans-serif; }</style>
 </head>
-<body class="bg-gray-100 text-gray-800 pb-12">
+<body class="bg-gray-100 text-gray-900 pb-12">
 
-    <!-- Top Navigation Bar -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-2 flex flex-wrap justify-between items-center gap-2">
-            <span class="text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded text-xs font-medium">
-                ยังไม่ได้เข้าสู่ระบบ – ข้อมูลจะไม่ถูกบันทึก
+    <!-- Top Navigation Toolbar -->
+    <header class="bg-white border-b border-gray-300 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-4xl mx-auto px-4 py-2.5 flex flex-wrap justify-between items-center gap-2">
+            <span class="text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded text-xs font-semibold">
+                ⚠️ ยังไม่ได้เข้าสู่ระบบ – ข้อมูลจะไม่ถูกบันทึกอัตโนมัติ
             </span>
-            <div class="flex items-center gap-3">
-                <select id="formSelector" class="border border-gray-300 rounded px-2 py-1 text-xs bg-gray-50 font-medium focus:outline-none">
-                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย</option>
-                    <option value="016">SF-07-0-016: Load Break Switch</option>
-                    <option value="017">SF-07-0-017: Sectionalizer</option>
-                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)</option>
-                    <option value="019">SF-07-0-019: Unit Substation</option>
-                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV</option>
-                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย</option>
-                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง</option>
-                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง</option>
-                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)</option>
-                    <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge</option>
+            <div class="flex items-center gap-2">
+                <select id="formSelector" class="border border-gray-300 rounded px-2.5 py-1 text-xs bg-gray-50 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-600">
+                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย[cite: 12]</option>
+                    <option value="016">SF-07-0-016: Load Break Switch[cite: 13]</option>
+                    <option value="017">SF-07-0-017: Sectionalizer[cite: 14]</option>
+                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)[cite: 15]</option>
+                    <option value="019">SF-07-0-019: Unit Substation[cite: 16]</option>
+                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV[cite: 17]</option>
+                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย[cite: 18]</option>
+                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง[cite: 19]</option>
+                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง[cite: 20]</option>
+                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)[cite: 21]</option>
+                    <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge[cite: 11]</option>
                 </select>
-                <button class="flex items-center gap-1.5 px-3 py-1 border border-gray-300 rounded text-xs font-medium hover:bg-gray-50 transition">
+                <button onclick="alert('จำลองการเข้าสู่ระบบ Google สำเร็จ')" class="flex items-center gap-1.5 px-3 py-1 border border-gray-300 rounded text-xs font-medium hover:bg-gray-50 transition bg-white">
                     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                     เข้าสู่ระบบด้วย Google
                 </button>
@@ -40,178 +40,136 @@
 
     <main class="max-w-4xl mx-auto px-4 mt-4 text-xs">
         
-        <!-- Toolbar Actions -->
-        <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-xs mb-3 flex flex-wrap items-center justify-between gap-2">
+        <!-- Action Toolbar -->
+        <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-2xs mb-3 flex flex-wrap items-center justify-between gap-2">
             <div class="flex flex-wrap items-center gap-1.5">
                 <span class="text-gray-500 font-medium px-1">พร้อมใช้งาน</span>
-                <button class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">บันทึกเป็นรายการใหม่</button>
-                <button class="px-2.5 py-1 bg-gray-100 border border-gray-300 text-gray-700 rounded hover:bg-gray-200">บันทึกกับรายการปัจจุบัน</button>
-                <button class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">ฟอร์มใหม่</button>
+                <button onclick="alert('บันทึกข้อมูลเป็นรายการใหม่เรียบร้อย')" class="px-3 py-1 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">บันทึกเป็นรายการใหม่</button>
+                <button onclick="alert('อัปเดตรายการปัจจุบันเรียบร้อย')" class="px-3 py-1 bg-gray-100 border border-gray-300 text-gray-700 rounded hover:bg-gray-200">บันทึกกับรายการปัจจุบัน</button>
+                <button onclick="location.reload()" class="px-3 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">ล้างฟอร์ม</button>
             </div>
             <div class="flex items-center gap-1.5">
-                <button class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">ล้างฟอร์ม</button>
-                <button class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">พิมพ์ / PDF</button>
-                <button class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">ดาวน์โหลด CSV</button>
+                <button onclick="window.print()" class="px-3 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">พิมพ์ / PDF</button>
             </div>
         </div>
 
-        <!-- Station Pills -->
-        <div class="flex gap-1.5 overflow-x-auto pb-2 mb-3">
-            <button class="px-3 py-1 bg-blue-600 text-white rounded-full whitespace-nowrap shadow-2xs">SF-07-0-015...</button>
-            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-016...</button>
-            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-017...</button>
-            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-018...</button>
-        </div>
-
-        <!-- Saved Data Search Bar -->
-        <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-xs mb-3 flex items-center justify-between">
-            <div class="flex items-center gap-4 text-gray-500">
-                <span class="font-bold text-gray-700">ข้อมูลที่บันทึกไว้ (0)</span>
-                <span class="border-b border-dashed border-gray-400 pb-0.5">🔍 Plant</span>
-                <span class="border-b border-dashed border-gray-400 pb-0.5">🔍 Work Order</span>
-            </div>
-            <div class="flex gap-1">
-                <button class="px-2 py-0.5 border border-gray-300 rounded hover:bg-gray-50">รีเฟรช</button>
-                <button class="px-2 py-0.5 border border-red-200 text-red-600 rounded hover:bg-red-50">ล้าง</button>
-            </div>
-        </div>
-
-        <!-- Photo Section -->
-        <div class="bg-white p-3 rounded-lg border border-gray-300 shadow-xs mb-3">
-            <div class="flex justify-between items-center mb-2">
-                <span class="font-bold text-gray-700 flex items-center gap-1">📷 รูปภาพประกอบการตรวจสอบ</span>
-                <div class="flex items-center gap-2">
-                    <button class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">+ เพิ่มรูป</button>
-                    <span class="text-gray-400">0 KB</span>
-                </div>
-            </div>
-            <div class="border border-dashed border-gray-300 rounded p-4 text-center text-gray-400 bg-gray-50/50">
-                ยังไม่มีรูปภาพ — กด "เพิ่มรูป" เพื่อถ่ายหรือเลือกจากคลังภาพ
-            </div>
-        </div>
-
-        <!-- Criticality Section -->
-        <div class="bg-white p-3 rounded-lg border border-gray-300 shadow-xs mb-4">
-            <div class="flex justify-between items-center mb-2">
-                <span class="font-bold text-red-600 flex items-center gap-1">⚠️ การประเมินความสำคัญของอุปกรณ์ (Criticality)</span>
-                <span class="text-gray-400">ยังไม่ประเมิน</span>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
-                <div><label class="block text-gray-500 mb-1">SAF – ความปลอดภัย</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
-                <div><label class="block text-gray-500 mb-1">REL – ความต่อเนื่องจ่ายไฟ</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
-                <div><label class="block text-gray-500 mb-1">OPR – การปฏิบัติงาน/ภารกิจ</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
-                <div><label class="block text-gray-500 mb-1">CON – สภาพอุปกรณ์</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 items-end">
-                <div><label class="block text-gray-500 mb-1">REC – ความยากในการกู้คืน</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
-                <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200">
-                    <span class="font-bold text-gray-700">คะแนนรวม: - / 100</span>
-                    <div class="text-right text-[11px] text-gray-500">
-                        <div>PLANT: <span class="font-mono text-gray-800">7901</span></div>
-                        <div>WORK ORDER: <span class="font-mono text-gray-800">WOXXXXXXXXX</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Paper Form Container -->
-        <div class="bg-white rounded-lg border border-gray-400 shadow-sm overflow-hidden" id="formContainer">
-            <!-- Dynamic Content Loaded by JS -->
+        <!-- Dynamic Form Paper Container -->
+        <div id="formContainer" class="bg-white rounded border border-gray-400 shadow-sm overflow-hidden p-6 space-y-6">
+            <!-- Content injected by JavaScript -->
         </div>
 
     </main>
 
     <script>
         const formSelector = document.getElementById('formSelector');
-        const formContainer = document.getElementById('formContainer');
+        const container = document.getElementById('formContainer');
 
-        const renderForm015 = () => `
-            <div class="bg-gray-800 text-white text-center py-2 font-bold text-sm">แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย</div>
-            <div class="p-3 border-b border-gray-300">
-                <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
-                <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
-                    <div class="flex border-b border-gray-200 py-1"><span class="w-28 text-gray-500">Station ID</span><span class="flex-1"></span></div>
-                    <div class="flex border-b border-gray-200 py-1"><span class="w-28 text-gray-500">สถานที่</span><span class="flex-1"></span></div>
-                    <div class="flex border-b border-gray-200 py-1"><span class="w-28 text-gray-500">GIS Lat.</span><span class="flex-1"></span></div>
-                    <div class="flex border-b border-gray-200 py-1 justify-between"><div class="flex"><span class="w-16 text-gray-500">Long.</span><span></span></div><button class="bg-red-50 text-red-600 border border-red-200 px-1.5 py-0.5 rounded text-[10px]">📍 ตำแหน่งปัจจุบัน</button></div>
-                    <div class="grid grid-cols-3 gap-1 col-span-2 my-1">
-                        <div class="border border-gray-200 p-1.5 rounded">MEA No.1:</div>
-                        <div class="border border-gray-200 p-1.5 rounded">MEA No.2:</div>
-                        <div class="border border-gray-200 p-1.5 rounded">MEA No.3:</div>
-                    </div>
+        const inspectionItems015 = [
+            "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse",
+            "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor",
+            "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง", "2.9 Bushing HV-LV",
+            "2.10 Cover (Bushing,L/A,Term. kit)", "2.11 สายหน้าหม้อแปลง LV",
+            "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter (ถ้ามี)"
+        ];
+
+        function renderForm015() {
+            return `
+                <div class="text-center font-bold text-sm border-b pb-3 mb-4">แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย</div>
+                <div>
+                    <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
+                    <table class="w-full border-collapse border border-gray-300 text-left">
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50 w-24">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 focus:ring-0"></td>
+                            <td class="border p-1.5 bg-gray-50 w-24">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 focus:ring-0"></td>
+                        </tr>
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50">GIS Lat.</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                            <td class="border p-1.5 bg-gray-50">Long.</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                        </tr>
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50">MEA No.1</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                            <td class="border p-1.5 bg-gray-50">MEA No.2 / No.3</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <div class="p-3 border-b border-gray-300">
-                <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700 mb-2">2 รายการตรวจสอบบำรุงรักษา</div>
-                <table class="w-full border-collapse border border-gray-300 text-left">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-1.5 w-8 text-center">#</th>
-                            <th class="border border-gray-300 p-1.5">รายการ</th>
-                            <th class="border border-gray-300 p-1.5 text-center w-28" colspan="3">ผลการตรวจสอบ</th>
-                            <th class="border border-gray-300 p-1.5 w-48">ข้อบกพร่อง</th>
+                <div>
+                    <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">2 รายการตรวจสอบบำรุงรักษา</div>
+                    <table class="w-full border-collapse border border-gray-300 text-left">
+                        <tr class="bg-gray-100 text-center">
+                            <th class="border p-1.5 w-48 text-left">รายการ[cite: 12]</th>
+                            <th class="border p-1.5 w-16">ปกติ[cite: 12]</th>
+                            <th class="border p-1.5 w-16">ชำรุด[cite: 12]</th>
+                            <th class="border p-1.5 w-16">ไม่มี[cite: 12]</th>
+                            <th class="border p-1.5">ข้อบกพร่อง[cite: 12]</th>
                         </tr>
-                        <tr class="bg-gray-50 text-[10px] text-gray-500 text-center">
-                            <th colspan="2"></th>
-                            <th class="border border-gray-300 p-0.5">ปกติ</th>
-                            <th class="border border-gray-300 p-0.5">ชำรุด</th>
-                            <th class="border border-gray-300 p-0.5">ไม่มี</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${['Drop Fuse', 'Station Post Type Insulator', 'สายเข้า-ออก Drop Fuse', 'คอนสาย', 'อุปกรณ์ป้องกันสัตว์', 'Low Voltage Capacitor', 'กับดักฟ้าผ่า (L/A)', 'ตัวถังหม้อแปลง', 'Bushing HV-LV', 'Cover (Bushing,L/A,Term. kit)', 'สายหน้าหม้อแปลง LV', 'LV Ground', 'HV Ground', 'CT-TLM Meter (ถ้ามี)'].map((item, i) => `
+                        ${inspectionItems015.map((item, idx) => `
                             <tr>
-                                <td class="border border-gray-300 p-1 text-center font-medium">${(i+1)}.1</td>
-                                <td class="border border-gray-300 p-1">${item}</td>
-                                <td class="border border-gray-300 p-1 text-center"><input type="radio" name="c_${i}" class="accent-blue-600"></td>
-                                <td class="border border-gray-300 p-1 text-center"><input type="radio" name="c_${i}" class="accent-blue-600"></td>
-                                <td class="border border-gray-300 p-1 text-center"><input type="radio" name="c_${i}" class="accent-blue-600"></td>
-                                <td class="border border-gray-300 p-1"><input type="text" class="w-full border border-gray-200 rounded px-1"></td>
+                                <td class="border p-1.5">${item}[cite: 12]</td>
+                                <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
+                                <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
+                                <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
+                                <td class="border p-1"><input type="text" class="w-full border-0 text-xs"></td>
                             </tr>
                         `).join('')}
-                    </tbody>
-                </table>
-            </div>
-            <div class="p-3 border-b border-gray-300">
-                <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700 mb-2">3 ตรวจสอบวัดกระแสและแรงดันไฟฟ้า</div>
-                <div class="flex gap-4 mb-2 items-center">
-                    <label class="flex items-center gap-1"><input type="radio" name="shift"> กลางวัน</label>
-                    <label class="flex items-center gap-1"><input type="radio" name="shift"> กลางคืน</label>
-                    <div>เวลา: <input type="text" class="border rounded px-1.5 py-0.5 w-20"></div>
-                    <div>วิธีการ: <label class="ml-1"><input type="radio" name="m"> วัดหน้างาน</label> <label class="ml-1"><input type="radio" name="m"> TLM</label></div>
+                    </table>
                 </div>
-            </div>
-            <div class="p-3 grid grid-cols-2 gap-3">
-                <div class="border border-gray-300 rounded p-2"><div class="font-bold mb-1">4 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</div><textarea class="w-full h-16 border border-gray-200 rounded p-1 resize-none"></textarea></div>
-                <div class="border border-gray-300 rounded p-2"><div class="font-bold mb-1">5 การปรับปรุงข้อบกพร่อง :</div><textarea class="w-full h-16 border border-gray-200 rounded p-1 resize-none"></textarea></div>
-            </div>
-        `;
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="border p-2 rounded"><strong>4 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</strong><textarea class="w-full h-16 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
+                    <div class="border p-2 rounded"><strong>5 การปรับปรุงข้อบกพร่อง :</strong><textarea class="w-full h-16 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
+                </div>
+            `;
+        }
 
-        const renderFormDefault = (title) => `
-            <div class="bg-gray-800 text-white text-center py-2 font-bold text-sm">${title}</div>
-            <div class="p-4 space-y-3">
-                <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700">1 ข้อมูลทั่วไป</div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="flex border-b pb-1"><span class="w-24 text-gray-500">Station ID:</span> <input type="text" class="border rounded px-2 py-0.5 flex-1"></div>
-                    <div class="flex border-b pb-1"><span class="w-24 text-gray-500">สถานที่:</span> <input type="text" class="border rounded px-2 py-0.5 flex-1"></div>
+        function renderGenericForm(formCode, formName) {
+            return `
+                <div class="text-center font-bold text-sm border-b pb-3 mb-4">${formName} (${formCode})</div>
+                <div>
+                    <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
+                    <table class="w-full border-collapse border border-gray-300 text-left">
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                            <td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                        </tr>
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50">GIS Lat / Long</td><td class="border p-1.5" colspan="3"><input type="text" class="w-full border-0"></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700">2 รายการตรวจสอบและผลการปฏิบัติงาน</div>
-                <div class="border rounded p-8 text-center text-gray-400 bg-gray-50">
-                    โครงสร้างตารางและแบบฟอร์มบันทึกผลของ <span class="font-bold text-gray-700">${title}</span> พร้อมรองรับการบันทึกข้อมูลสนาม
+                <div>
+                    <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">2 รายการตรวจสอบและผลการปฏิบัติงาน</div>
+                    <table class="w-full border-collapse border border-gray-300 text-left">
+                        <tr class="bg-gray-100 text-center">
+                            <th class="border p-1.5 text-left">รายการตรวจสอบตามมาตรฐาน</th>
+                            <th class="border p-1.5 w-16">ปกติ</th>
+                            <th class="border p-1.5 w-16">ชำรุด</th>
+                            <th class="border p-1.5 w-16">ไม่มี</th>
+                            <th class="border p-1.5">ข้อบกพร่อง / การดำเนินการ</th>
+                        </tr>
+                        ${[1, 2, 3, 4, 5].map(i => `
+                            <tr>
+                                <td class="border p-1.5">รายการตรวจสอบข้อที่ 2.${i} ของระบบ</td>
+                                <td class="border text-center"><input type="radio" name="g_${i}" class="accent-blue-600"></td>
+                                <td class="border text-center"><input type="radio" name="g_${i}" class="accent-blue-600"></td>
+                                <td class="border text-center"><input type="radio" name="g_${i}" class="accent-blue-600"></td>
+                                <td class="border p-1"><input type="text" class="w-full border-0 text-xs"></td>
+                            </tr>
+                        `).join('')}
+                    </table>
                 </div>
-            </div>
-        `;
+                <div class="border p-2 rounded"><strong>ข้อเสนอแนะ / การปรับปรุงแก้ไขเพิ่มเติม :</strong><textarea class="w-full h-20 border border-gray-200 mt-1 p-1 rounded"></textarea></div>
+            `;
+        }
 
         formSelector.addEventListener('change', (e) => {
             const val = e.target.value;
             if (val === "015") {
-                formContainer.innerHTML = renderForm015();
+                container.innerHTML = renderForm015();
             } else {
-                formContainer.innerHTML = renderFormDefault(e.target.options[e.target.selectedIndex].text);
+                container.innerHTML = renderGenericForm("SF-07-0-" + val, e.target.options[e.target.selectedIndex].text);
             }
         });
 
+        // Initial load
         formSelector.dispatchEvent(new Event('change'));
     </script>
 </body>
