@@ -17,19 +17,6 @@
                 ยังไม่ได้เข้าสู่ระบบ – ข้อมูลจะไม่ถูกบันทึก
             </span>
             <div class="flex items-center gap-2">
-                <select id="formSelector" class="border border-gray-300 rounded px-2 py-1 text-xs bg-gray-50 font-medium focus:outline-none">
-                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย</option>
-                    <option value="016">SF-07-0-016: Load Break Switch</option>
-                    <option value="017">SF-07-0-017: Sectionalizer</option>
-                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)</option>
-                    <option value="019">SF-07-0-019: Unit Substation</option>
-                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV</option>
-                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย</option>
-                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง</option>
-                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง</option>
-                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)</option>
-                    <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge</option>
-                </select>
                 <button class="flex items-center gap-1.5 px-3 py-1 border border-gray-300 rounded text-xs font-medium hover:bg-gray-50 transition bg-white">
                     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                     เข้าสู่ระบบด้วย Google
@@ -54,25 +41,9 @@
             </div>
         </div>
 
-        <!-- Station Quick Pills -->
-        <div class="flex gap-1.5 overflow-x-auto pb-2 mb-3">
-            <button class="px-3 py-1 bg-blue-600 text-white rounded-full whitespace-nowrap shadow-2xs">SF-07-0-015...</button>
-            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-016...</button>
-            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-017...</button>
-            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-018...</button>
-        </div>
-
-        <!-- Saved Data Search Bar -->
-        <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-2xs mb-3 flex items-center justify-between">
-            <div class="flex items-center gap-4 text-gray-500">
-                <span class="font-bold text-gray-700">ข้อมูลที่บันทึกไว้ (0)</span>
-                <span class="border-b border-dashed border-gray-400 pb-0.5">🔍 Plant</span>
-                <span class="border-b border-dashed border-gray-400 pb-0.5">🔍 Work Order</span>
-            </div>
-            <div class="flex gap-1">
-                <button class="px-2 py-0.5 border border-gray-300 rounded hover:bg-gray-50">รีเฟรช</button>
-                <button class="px-2 py-0.5 border border-red-200 text-red-600 rounded hover:bg-red-50">ล้าง</button>
-            </div>
+        <!-- Form Code Quick Pills (11 แบบฟอร์มเรียงครบถ้วน) -->
+        <div id="pillsContainer" class="flex gap-1.5 overflow-x-auto pb-2 mb-3 scrollbar-thin">
+            <!-- ปุ่มรหัสแบบฟอร์มจะถูกสร้างอัตโนมัติผ่าน JavaScript -->
         </div>
 
         <!-- Photo Inspection Section -->
@@ -121,127 +92,93 @@
     </main>
 
     <script>
-        const formSelector = document.getElementById('formSelector');
-        const container = document.getElementById('formContainer');
-
         const formsContent = {
             "015": {
                 title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย",
                 code: "SF-07-0-015",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">Long.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">MEA No.1</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">MEA No.2 / No.3</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
-                items: [
-                    "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse",
-                    "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor",
-                    "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง", "2.9 Bushing HV-LV",
-                    "2.10 Cover (Bushing,L/A,Term. kit)", "2.11 สายหน้าหม้อแปลง LV",
-                    "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter (ถ้ามี)"
-                ]
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr><tr><td class="border p-1.5 bg-gray-50">GIS Lat.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">Long.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
+                items: ["2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse", "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor", "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง", "2.9 Bushing HV-LV", "2.10 Cover (Bushing,L/A,Term. kit)", "2.11 สายหน้าหม้อแปลง LV", "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter (ถ้ามี)"]
             },
             "016": {
                 title: "แบบตรวจสอบบำรุงรักษา Load Break Switch",
                 code: "SF-07-0-016",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat / Long</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">ยี่ห้อ LBS / No.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
-                items: [
-                    "2.1 ตัวถัง LBS /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing",
-                    "2.4 กับดักฟ้าผ่า", "2.5 VT", "2.6 Drop Fuse ลง VT", "2.7 คอนสาย",
-                    "2.8 สายควบคุม LBS", "2.9 อุปกรณ์ป้องกันสัตว์", "2.10 ไฟสถานะหน้าตู้",
-                    "2.11 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.12 สภาพแบตเตอรี่หรือ Capacitor",
-                    "2.13 Ground HV (L/A, LBS)", "2.14 Ground LV (ดู Control)",
-                    "2.15 ทดสอบ ทาง Remote", "2.16 ทดสอบ ทาง Local", "2.17 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ ATS", "2.18 การทดสอบ ATS"
-                ]
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
+                items: ["2.1 ตัวถัง LBS /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า", "2.5 VT", "2.6 Drop Fuse ลง VT", "2.7 คอนสาย", "2.8 สายควบคุม LBS", "2.9 อุปกรณ์ป้องกันสัตว์", "2.10 ไฟสถานะหน้าตู้", "2.11 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.12 สภาพแบตเตอรี่หรือ Capacitor", "2.13 Ground HV (L/A, LBS)", "2.14 Ground LV (ดู Control)", "2.15 ทดสอบ ทาง Remote", "2.16 ทดสอบ ทาง Local", "2.17 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ ATS", "2.18 การทดสอบ ATS"]
             },
             "017": {
                 title: "แบบตรวจสอบบำรุงรักษา Sectionalizer",
                 code: "SF-07-0-017",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat / Long</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">ยี่ห้อ SZ / No.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
-                items: [
-                    "2.1 ตัวถัง SZ /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing",
-                    "2.4 กับดักฟ้าผ่า", "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 อุปกรณ์ป้องกันสัตว์",
-                    "2.8 ไฟสถานะหน้าตู้", "2.9 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.10 สภาพแบตเตอรี่หรือ Capacitor",
-                    "2.11 Ground HV (L/A, SZ)", "2.12 Ground LV (ตู้ Control)", "2.13 ทดลอง ทาง Local"
-                ]
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
+                items: ["2.1 ตัวถัง SZ /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า", "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 อุปกรณ์ป้องกันสัตว์", "2.8 ไฟสถานะหน้าตู้", "2.9 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.10 สภาพแบตเตอรี่หรือ Capacitor", "2.11 Ground HV (L/A, SZ)", "2.12 Ground LV (ตู้ Control)", "2.13 ทดลอง ทาง Local"]
             },
             "018": {
                 title: "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)",
                 code: "SF-07-0-018",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["2.1 สภาพภายนอก", "2.2 ประตู", "2.3 ฐานตู้", "2.4 สภาพ RMU", "2.5 ก๊าซ SF6", "2.6 ตัวแสดงสถานะสวิทซ์", "2.7 กุญแจล็อค", "2.8 คันสับ", "2.9 ตัวตรวจสอบแรงดัน", "2.10 ตัวตรวจสอบลัดวงจร", "2.11 แรงดันเลี้ยงอุปกรณ์", "2.12 แบตเตอรี่/UPS", "2.13 FRTU", "2.14 อุปกรณ์ควบคุม", "2.15 Remote", "2.16 Local", "2.17 คันสับ", "2.18 แรงดัน ATF", "2.19 ทดสอบ ATF"]
             },
             "019": {
                 title: "แบบตรวจสอบบำรุงรักษา Unit Substation",
                 code: "SF-07-0-019",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["2.1 สภาพภายนอก Encloser", "2.2 ประตู", "2.3 ฐานตู้", "2.4 สภาพ RMU", "2.5 ก๊าซ SF6", "2.6 สถานะสวิตช์", "2.7 กุญแจล็อค", "2.8 คันสับ", "2.9 ตัวตรวจสอบแรงดัน", "2.10 ตัวตรวจสอบลัดวงจร", "2.11 แรงดันเลี้ยงอุปกรณ์", "2.12 แบตเตอรี่/UPS", "2.13 FRTU", "2.14 อุปกรณ์ควบคุม", "2.15 Remote", "2.16 Local", "2.17 คันสับ", "2.18 แรงดัน ATF", "2.19 ทดสอบ ATF", "2.20 ตัวถังหม้อแปลง", "2.21 Bushing HV-LV", "2.22 สายหน้าหม้อแปลง", "2.23 LV Ground", "2.24 HV Ground", "2.25 CB/FUSE", "2.26 สายไฟฟ้า", "2.27 บัสบาร์", "2.28 เครื่องวัดไฟฟ้า", "2.29 CT-TLM Meter"]
             },
             "020": {
                 title: "แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV",
                 code: "SF-07-0-020",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["2.1 Drop Fuse", "2.2 Insulator", "2.3 สายเข้า-ออก", "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 L/A", "2.7 Cover", "2.8 HV Ground", "2.9 Vacuum CB", "2.10 Supply", "2.11 Fuse Control", "2.12 หลอดไฟแสดงสถานะ", "2.13 Digital Control", "2.14 เสียงนาฬิกา", "2.15 อุปกรณ์ในตู้", "2.16 ตัวถังคาปาซิเตอร์", "2.17 Bushing", "2.18 Fuse ภายใน", "2.19 ค่าคาปาซิแตนท์"]
             },
             "021": {
                 title: "แบบตรวจสอบบำรุงรักษาเครื่องป้องกันหม้อแปลงตาข่าย",
                 code: "SF-07-0-021",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่ / Station</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">FIX ID / WLN</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่ / Station</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">FIX ID / WLN</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["1.1 สถานะ MV.SW.", "1.2 สถานะ NP", "1.3 เบอร์ตู้/สีตู้", "1.4 ระบบกราวด์", "1.5 อุปกรณ์ป้องกันแรงดันเกิน", "1.6 ตัวถัง รอยต่อ", "1.7 ฝาตู้", "1.8 ป้ายแดงห้ามปลด-สับ", "2.1 ปลด MV.SW. ครั้งที่ 1", "2.2 สับ MV.SW. ครั้งที่ 1", "2.3 ปลด MV.SW. ครั้งที่ 2", "3.1 อุปกรณ์ภายใน", "3.2 รีเลย์", "4.1 ตู้อุปกรณ์", "4.2 ไฟเลี้ยง", "4.3 อินเตอร์เน็ตสวิตช์"]
             },
             "022": {
                 title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง",
                 code: "SF-07-0-022",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่ / STATION</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">FIX ID / WLN</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่ / STATION</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">FIX ID / WLN</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["1.1 สภาพภายนอกสวิทซ์แรงกลาง", "1.2 ก๊าซ SF6", "1.3 หัวต่อสาย", "1.4 ระบบกราวด์", "2.1 ตัวถังหม้อแปลง", "2.2 น้ำมัน", "2.3 ฟิวส์ 12 kV", "2.4 อุณหภูมิสูงสุด", "2.5 อุณหภูมิจริง", "3.1 สายไฟฟ้าแรงต่ำ", "3.2 คาปาซิเตอร์แรงต่ำ"]
             },
             "023": {
                 title: "แบบตรวจสอบบำรุงรักษาทดสอบและกรองน้ำมันหม้อแปลง",
                 code: "SF-07-0-023",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">STATION ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">STATION ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["1. ทดสอบน้ำมันครั้งที่ 1-5 (Breakdown Voltage)", "2. กรองน้ำมันครั้งที่ 1 และทดสอบซ้ำ", "3. กรองน้ำมันครั้งที่ 2 และทดสอบซ้ำ"]
             },
             "024": {
                 title: "รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)",
                 code: "SF-07-0-024",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["ตรวจสอบอุณหภูมิสูงสุดที่จุดวัดฯ (Delta T)", "ประเมินลำดับความสำคัญ (Criticality)"]
             },
             "025": {
                 title: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)",
                 code: "SF-07-0-025",
-                general: `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
-                `,
+                general: `<tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>`,
                 items: ["ตรวจสอบจุดผิดปกติด้วย Acoustic Camera", "ประเมินระดับความเข้มเสียงและระดับความรุนแรง"]
             }
         };
 
-        function renderForm(val) {
-            const form = formsContent[val];
+        const container = document.getElementById('formContainer');
+        const pillsContainer = document.getElementById('pillsContainer');
+
+        function renderForm(key) {
+            const form = formsContent[key];
+            
+            // อัปเดตสีปุ่ม Pills ด้านบน
+            document.querySelectorAll('.pill-btn').forEach(btn => {
+                if(btn.dataset.key === key) {
+                    btn.className = "pill-btn px-3 py-1 bg-blue-600 text-white rounded-full whitespace-nowrap shadow-2xs cursor-pointer";
+                } else {
+                    btn.className = "pill-btn px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50 cursor-pointer";
+                }
+            });
+
             let html = `
                 <div class="bg-gray-800 text-white text-center py-2 font-bold text-sm">
-                    ${form.title}
+                    ${form.title} (${form.code})
                 </div>
                 <div>
                     <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
@@ -294,10 +231,17 @@
             container.innerHTML = html;
         }
 
-        formSelector.addEventListener('change', (e) => {
-            renderForm(e.target.value);
+        // สร้างปุ่ม Pills ทั้ง 11 แบบอัตโนมัติ
+        Object.keys(formsContent).forEach(key => {
+            const form = formsContent[key];
+            const btn = document.createElement('button');
+            btn.dataset.key = key;
+            btn.innerText = `${form.code}...`;
+            btn.onclick = () => renderForm(key);
+            pillsContainer.appendChild(btn);
         });
 
+        // โหลดฟอร์มแรกเริ่ม (015)
         renderForm("015");
     </script>
 </body>
