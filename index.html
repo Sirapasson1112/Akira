@@ -18,17 +18,17 @@
             </span>
             <div class="flex items-center gap-2">
                 <select id="formSelector" class="border border-gray-300 rounded px-2.5 py-1 text-xs bg-gray-50 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-600">
-                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย[cite: 1]</option>
-                    <option value="016">SF-07-0-016: Load Break Switch[cite: 2]</option>
-                    <option value="017">SF-07-0-017: Sectionalizer[cite: 3]</option>
-                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)[cite: 4]</option>
-                    <option value="019">SF-07-0-019: Unit Substation[cite: 5]</option>
-                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV[cite: 6]</option>
-                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย[cite: 7]</option>
-                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง[cite: 8]</option>
-                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง[cite: 9]</option>
-                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)[cite: 10]</option>
-                    <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge[cite: 11]</option>
+                    <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย</option>
+                    <option value="016">SF-07-0-016: Load Break Switch</option>
+                    <option value="017">SF-07-0-017: Sectionalizer</option>
+                    <option value="018">SF-07-0-018: Ring Main Unit (RMU)</option>
+                    <option value="019">SF-07-0-019: Unit Substation</option>
+                    <option value="020">SF-07-0-020: Capacitor Bank 12-24 kV</option>
+                    <option value="021">SF-07-0-021: เครื่องป้องกันหม้อแปลงตาข่าย</option>
+                    <option value="022">SF-07-0-022: หม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง</option>
+                    <option value="023">SF-07-0-023: ทดสอบและกรองน้ำมันหม้อแปลง</option>
+                    <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)</option>
+                    <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge</option>
                 </select>
                 <button onclick="alert('จำลองการเข้าสู่ระบบ Google สำเร็จ')" class="flex items-center gap-1.5 px-3 py-1 border border-gray-300 rounded text-xs font-medium hover:bg-gray-50 transition bg-white">
                     เข้าสู่ระบบด้วย Google
@@ -59,31 +59,146 @@
         const formSelector = document.getElementById('formSelector');
         const container = document.getElementById('formContainer');
 
-        const items015 = [
-            "2.1 Drop Fuse[cite: 1]", "2.2 Station Post Type Insulator[cite: 1]", "2.3 สายเข้า-ออก Drop Fuse[cite: 1]",
-            "2.4 คอนสาย[cite: 1]", "2.5 อุปกรณ์ป้องกันสัตว์[cite: 1]", "2.6 Low Voltage Capacitor[cite: 1]",
-            "2.7 กับดักฟ้าผ่า (L/A)[cite: 1]", "2.8 ตัวถังหม้อแปลง[cite: 1]", "2.9 Bushing HV-LV[cite: 1]",
-            "2.10 Cover (Bushing,L/A,Term. kit)[cite: 1]", "2.11 สายหน้าหม้อแปลง LV[cite: 1]",
-            "2.12 LV Ground[cite: 1]", "2.13 HV Ground[cite: 1]", "2.14 CT-TLM Meter (ถ้ามี)[cite: 1]"
-        ];
+        const formsData = {
+            "015": {
+                title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย",
+                code: "SF-07-0-015",
+                items: [
+                    "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse",
+                    "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor",
+                    "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง", "2.9 Bushing HV-LV",
+                    "2.10 Cover (Bushing,L/A,Term. kit)", "2.11 สายหน้าหม้อแปลง LV",
+                    "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter (ถ้ามี)"
+                ]
+            },
+            "016": {
+                title: "แบบตรวจสอบบำรุงรักษา Load Break Switch",
+                code: "SF-07-0-016",
+                items: [
+                    "2.1 ตัวถัง LBS /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing",
+                    "2.4 กับดักฟ้าผ่า", "2.5 VT", "2.6 Drop Fuse ลง VT", "2.7 คอนสาย",
+                    "2.8 สายควบคุม LBS", "2.9 อุปกรณ์ป้องกันสัตว์", "2.10 ไฟสถานะหน้าตู้",
+                    "2.11 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.12 สภาพแบตเตอรี่หรือ Capacitor",
+                    "2.13 Ground HV (L/A, LBS)", "2.14 Ground LV (ดู Control)",
+                    "2.15 ทดสอบ ทาง Remote", "2.16 ทดสอบ ทาง Local", "2.17 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ ATS", "2.18 การทดสอบ ATS"
+                ]
+            },
+            "017": {
+                title: "แบบตรวจสอบบำรุงรักษา Sectionalizer",
+                code: "SF-07-0-017",
+                items: [
+                    "2.1 ตัวถัง SZ /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing",
+                    "2.4 กับดักฟ้าผ่า", "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 อุปกรณ์ป้องกันสัตว์",
+                    "2.8 ไฟสถานะหน้าตู้", "2.9 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.10 สภาพแบตเตอรี่หรือ Capacitor",
+                    "2.11 Ground HV (L/A, SZ)", "2.12 Ground LV (ตู้ Control)", "2.13 ทดลอง ทาง Local"
+                ]
+            },
+            "018": {
+                title: "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)",
+                code: "SF-07-0-018",
+                items: [
+                    "2.1 สภาพภายนอก (ตู้ครอบ)", "2.2 ประตู", "2.3 ฐานตู้",
+                    "2.4 สภาพ RMU/ ห้อง", "2.5 ก๊าซ SF6", "2.6 ตัวแสดงสถานะสวิทซ์",
+                    "2.7 กุญแจล็อคป้องกันการปลด-สับ", "2.8 คันสับ", "2.9 ตัวตรวจสอบแรงดัน",
+                    "2.10 ตัวตรวจสอบการลัดวงจร", "2.11 แรงดันไฟฟ้าเลี้ยงอุปกรณ์", "2.12 สภาพแบตเตอรี่หรือ UPS",
+                    "2.13 FRTU", "2.14 อุปกรณ์ควบคุมอื่นๆ", "2.15 การปลดสับด้วย REMOTE",
+                    "2.16 การปลดสับด้วย LOCAL กดปุ่ม", "2.17 การปลดสับด้วยคันสับ", "2.18 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ (ATF)", "2.19 การทดสอบ ATF"
+                ]
+            },
+            "019": {
+                title: "แบบตรวจสอบบำรุงรักษา Unit Substation",
+                code: "SF-07-0-019",
+                items: [
+                    "2.1 สภาพภายนอก Encloser", "2.2 ประตู", "2.3 ฐานตู้ / นั่งร้าน",
+                    "2.4 สภาพ RMU", "2.5 ก๊าซ SF6", "2.6 ตัวแสดงสถานะสวิตช์",
+                    "2.7 กุญแจล็อคป้องกันการปลด - สับ", "2.8 คันสับ", "2.9 ตัวตรวจสอบแรงดัน",
+                    "2.10 ตัวตรวจสอบการลัดวงจร", "2.11 แรงดันไฟฟ้าเลี้ยงอุปกรณ์", "2.12 สภาพแบตเตอรี่ หรือ UPS",
+                    "2.13 FRTU", "2.14 อุปกรณ์ควบคุมอื่น ๆ", "2.15 การปลด - สับด้วย REMOTE",
+                    "2.16 การปลด - สับด้วย LOCAL กดปุ่ม", "2.17 การปลด - สับด้วยคันสับ", "2.18 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ (ATF)",
+                    "2.19 การทดสอบ ATF", "2.20 ตัวถังหม้อแปลง", "2.21 Bushing HV-LV",
+                    "2.22 สายหน้าหม้อแปลง HV - LV", "2.23 LV Ground", "2.24 HV Ground",
+                    "2.25 สภาพทั่วไป CB หรือ FUSE", "2.26 สายไฟฟ้า", "2.27 บัสบาร์", "2.28 เครื่องวัดไฟฟ้า", "2.29 CT-TLM Meter"
+                ]
+            },
+            "020": {
+                title: "แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV",
+                code: "SF-07-0-020",
+                items: [
+                    "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse",
+                    "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 กับดักฟ้าผ่า (L/A)",
+                    "2.7 Cover (Bushing,L/A)", "2.8 HV Ground", "2.9 Vacuum CB",
+                    "2.10 Supply", "2.11 Fuse Control ภายในตู้", "2.12 หลอดไฟแสดงสถานะในตู้",
+                    "2.13 หน้าจอ Digital Control", "2.14 เสียงนาฬิกาเดิน", "2.15 อุปกรณ์ทั่วไปภายในตู้",
+                    "2.16 ตัวถังคาปาซิเตอร์", "2.17 Bushing", "2.18 Fuse ภายใน", "2.19 ค่าคาปาซิแตนท์ที่วัดได้"
+                ]
+            },
+            "021": {
+                title: "แบบตรวจสอบบำรุงรักษาเครื่องป้องกันหม้อแปลงตาข่าย",
+                code: "SF-07-0-021",
+                items: [
+                    "1.1 สถานะ MV.SW.", "1.2 สถานะ NP", "1.3 เบอร์ตู้/สีตู้",
+                    "1.4 ระบบกราวด์", "1.5 อุปกรณ์ป้องกันแรงดันเกินภายนอก", "1.6 ตัวถัง รอยต่อหม้อแปลง",
+                    "1.7 ฝาตู้", "1.8 มีการแขวนป้ายแดงห้ามปลด-สับ", "2.1 ปลด MV.SW. ครั้งที่ 1",
+                    "2.2 สับ MV.SW. ครั้งที่ 1", "2.3 ปลด MV.SW. ครั้งที่ 2", "3.1 อุปกรณ์ภายใน",
+                    "3.2 รีเลย์", "4.1 ตู้อุปกรณ์", "4.2 ไฟเลี้ยง /CB & FUSE", "4.3 อินเตอร์เน็ตสวิตช์"
+                ]
+            },
+            "022": {
+                title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง",
+                code: "SF-07-0-022",
+                items: [
+                    "1.1 สภาพภายนอก (สวิทซ์แรงกลาง)", "1.2 ก๊าซ SF6", "1.3 หัวต่อสาย/สายไฟฟ้า",
+                    "1.4 ระบบกราวด์", "2.1 ตัวถังหม้อแปลง", "2.2 น้ำมัน",
+                    "2.3 ฟิวส์ 12 kV", "2.4 อุณหภูมิสูงสุด", "2.5 อุณหภูมิจริง",
+                    "3.1 สายไฟฟ้า (แรงต่ำ)", "3.2 คาปาซิเตอร์แรงต่ำ"
+                ]
+            },
+            "023": {
+                title: "แบบตรวจสอบบำรุงรักษาทดสอบและกรองน้ำมันหม้อแปลง",
+                code: "SF-07-0-023",
+                items: [
+                    "1. ทดสอบน้ำมันครั้งที่ 1-5 (หาค่า Breakdown Voltage)",
+                    "2. กรองน้ำมันครั้งที่ 1 และทดสอบซ้ำ 5 ครั้ง",
+                    "3. กรองน้ำมันครั้งที่ 2 และทดสอบซ้ำ 5 ครั้ง"
+                ]
+            },
+            "024": {
+                title: "รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)",
+                code: "SF-07-0-024",
+                items: [
+                    "ตรวจสอบอุณหภูมิสูงสุดที่จุดวัดฯ (Delta T)",
+                    "ประเมินลำดับความสำคัญ (0-10°C, >10-20°C, >20-40°C, >40°C)"
+                ]
+            },
+            "025": {
+                title: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)",
+                code: "SF-07-0-025",
+                items: [
+                    "ตรวจสอบจุดที่ผิดปกติด้วย Acoustic Camera",
+                    "วัดระดับความเข้มเสียง (dB) และระดับความรุนแรงจาก NL CLOUD"
+                ]
+            }
+        };
 
-        const items016 = [
-            "2.1 ตัวถัง LBS /สลักล็อคการปลดสับ[cite: 2]", "2.2 สถานะก๊าซ SF6[cite: 2]", "2.3 Bushing[cite: 2]",
-            "2.4 กับดักฟ้าผ่า[cite: 2]", "2.5 VT[cite: 2]", "2.6 Drop Fuse ลง VT[cite: 2]",
-            "2.7 คอนสาย[cite: 2]", "2.8 สายควบคุม LBS[cite: 2]", "2.9 อุปกรณ์ป้องกันสัตว์[cite: 2]",
-            "2.10 ไฟสถานะหน้าตู้[cite: 2]", "2.11 แหล่งจ่ายไฟฟ้า และสายควบคุม[cite: 2]",
-            "2.12 สภาพแบตเตอรี่หรือ Capacitor[cite: 2]", "2.13 Ground HV (L/A, LBS)[cite: 2]",
-            "2.14 Ground LV (ดู Control)[cite: 2]", "2.15 ทดสอบ ทาง Remote[cite: 2]",
-            "2.16 ทดสอบ ทาง Local[cite: 2]", "2.17 แรงดันไฟฟ้าเลี้ยงอุปกรณ์ ATS[cite: 2]", "2.18 การทดสอบ ATS[cite: 2]"
-        ];
+        formSelector.addEventListener('change', (e) => {
+            const val = e.target.value;
+            const currentForm = formsData[val];
 
-        function renderStandardTable(title, code, generalHTML, itemsArray) {
-            return `
-                <div class="text-center font-bold text-sm border-b pb-3 mb-4">${title} (${code})</div>
+            let html = `
+                <div class="text-center font-bold text-sm border-b pb-3 mb-4">${currentForm.title} (${currentForm.code})</div>
                 <div>
                     <div class="bg-gray-200 px-2 py-1 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
                     <table class="w-full border-collapse border border-gray-300 text-left">
-                        ${generalHTML}
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50 w-28">Station ID</td>
+                            <td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                            <td class="border p-1.5 bg-gray-50 w-28">สถานที่</td>
+                            <td class="border p-1.5"><input type="text" class="w-full border-0"></td>
+                        </tr>
+                        <tr>
+                            <td class="border p-1.5 bg-gray-50">GIS Lat / Long</td>
+                            <td class="border p-1.5" colspan="3"><input type="text" class="w-full border-0"></td>
+                        </tr>
                     </table>
                 </div>
                 <div>
@@ -94,17 +209,23 @@
                             <th class="border p-1.5 w-16">ปกติ</th>
                             <th class="border p-1.5 w-16">ชำรุด</th>
                             <th class="border p-1.5 w-16">ไม่มี</th>
-                            <th class="border p-1.5 w-48">ข้อบกพร่อง</th>
+                            <th class="border p-1.5 w-48">ข้อบกพร่อง / รายละเอียด</th>
                         </tr>
-                        ${itemsArray.map((item, idx) => `
-                            <tr>
-                                <td class="border p-1.5">${item}</td>
-                                <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
-                                <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
-                                <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
-                                <td class="border p-1"><input type="text" class="w-full border-0 text-xs"></td>
-                            </tr>
-                        `).join('')}
+            `;
+
+            currentForm.items.forEach((item, idx) => {
+                html += `
+                    <tr>
+                        <td class="border p-1.5">${item}</td>
+                        <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
+                        <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
+                        <td class="border text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600"></td>
+                        <td class="border p-1"><input type="text" class="w-full border-0 text-xs"></td>
+                    </tr>
+                `;
+            });
+
+            html += `
                     </table>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -117,31 +238,8 @@
                     <div>วันที่: <input type="date" class="border-b w-full"></div>
                 </div>
             `;
-        }
 
-        formSelector.addEventListener('change', (e) => {
-            const val = e.target.value;
-            if (val === "015") {
-                const html015 = `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat.[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50">Long.[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">MEA No.1[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50">MEA No.2/3[cite: 1]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
-                `;
-                container.innerHTML = renderStandardTable("แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย", "SF-07-0-015", html015, items015);
-            } else if (val === "016") {
-                const html016 = `
-                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
-                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat/Long[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td><td class="border p-1.5 bg-gray-50">ยี่ห้อ LBS[cite: 2]</td><td class="border p-1.5"><input type="text" class="w-full border-0"></td></tr>
-                `;
-                container.innerHTML = renderStandardTable("แบบตรวจสอบบำรุงรักษา Load Break Switch", "SF-07-0-016", html016, items016);
-            } else {
-                container.innerHTML = `
-                    <div class="text-center font-bold text-sm border-b pb-3 mb-4">แบบฟอร์มมาตรฐานชุดที่ SF-07-0-${val}</div>
-                    <div class="p-4 bg-gray-50 border rounded text-center text-gray-600">
-                        ระบบเตรียมพร้อมโครงสร้างข้อมูลฟอร์มชุดนี้เรียบร้อยแล้ว สามารถเลือกกรองข้อมูลทั่วไป บันทึกผล และสั่งพิมพ์รายงานผ่านปุ่มด้านบนได้ทันที
-                    </div>
-                `;
-            }
+            container.innerHTML = html;
         });
 
         formSelector.dispatchEvent(new Event('change'));
