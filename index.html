@@ -2,2557 +2,1123 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Digital Inspection Form</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, "Noto Sans Thai", sans-serif;
-    }
-
-    body {
-      background: #e9eef5;
-      color: #1e293b;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      background: #062b5c;
-      color: white;
-      padding: 20px 0;
-    }
-
-    .header-container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .logo {
-      width: 55px;
-      height: 55px;
-      background: #1677ff;
-      border-radius: 14px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
-    }
-
-    .header-container h1 {
-      font-size: 24px;
-    }
-
-    .header-container p {
-      color: #cbd5e1;
-      margin-top: 5px;
-      font-size: 14px;
-    }
-
-    /* =========================
-       HOME PAGE
-    ========================= */
-
-    #homePage {
-      max-width: 1200px;
-      margin: auto;
-      padding: 50px 20px;
-    }
-
-    .title-area {
-      margin-bottom: 35px;
-    }
-
-    .title-area span {
-      color: #1677ff;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .title-area h2 {
-      font-size: 36px;
-      margin-top: 8px;
-    }
-
-    .title-area p {
-      margin-top: 10px;
-      color: #64748b;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 20px;
-    }
-
-    .form-card {
-      background: white;
-      border-radius: 18px;
-      padding: 25px;
-      border: 1px solid #dbe3ee;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .form-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-    }
-
-    .form-icon {
-      width: 55px;
-      height: 55px;
-      background: #eaf3ff;
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
-    }
-
-    .form-card h3 {
-      margin-top: 20px;
-      font-size: 20px;
-    }
-
-    .form-card p {
-      margin-top: 10px;
-      color: #64748b;
-      font-size: 14px;
-      min-height: 40px;
-    }
-
-    .form-card-bottom {
-      margin-top: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .form-code {
-      color: #1677ff;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    /* =========================
-       BUTTON
-    ========================= */
-
-    button {
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .primary-btn {
-      background: #062b5c;
-      color: white;
-      padding: 11px 18px;
-      border-radius: 8px;
-      transition: 0.2s;
-    }
-
-    .primary-btn:hover {
-      background: #0b438c;
-    }
-
-    .secondary-btn {
-      background: white;
-      border: 1px solid #cbd5e1;
-      padding: 10px 16px;
-      border-radius: 8px;
-    }
-
-    .secondary-btn:hover {
-      background: #f1f5f9;
-    }
-
-    /* =========================
-       INSPECTION PAGE
-    ========================= */
-
-    #inspectionPage {
-      display: none;
-    }
-
-    .top-nav {
-      background: white;
-      border-bottom: 1px solid #dbe3ee;
-      padding: 12px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ระบบใบตรวจสอบ</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family:Arial,"Noto Sans Thai",sans-serif;
+}
+
+body{
+    margin:0;
+    background:#eeeeee;
+    color:#222;
+}
+
+/* ส่วนหัวเว็บไซต์ */
+
+header{
+    background:#0b3d6e;
+    color:white;
+    padding:15px 25px;
+}
+
+.header-box{
+    max-width:1100px;
+    margin:auto;
+}
+
+header h2{
+    margin:0;
+    font-size:22px;
+}
+
+header p{
+    margin:5px 0 0;
+    font-size:13px;
+    color:#dbeafe;
+}
+
+
+/* หน้าเลือกเอกสาร */
+
+.home{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 20px;
+}
+
+.home h1{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.home p{
+    color:#666;
+}
+
+.card-area{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-top:25px;
+}
+
+.card{
+    background:white;
+    border:1px solid #ddd;
+    padding:22px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+    transform:translateY(-2px);
+}
+
+.card h3{
+    margin-top:0;
+    color:#0b3d6e;
+}
+
+.card p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+.code{
+    color:#777;
+    font-size:13px;
+    margin-top:20px;
+}
+
+
+/* หน้าเอกสาร */
+
+#formPage{
+    display:none;
+}
+
+.menu{
+    background:white;
+    border-bottom:1px solid #ccc;
+    padding:10px;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.menu-box{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+button{
+    padding:9px 15px;
+    border:none;
+    cursor:pointer;
+    border-radius:4px;
+    font-size:14px;
+}
+
+.btn-back{
+    background:#ddd;
+}
+
+.btn-save{
+    background:#1976d2;
+    color:white;
+}
+
+.btn-print{
+    background:#0b3d6e;
+    color:white;
+}
+
+
+/* กระดาษ A4 */
+
+.paper{
+    width:210mm;
+    min-height:297mm;
+    background:white;
+    margin:25px auto;
+    padding:15mm;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.document-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:2px solid black;
+    padding-bottom:10px;
+}
+
+.document-header h1{
+    font-size:20px;
+    margin:0;
+}
+
+.document-header p{
+    margin:5px 0;
+    font-size:13px;
+}
+
+.document-code{
+    text-align:right;
+    font-size:13px;
+}
+
+
+/* ตารางข้อมูล */
+
+.info-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.info-table td{
+    border:1px solid #444;
+    padding:7px;
+    font-size:13px;
+}
+
+.info-table input{
+    width:100%;
+    border:none;
+    outline:none;
+    font-size:13px;
+}
+
+
+/* หัวข้อ */
+
+.section-title{
+    margin-top:25px;
+    background:#f1f1f1;
+    border-left:5px solid #0b3d6e;
+    padding:8px 10px;
+    font-weight:bold;
+}
+
+
+/* ตารางตรวจสอบ */
+
+.test-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+.test-table th,
+.test-table td{
+    border:1px solid black;
+    padding:7px;
+    text-align:center;
+    font-size:13px;
+}
 
-    .top-nav-container {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .nav-left,
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .autosave {
-      color: #16a34a;
-      font-size: 13px;
-    }
-
-    /* =========================
-       PROGRESS
-    ========================= */
-
-    .progress-area {
-      background: white;
-      border-bottom: 1px solid #dbe3ee;
-      padding: 15px;
-    }
-
-    .progress-container {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .progress-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #e2e8f0;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    #progressFill {
-      height: 100%;
-      width: 0%;
-      background: #1677ff;
-      transition: width 0.4s;
-    }
-
-    /* =========================
-       A4 DOCUMENT
-    ========================= */
-
-    .document-area {
-      padding: 40px 15px;
-    }
-
-    .a4-document {
-      max-width: 900px;
-      margin: auto;
-      background: white;
-      padding: 50px;
-      min-height: 1100px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    }
-
-    .document-header {
-      border-bottom: 2px solid #1e293b;
-      padding-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .document-header h1 {
-      margin-top: 5px;
-      font-size: 26px;
-    }
-
-    .document-header small {
-      color: #64748b;
-    }
-
-    .document-code {
-      text-align: right;
-      font-size: 13px;
-    }
-
-    .document-code strong {
-      display: block;
-      margin-top: 5px;
-      color: #1677ff;
-    }
+.test-table th{
+    background:#f1f1f1;
+}
 
-    /* =========================
-       SECTION
-    ========================= */
-
-    .section {
-      margin-top: 40px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.test-table input{
+    width:100%;
+    border:none;
+    text-align:center;
+    outline:none;
+}
 
-    .section-number {
-      width: 30px;
-      height: 30px;
-      background: #062b5c;
-      color: white;
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
 
-    .section-title h2 {
-      font-size: 20px;
-    }
+/* คำอธิบาย */
 
-    /* =========================
-       FORM INPUT
-    ========================= */
-
-    .input-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 20px;
-    }
+.note{
+    font-size:12px;
+    margin-top:8px;
+    line-height:1.6;
+}
 
-    .input-group {
-      display: flex;
-      flex-direction: column;
-    }
 
-    .input-group label {
-      font-size: 13px;
-      margin-bottom: 7px;
-      font-weight: 500;
-      color: #475569;
-    }
+/* Textarea */
 
-    input,
-    textarea {
-      border: 1px solid #cbd5e1;
-      border-radius: 7px;
-      padding: 11px;
-      font-size: 14px;
-      outline: none;
-    }
+textarea{
+    width:100%;
+    min-height:70px;
+    border:1px solid #888;
+    padding:8px;
+    resize:vertical;
+}
 
-    input:focus,
-    textarea:focus {
-      border-color: #1677ff;
-      box-shadow: 0 0 0 3px rgba(22,119,255,0.1);
-    }
 
-    textarea {
-      width: 100%;
-      resize: vertical;
-      min-height: 120px;
-    }
+/* ลายเซ็น */
 
-    /* =========================
-       GPS
-    ========================= */
-
-    .gps-box {
-      background: #f8fafc;
-      border: 1px solid #dbe3ee;
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 20px;
-    }
+.signature-area{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    margin-top:50px;
+}
 
-    .gps-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
+.signature{
+    text-align:center;
+    font-size:13px;
+}
 
-    /* =========================
-       TABLE
-    ========================= */
+.signature-line{
+    border-bottom:1px solid black;
+    height:45px;
+    margin-bottom:8px;
+}
 
-    .table-wrapper {
-      overflow-x: auto;
-      margin-top: 20px;
-    }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 650px;
-    }
+/* Footer */
 
-    th,
-    td {
-      border: 1px solid #94a3b8;
-      padding: 10px;
-      font-size: 14px;
-    }
+.footer{
+    margin-top:30px;
+    border-top:1px solid #999;
+    padding-top:8px;
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+}
 
-    th {
-      background: #f1f5f9;
-      text-align: center;
-    }
 
-    td.center {
-      text-align: center;
-    }
+/* Mobile */
 
-    .status-button {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: white;
-      border: 1px solid #cbd5e1;
-      font-size: 16px;
-      transition: 0.2s;
-    }
+@media(max-width:800px){
 
-    .status-button:hover {
-      background: #f1f5f9;
+    .paper{
+        width:100%;
+        min-height:auto;
+        margin:0;
+        padding:15px;
+        box-shadow:none;
     }
 
-    .normal.selected {
-      background: #dcfce7;
-      color: #15803d;
-      border-color: #15803d;
+    .menu-box{
+        gap:5px;
     }
 
-    .damaged.selected {
-      background: #ffedd5;
-      color: #c2410c;
-      border-color: #c2410c;
+    button{
+        padding:8px 10px;
     }
 
-    .none.selected {
-      background: #e2e8f0;
-      color: #475569;
-      border-color: #475569;
+    .document-header{
+        flex-direction:column;
     }
 
-    .defect-row {
-      display: none;
+    .document-code{
+        text-align:left;
+        margin-top:10px;
     }
 
-    .defect-content {
-      background: #fff7ed;
-      padding: 15px;
-    }
+}
 
-    /* =========================
-       SIGNATURE
-    ========================= */
-
-    .signature-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 50px;
-      margin-top: 25px;
-    }
 
-    .signature-box {
-      margin-top: 20px;
-      height: 80px;
-      border-bottom: 1px solid #64748b;
-    }
+/* Print */
 
-    /* =========================
-       FOOTER BUTTONS
-    ========================= */
-
-    .document-actions {
-      margin-top: 50px;
-      padding-top: 25px;
-      border-top: 1px solid #cbd5e1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
+@media print{
 
-    .action-buttons {
-      display: flex;
-      gap: 10px;
+    body{
+        background:white;
     }
 
-    /* =========================
-       FOOTER
-    ========================= */
-
-    .document-footer {
-      margin-top: 50px;
-      padding-top: 15px;
-      border-top: 1px solid #cbd5e1;
-      display: flex;
-      justify-content: space-between;
-      color: #94a3b8;
-      font-size: 11px;
+    header,
+    .menu{
+        display:none;
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media(max-width: 700px) {
-
-      .header-container h1 {
-        font-size: 18px;
-      }
-
-      .title-area h2 {
-        font-size: 27px;
-      }
-
-      .input-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .a4-document {
-        padding: 25px 15px;
-      }
-
-      .document-header {
-        flex-direction: column;
-      }
-
-      .document-code {
-        text-align: left;
-      }
-
-      .signature-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-      }
-
-      .top-nav-container {
-        flex-wrap: wrap;
-      }
-
-      .nav-right {
-        width: 100%;
-      }
-
-      .gps-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .document-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .action-buttons {
-        width: 100%;
-      }
-
-      .action-buttons button {
-        flex: 1;
-      }
+    .paper{
+        margin:0;
+        width:100%;
+        min-height:auto;
+        box-shadow:none;
     }
 
-    /* =========================
-       PRINT
-    ========================= */
-
-    @media print {
-
-      body {
-        background: white;
-      }
-
-      header,
-      .top-nav,
-      .progress-area,
-      .document-actions,
-      .gps-button,
-      #homePage {
-        display: none !important;
-      }
-
-      #inspectionPage {
-        display: block !important;
-      }
-
-      .document-area {
-        padding: 0;
-      }
-
-      .a4-document {
-        box-shadow: none;
-        width: 100%;
-        max-width: none;
-        padding: 20px;
-      }
-
-      input,
-      textarea {
-        border: none;
-      }
+}
 
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================= -->
 
-  <header>
+<!-- ================= HEADER ================= -->
 
-    <div class="header-container">
+<header>
 
-      <div class="logo">⚡</div>
+<div class="header-box">
 
-      <div>
-        <h1>DIGITAL INSPECTION FORM</h1>
-        <p>ระบบใบตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้า</p>
-      </div>
+<h2>ระบบใบตรวจสอบและบำรุงรักษา</h2>
 
-    </div>
+<p>
+ระบบสำหรับบันทึกผลการตรวจสอบอุปกรณ์ไฟฟ้า
+</p>
 
-  </header>
+</div>
 
+</header>
 
-  <!-- =========================
-       HOME PAGE
-  ========================= -->
 
-  <main id="homePage">
 
-    <div class="title-area">
+<!-- ================= HOME ================= -->
 
-      <span>INSPECTION SYSTEM</span>
+<div class="home" id="homePage">
 
-      <h2>เลือกประเภทใบตรวจสอบ</h2>
+<h1>เลือกใบตรวจสอบ</h1>
 
-      <p>
-        เลือกประเภทอุปกรณ์ที่ต้องการดำเนินการตรวจสอบ
-      </p>
+<p>
+กรุณาเลือกแบบฟอร์มที่ต้องการดำเนินการ
+</p>
 
-    </div>
 
+<div class="card-area">
 
-    <div class="form-grid" id="formGrid"></div>
 
-  </main>
+<div class="card" onclick="openForm()">
 
+<h3>
+แบบตรวจสอบทดสอบและกรองน้ำมันหม้อแปลง
+</h3>
 
-  <!-- =========================
-       INSPECTION PAGE
-  ========================= -->
+<p>
+ใช้สำหรับบันทึกผลการทดสอบ Breakdown Voltage
+และขั้นตอนการกรองน้ำมันหม้อแปลง
+</p>
 
-  <div id="inspectionPage">
+<div class="code">
+รหัสเอกสาร : SF-07-0-023
+</div>
 
+</div>
 
-    <!-- NAV -->
 
-    <div class="top-nav">
+<div class="card">
 
-      <div class="top-nav-container">
+<h3>
+แบบตรวจสอบจุดร้อน (Hot Spot)
+</h3>
 
-        <div class="nav-left">
+<p>
+รายงานผลการตรวจสอบจุดร้อนของอุปกรณ์
+</p>
 
-          <button
-            class="secondary-btn"
-            onclick="goHome()"
-          >
-            ← กลับ
-          </button>
+<div class="code">
+รหัสเอกสาร : SF-07-0-024
+</div>
 
+</div>
 
-          <div>
 
-            <strong>DIGITAL INSPECTION FORM</strong>
+<div class="card">
 
-            <div
-              id="navFormCode"
-              style="font-size:11px;color:#64748b"
-            >
-            </div>
+<h3>
+แบบตรวจสอบบำรุงรักษาอุปกรณ์
+</h3>
 
-          </div>
+<p>
+สำหรับบันทึกข้อมูลการตรวจสอบ
+และการบำรุงรักษา
+</p>
 
-        </div>
+<div class="code">
+แบบฟอร์มอื่น
+</div>
 
+</div>
 
-        <div class="nav-right">
 
-          <span
-            id="saveStatus"
-            class="autosave"
-          >
-            ● Auto Save
-          </span>
+</div>
 
+</div>
 
-          <button
-            class="secondary-btn"
-            onclick="saveDraft()"
-          >
-            💾 บันทึก
-          </button>
 
 
-          <button
-            class="primary-btn"
-            onclick="window.print()"
-          >
-            📄 Export PDF
-          </button>
+<!-- ================= FORM PAGE ================= -->
 
-        </div>
+<div id="formPage">
 
-      </div>
 
-    </div>
+<div class="menu">
 
+<div class="menu-box">
 
-    <!-- PROGRESS -->
+<div>
 
-    <div class="progress-area">
+<button class="btn-back" onclick="goHome()">
+กลับหน้าหลัก
+</button>
 
-      <div class="progress-container">
+</div>
 
-        <div class="progress-info">
 
-          <span>
-            ความคืบหน้าการตรวจสอบ
-          </span>
+<div>
 
-          <span id="progressText">
-            0 / 0 รายการ
-          </span>
+<button class="btn-save" onclick="saveData()">
+บันทึก
+</button>
 
-        </div>
+<button class="btn-print" onclick="window.print()">
+พิมพ์ / PDF
+</button>
 
+</div>
 
-        <div class="progress-bar">
+</div>
 
-          <div id="progressFill"></div>
+</div>
 
-        </div>
 
-      </div>
 
-    </div>
+<!-- ================= A4 PAPER ================= -->
 
+<div class="paper">
 
-    <!-- A4 DOCUMENT -->
 
-    <div class="document-area">
+<!-- DOCUMENT HEADER -->
 
-      <div
-        class="a4-document"
-        id="inspectionDocument"
-      >
+<div class="document-header">
 
+<div>
 
-        <!-- DOCUMENT HEADER -->
+<h1>
+แบบตรวจสอบบำรุงรักษา ทดสอบและกรองน้ำมันหม้อแปลงวงจรตาข่าย
+</h1>
 
-        <div class="document-header">
+<p>
+Maintenance Inspection Form
+</p>
 
-          <div>
+</div>
 
-            <small>
-              DIGITAL INSPECTION FORM
-            </small>
 
-            <h1 id="documentTitle">
-              ใบตรวจสอบ
-            </h1>
+<div class="document-code">
 
-          </div>
+รหัสเอกสาร
 
+<br>
 
-          <div class="document-code">
+<strong>
+SF-07-0-023
+</strong>
 
-            รหัสเอกสาร
+</div>
 
-            <strong id="documentCode">
-              SF-00-000
-            </strong>
+</div>
 
-          </div>
 
-        </div>
 
+<!-- GENERAL INFORMATION -->
 
-        <!-- =========================
-             SECTION 1
-        ========================= -->
+<div class="section-title">
 
-        <div class="section">
+ข้อมูลทั่วไป
 
-          <div class="section-title">
+</div>
 
-            <div class="section-number">
-              1
-            </div>
 
-            <h2>ข้อมูลทั่วไป</h2>
+<table class="info-table">
 
-          </div>
+<tr>
 
+<td width="20%">
+สถานที่
+</td>
 
-          <div class="input-grid">
+<td width="30%">
+<input type="text" id="location">
+</td>
 
+<td width="20%">
+Station ID
+</td>
 
-            <div class="input-group">
+<td width="30%">
+<input type="text" id="station">
+</td>
 
-              <label>สถานที่</label>
+</tr>
 
-              <input
-                id="location"
-                type="text"
-                placeholder="ระบุสถานที่"
-                oninput="autoSave()"
-              >
 
-            </div>
+<tr>
 
+<td>
+TR. MEA No.
+</td>
 
-            <div class="input-group">
+<td>
+<input type="text" id="mea">
+</td>
 
-              <label>Station ID</label>
+<td>
+วันที่
+</td>
 
-              <input
-                id="stationId"
-                type="text"
-                oninput="autoSave()"
-              >
+<td>
+<input type="date" id="date">
+</td>
 
-            </div>
+</tr>
 
+</table>
 
-            <div class="input-group">
 
-              <label>MEA No.</label>
 
-              <input
-                id="meaNo"
-                type="text"
-                oninput="autoSave()"
-              >
+<!-- STEP 1 -->
 
-            </div>
+<div class="section-title">
 
+1. ทดสอบน้ำมันหม้อแปลง
 
-            <div class="input-group">
+</div>
 
-              <label>วันที่ตรวจสอบ</label>
 
-              <input
-                id="inspectionDate"
-                type="date"
-                oninput="autoSave()"
-              >
+<table class="test-table">
 
-            </div>
+<thead>
 
+<tr>
 
-            <div class="input-group">
+<th>
+ครั้งที่
+</th>
 
-              <label>เวลา</label>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
 
-              <input
-                id="inspectionTime"
-                type="time"
-                oninput="autoSave()"
-              >
+<th>
+ค่าเฉลี่ย
+</th>
 
-            </div>
+</tr>
 
-          </div>
+</thead>
 
 
-          <!-- GPS -->
+<tbody>
 
-          <div class="gps-box">
+<tr>
 
-            <div class="gps-header">
+<td>
+Breakdown Voltage (kV)
+</td>
 
-              <div>
+<td>
+<input type="number" class="test1" oninput="calculateAverage('test1','avg1')">
+</td>
 
-                <strong>
-                  📍 GIS Location
-                </strong>
+<td>
+<input type="number" class="test1" oninput="calculateAverage('test1','avg1')">
+</td>
 
-                <p
-                  style="
-                    color:#64748b;
-                    font-size:13px;
-                    margin-top:5px
-                  "
-                >
-                  ตำแหน่งสำหรับการตรวจสอบ
-                </p>
+<td>
+<input type="number" class="test1" oninput="calculateAverage('test1','avg1')">
+</td>
 
-              </div>
+<td>
+<input type="number" class="test1" oninput="calculateAverage('test1','avg1')">
+</td>
 
+<td>
+<input type="number" class="test1" oninput="calculateAverage('test1','avg1')">
+</td>
 
-              <button
-                class="secondary-btn gps-button"
-                onclick="getLocation()"
-              >
-                📍 ดึงตำแหน่งปัจจุบัน
-              </button>
+<td id="avg1">
+-
+</td>
 
-            </div>
+</tr>
 
+</tbody>
 
-            <div
-              class="input-grid"
-              style="margin-top:20px"
-            >
+</table>
 
-              <div class="input-group">
 
-                <label>Latitude</label>
+<div class="note">
 
-                <input
-                  id="latitude"
-                  type="text"
-                  oninput="autoSave()"
-                >
+* ทดสอบครั้งที่ 1 หากต่ำกว่า 26 kV
+ให้ดำเนินการกรองน้ำมัน
 
-              </div>
+<br>
 
+หากมากกว่า 26 kV ให้ทดสอบครบ 5 ครั้ง
+และหาค่าเฉลี่ย
 
-              <div class="input-group">
+</div>
 
-                <label>Longitude</label>
 
-                <input
-                  id="longitude"
-                  type="text"
-                  oninput="autoSave()"
-                >
 
-              </div>
+<!-- STEP 2 -->
 
-            </div>
+<div class="section-title">
 
-          </div>
+2. กรองน้ำมันครั้งที่ 1 และดำเนินการทดสอบใหม่
 
-        </div>
+</div>
 
 
-        <!-- =========================
-             SECTION 2
-        ========================= -->
+<table class="test-table">
 
-        <div class="section">
+<thead>
 
-          <div class="section-title">
+<tr>
 
-            <div class="section-number">
-              2
-            </div>
+<th>
+ครั้งที่
+</th>
 
-            <h2>
-              รายการตรวจสอบบำรุงรักษา
-            </h2>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
 
-          </div>
+<th>
+ค่าเฉลี่ย
+</th>
 
+</tr>
 
-          <div class="table-wrapper">
+</thead>
 
-            <table>
 
-              <thead>
+<tbody>
 
-                <tr>
+<tr>
 
-                  <th>ลำดับ</th>
+<td>
+Breakdown Voltage (kV)
+</td>
 
-                  <th>
-                    รายการตรวจสอบ
-                  </th>
+<td>
+<input type="number" class="test2" oninput="calculateAverage('test2','avg2')">
+</td>
 
-                  <th>
-                    ปกติ
-                  </th>
+<td>
+<input type="number" class="test2" oninput="calculateAverage('test2','avg2')">
+</td>
 
-                  <th>
-                    ชำรุด
-                  </th>
+<td>
+<input type="number" class="test2" oninput="calculateAverage('test2','avg2')">
+</td>
 
-                  <th>
-                    ไม่มี
-                  </th>
+<td>
+<input type="number" class="test2" oninput="calculateAverage('test2','avg2')">
+</td>
 
-                </tr>
+<td>
+<input type="number" class="test2" oninput="calculateAverage('test2','avg2')">
+</td>
 
-              </thead>
+<td id="avg2">
+-
+</td>
 
+</tr>
 
-              <tbody id="inspectionItems">
+</tbody>
 
-              </tbody>
+</table>
 
-            </table>
 
-          </div>
+<div class="note">
 
-        </div>
+* หากผลการทดสอบยังต่ำกว่า 26 kV
+ให้ดำเนินการกรองน้ำมันครั้งที่ 2
 
+</div>
 
-        <!-- =========================
-             SECTION 3
-        ========================= -->
 
-        <div class="section">
 
-          <div class="section-title">
+<!-- STEP 3 -->
 
-            <div class="section-number">
-              3
-            </div>
+<div class="section-title">
 
-            <h2>
-              สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม
-            </h2>
+3. กรองน้ำมันครั้งที่ 2 และดำเนินการทดสอบใหม่
 
-          </div>
+</div>
 
 
-          <textarea
-            id="additionalInfo"
-            placeholder="ระบุรายละเอียด..."
-            oninput="autoSave()"
-          ></textarea>
+<table class="test-table">
 
-        </div>
+<thead>
 
+<tr>
 
-        <!-- =========================
-             SECTION 4
-        ========================= -->
+<th>
+ครั้งที่
+</th>
 
-        <div class="section">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
 
-          <div class="section-title">
+<th>
+ค่าเฉลี่ย
+</th>
 
-            <div class="section-number">
-              4
-            </div>
+</tr>
 
-            <h2>
-              การปรับปรุงข้อบกพร่อง
-            </h2>
+</thead>
 
-          </div>
 
+<tbody>
 
-          <textarea
-            id="improvement"
-            placeholder="ระบุรายละเอียดการปรับปรุง..."
-            oninput="autoSave()"
-          ></textarea>
+<tr>
 
-        </div>
+<td>
+Breakdown Voltage (kV)
+</td>
 
+<td>
+<input type="number" class="test3" oninput="calculateAverage('test3','avg3')">
+</td>
 
-        <!-- =========================
-             SECTION 5
-        ========================= -->
+<td>
+<input type="number" class="test3" oninput="calculateAverage('test3','avg3')">
+</td>
 
-        <div class="section">
+<td>
+<input type="number" class="test3" oninput="calculateAverage('test3','avg3')">
+</td>
 
-          <div class="section-title">
+<td>
+<input type="number" class="test3" oninput="calculateAverage('test3','avg3')">
+</td>
 
-            <div class="section-number">
-              5
-            </div>
+<td>
+<input type="number" class="test3" oninput="calculateAverage('test3','avg3')">
+</td>
 
-            <h2>ผู้ตรวจสอบ</h2>
+<td id="avg3">
+-
+</td>
 
-          </div>
+</tr>
 
+</tbody>
 
-          <div class="signature-grid">
+</table>
 
 
-            <div>
+<div class="note">
 
-              <h3>ผู้ตรวจ</h3>
+* ทดสอบครบ 5 ครั้ง
+หากยังต่ำกว่า 26 kV
+ให้หาแนวทางแก้ไขต่อไป
 
+</div>
 
-              <div
-                class="input-group"
-                style="margin-top:15px"
-              >
 
-                <label>ชื่อผู้ตรวจ</label>
 
-                <input
-                  id="inspector"
-                  type="text"
-                  oninput="autoSave()"
-                >
+<!-- ADDITIONAL INFORMATION -->
 
-              </div>
+<div class="section-title">
 
+ข้อเสนอแนะ / ข้อมูลเพิ่มเติม
 
-              <div
-                class="input-group"
-                style="margin-top:15px"
-              >
+</div>
 
-                <label>ตำแหน่ง</label>
 
-                <input
-                  id="inspectorPosition"
-                  type="text"
-                  oninput="autoSave()"
-                >
+<textarea
+id="recommend"
+placeholder="กรอกข้อมูลเพิ่มเติม..."
+></textarea>
 
-              </div>
 
 
-              <p
-                style="
-                  margin-top:25px;
-                  font-size:13px;
-                  color:#64748b
-                "
-              >
-                ลายเซ็น
-              </p>
+<!-- SIGNATURE -->
 
-              <div class="signature-box"></div>
+<div class="signature-area">
 
-            </div>
 
+<div class="signature">
 
-            <div>
+<div class="signature-line"></div>
 
-              <h3>ผู้ตรวจสอบ</h3>
+ผู้ตรวจ
 
+<br><br>
 
-              <div
-                class="input-group"
-                style="margin-top:15px"
-              >
+ตำแหน่ง
 
-                <label>ชื่อผู้ตรวจสอบ</label>
+<input
+type="text"
+style="
+border:none;
+border-bottom:1px solid black;
+text-align:center;
+width:150px;
+"
+id="inspector"
+>
 
-                <input
-                  id="verifier"
-                  type="text"
-                  oninput="autoSave()"
-                >
+</div>
 
-              </div>
 
 
-              <div
-                class="input-group"
-                style="margin-top:15px"
-              >
+<div class="signature">
 
-                <label>ตำแหน่ง</label>
+<div class="signature-line"></div>
 
-                <input
-                  id="verifierPosition"
-                  type="text"
-                  oninput="autoSave()"
-                >
+ผู้ตรวจสอบ
 
-              </div>
+<br><br>
 
+ตำแหน่ง
 
-              <p
-                style="
-                  margin-top:25px;
-                  font-size:13px;
-                  color:#64748b
-                "
-              >
-                ลายเซ็น
-              </p>
+<input
+type="text"
+style="
+border:none;
+border-bottom:1px solid black;
+text-align:center;
+width:150px;
+"
+id="checker"
+>
 
-              <div class="signature-box"></div>
+</div>
 
-            </div>
 
+</div>
 
-          </div>
 
-        </div>
 
+<!-- FOOTER -->
 
-        <!-- ACTION -->
+<div class="footer">
 
-        <div class="document-actions">
+<div>
+ปรับปรุงครั้งที่ 0
+</div>
 
+<div>
+SF-07-0-023
+</div>
 
-          <div>
+</div>
 
-            <strong id="completedText">
-              ความคืบหน้า 0%
-            </strong>
 
-            <p
-              id="completedDetail"
-              style="
-                font-size:13px;
-                color:#64748b;
-                margin-top:5px
-              "
-            >
-              ตรวจสอบแล้ว 0 รายการ
-            </p>
+</div>
 
-          </div>
+</div>
 
 
-          <div class="action-buttons">
 
-            <button
-              class="secondary-btn"
-              onclick="saveDraft()"
-            >
-              💾 บันทึกแบบร่าง
-            </button>
+<script>
 
 
-            <button
-              class="primary-btn"
-              onclick="submitForm()"
-            >
-              ✓ ส่งใบตรวจสอบ
-            </button>
+/* เปิดใบตรวจสอบ */
 
-          </div>
+function openForm(){
 
-        </div>
+    document.getElementById("homePage").style.display = "none";
 
+    document.getElementById("formPage").style.display = "block";
 
-        <!-- FOOTER -->
+    loadData();
 
-        <div class="document-footer">
+}
 
-          <span id="footerCode"></span>
 
-          <span>
-            Digital Inspection Form
-          </span>
 
-        </div>
+/* กลับหน้าหลัก */
 
+function goHome(){
 
-      </div>
+    document.getElementById("formPage").style.display = "none";
 
-    </div>
+    document.getElementById("homePage").style.display = "block";
 
-  </div>
+}
 
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
 
-  <script>
+/* คำนวณค่าเฉลี่ย */
 
+function calculateAverage(className,resultId){
 
-    /* =========================
-       FORM DATA
-    ========================= */
+    let inputs = document.querySelectorAll("." + className);
 
-    const forms = [
+    let sum = 0;
 
-      {
-        id: "SF-07-0-015",
+    let count = 0;
 
-        name:
-          "แบบตรวจสอบบำรุงหม้อแปลงจำหน่าย",
 
-        shortName:
-          "หม้อแปลงจำหน่าย",
+    inputs.forEach(function(input){
 
-        icon: "⚡",
+        if(input.value !== ""){
 
-        items: [
+            sum += Number(input.value);
 
-          "ตัวถังหม้อแปลง",
-
-          "Bushing HV-LV",
-
-          "สายหน้าหม้อแปลง HV-LV",
-
-          "Drop Fuse",
-
-          "กับดักฟ้าผ่า (L/A)",
-
-          "สายเข้า-ออก",
-
-          "อุปกรณ์ป้องกันสัตว์",
-
-          "Low Voltage Capacitor",
-
-          "HV Ground",
-
-          "LV Ground"
-
-        ]
-
-      },
-
-
-      {
-        id: "SF-07-0-016",
-
-        name:
-          "แบบตรวจสอบบำรุงรักษา Load Break Switch",
-
-        shortName:
-          "Load Break Switch",
-
-        icon: "🔌",
-
-        items: [
-
-          "ตัวถัง LBS / สลักล็อกการปลด-สับ",
-
-          "สถานะก๊าซ SF6",
-
-          "Bushing",
-
-          "กับดักฟ้าผ่า",
-
-          "VT",
-
-          "Drop Fuse ลง VT",
-
-          "คอนสาย",
-
-          "สายควบคุม LBS",
-
-          "อุปกรณ์ป้องกันสัตว์",
-
-          "ไฟสถานะหน้าตู้",
-
-          "แหล่งจ่ายไฟฟ้าและสายควบคุม",
-
-          "สภาพแบตเตอรี่หรือ Capacitor",
-
-          "Ground HV",
-
-          "Ground LV",
-
-          "ทดสอบ ปลด/สับ"
-
-        ]
-
-      },
-
-
-      {
-        id: "SF-07-0-017",
-
-        name:
-          "แบบตรวจสอบบำรุงรักษา Sectionalizer",
-
-        shortName:
-          "Sectionalizer",
-
-        icon: "⚙️",
-
-        items: [
-
-          "ตัวถัง SZ / สลักล็อกการปลด-สับ",
-
-          "สถานะก๊าซ SF6",
-
-          "Bushing",
-
-          "กับดักฟ้าผ่า",
-
-          "คอนสาย",
-
-          "สายควบคุม SZ",
-
-          "อุปกรณ์ป้องกันสัตว์",
-
-          "ไฟสถานะหน้าตู้",
-
-          "แหล่งจ่ายไฟฟ้าและสายควบคุม",
-
-          "สภาพแบตเตอรี่หรือ Capacitor",
-
-          "Ground HV",
-
-          "Ground LV",
-
-          "ทดสอบทาง Local"
-
-        ]
-
-      },
-
-
-      {
-        id: "SF-07-0-018",
-
-        name:
-          "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)",
-
-        shortName:
-          "Ring Main Unit (RMU)",
-
-        icon: "🔋",
-
-        items: [
-
-          "สภาพภายนอก",
-
-          "ประตู",
-
-          "ฐานตู้",
-
-          "สภาพ RMU / ห้อง",
-
-          "ก๊าซ SF6",
-
-          "ตัวแสดงสถานะสวิตช์",
-
-          "กุญแจล็อกป้องกันการปลด-สับ",
-
-          "คันสับ",
-
-          "ตัวตรวจสอบแรงดัน",
-
-          "ตัวตรวจสอบการลัดวงจร",
-
-          "แรงดันไฟฟ้าเลี้ยงอุปกรณ์",
-
-          "สภาพแบตเตอรี่หรือ UPS",
-
-          "FRTU",
-
-          "อุปกรณ์ควบคุมอื่น ๆ",
-
-          "ทดสอบการปลด-สับ"
-
-        ]
-
-      },
-
-
-      {
-        id: "SF-07-0-019",
-
-        name:
-          "แบบตรวจสอบบำรุงรักษา UNITSUBSTATION",
-
-        shortName:
-          "UNITSUBSTATION",
-
-        icon: "🏭",
-
-        items: [
-
-          "สภาพภายนอก",
-
-          "ประตู",
-
-          "ฐานตู้",
-
-          "สภาพ RMU",
-
-          "ตัวถังหม้อแปลง",
-
-          "Bushing HV-LV",
-
-          "สายหน้าหม้อแปลง HV-LV",
-
-          "LV Ground",
-
-          "HV Ground",
-
-          "กุญแจล็อกป้องกันการปลด-สับ",
-
-          "คันสับ",
-
-          "ตัวตรวจสอบแรงดัน",
-
-          "ตัวตรวจสอบการลัดวงจร",
-
-          "แรงดันไฟฟ้าเลี้ยงอุปกรณ์",
-
-          "สภาพแบตเตอรี่หรือ UPS",
-
-          "FRTU",
-
-          "อุปกรณ์ควบคุมอื่น ๆ",
-
-          "ระบบการปลด-สับด้วยไฟฟ้า"
-
-        ]
-
-      }
-
-    ];
-
-
-    let currentForm = null;
-
-    let results = {};
-
-
-
-    /* =========================
-       CREATE HOME CARDS
-    ========================= */
-
-    function createFormCards() {
-
-      const grid =
-        document.getElementById("formGrid");
-
-
-      forms.forEach(form => {
-
-
-        const card =
-          document.createElement("div");
-
-
-        card.className =
-          "form-card";
-
-
-        card.onclick =
-          () => selectForm(form.id);
-
-
-        card.innerHTML = `
-
-          <div class="form-icon">
-
-            ${form.icon}
-
-          </div>
-
-
-          <h3>
-
-            ${form.shortName}
-
-          </h3>
-
-
-          <p>
-
-            ${form.name}
-
-          </p>
-
-
-          <div class="form-card-bottom">
-
-            <span class="form-code">
-
-              ${form.id}
-
-            </span>
-
-
-            <span
-              style="
-                color:#1677ff;
-                font-weight:bold
-              "
-            >
-
-              เริ่มตรวจสอบ →
-
-            </span>
-
-          </div>
-
-        `;
-
-
-        grid.appendChild(card);
-
-      });
-
-    }
-
-
-
-    /* =========================
-       SELECT FORM
-    ========================= */
-
-    function selectForm(id) {
-
-
-      currentForm =
-        forms.find(
-          form => form.id === id
-        );
-
-
-      results = {};
-
-
-      document.getElementById(
-        "homePage"
-      ).style.display = "none";
-
-
-      document.getElementById(
-        "inspectionPage"
-      ).style.display = "block";
-
-
-      document.getElementById(
-        "documentTitle"
-      ).textContent =
-        currentForm.name;
-
-
-      document.getElementById(
-        "documentCode"
-      ).textContent =
-        currentForm.id;
-
-
-      document.getElementById(
-        "navFormCode"
-      ).textContent =
-        currentForm.id;
-
-
-      document.getElementById(
-        "footerCode"
-      ).textContent =
-        currentForm.id;
-
-
-      createInspectionItems();
-
-
-      loadDraft();
-
-
-      updateProgress();
-
-    }
-
-
-
-    /* =========================
-       CREATE INSPECTION ITEMS
-    ========================= */
-
-    function createInspectionItems() {
-
-
-      const container =
-        document.getElementById(
-          "inspectionItems"
-        );
-
-
-      container.innerHTML = "";
-
-
-      currentForm.items.forEach(
-        (item, index) => {
-
-
-          const number =
-            `2.${index + 1}`;
-
-
-          const row =
-            document.createElement("tr");
-
-
-          row.innerHTML = `
-
-            <td class="center">
-
-              ${number}
-
-            </td>
-
-
-            <td>
-
-              ${item}
-
-            </td>
-
-
-            <td class="center">
-
-              <button
-                class="
-                  status-button
-                  normal
-                "
-
-                onclick="
-                  selectStatus(
-                    ${index},
-                    'normal'
-                  )
-                "
-
-                id="
-                  normal-${index}
-                "
-
-              >
-
-                ○
-
-              </button>
-
-            </td>
-
-
-            <td class="center">
-
-              <button
-                class="
-                  status-button
-                  damaged
-                "
-
-                onclick="
-                  selectStatus(
-                    ${index},
-                    'damaged'
-                  )
-                "
-
-                id="
-                  damaged-${index}
-                "
-
-              >
-
-                ○
-
-              </button>
-
-            </td>
-
-
-            <td class="center">
-
-              <button
-                class="
-                  status-button
-                  none
-                "
-
-                onclick="
-                  selectStatus(
-                    ${index},
-                    'none'
-                  )
-                "
-
-                id="
-                  none-${index}
-                "
-
-              >
-
-                ○
-
-              </button>
-
-            </td>
-
-          `;
-
-
-          container.appendChild(row);
-
-
-          const defectRow =
-            document.createElement("tr");
-
-
-          defectRow.className =
-            "defect-row";
-
-
-          defectRow.id =
-            `defectRow-${index}`;
-
-
-          defectRow.innerHTML = `
-
-            <td
-              colspan="5"
-              class="defect-content"
-            >
-
-              <strong
-                style="
-                  color:#c2410c
-                "
-              >
-
-                ⚠ รายละเอียดข้อบกพร่อง
-
-              </strong>
-
-
-              <textarea
-
-                id="
-                  defect-${index}
-                "
-
-                placeholder="
-                  ระบุรายละเอียดข้อบกพร่อง...
-                "
-
-                style="
-                  margin-top:10px
-                "
-
-                oninput="
-                  autoSave()
-                "
-
-              ></textarea>
-
-
-              <div
-                style="
-                  margin-top:15px
-                "
-              >
-
-                <label
-                  style="
-                    font-size:13px;
-                    font-weight:bold
-                  "
-                >
-
-                  📷 แนบรูปภาพ
-
-                </label>
-
-
-                <br>
-
-
-                <input
-                  type="file"
-                  accept="image/*"
-                  style="
-                    margin-top:8px
-                  "
-                >
-
-              </div>
-
-            </td>
-
-          `;
-
-
-          container.appendChild(
-            defectRow
-          );
-
-        }
-      );
-
-    }
-
-
-
-    /* =========================
-       SELECT STATUS
-    ========================= */
-
-    function selectStatus(
-      index,
-      status
-    ) {
-
-
-      results[index] =
-        status;
-
-
-      const types = [
-
-        "normal",
-
-        "damaged",
-
-        "none"
-
-      ];
-
-
-      types.forEach(type => {
-
-
-        const button =
-          document.getElementById(
-            `${type}-${index}`
-          );
-
-
-        button.classList.remove(
-          "selected"
-        );
-
-
-        button.innerHTML = "○";
-
-      });
-
-
-      const selectedButton =
-        document.getElementById(
-          `${status}-${index}`
-        );
-
-
-      selectedButton.classList.add(
-        "selected"
-      );
-
-
-      selectedButton.innerHTML = "✓";
-
-
-      const defectRow =
-        document.getElementById(
-          `defectRow-${index}`
-        );
-
-
-      if (
-        status === "damaged"
-      ) {
-
-        defectRow.style.display =
-          "table-row";
-
-      } else {
-
-        defectRow.style.display =
-          "none";
-
-      }
-
-
-      updateProgress();
-
-
-      autoSave();
-
-    }
-
-
-
-    /* =========================
-       UPDATE PROGRESS
-    ========================= */
-
-    function updateProgress() {
-
-
-      if (!currentForm) return;
-
-
-      const completed =
-        Object.keys(results).length;
-
-
-      const total =
-        currentForm.items.length;
-
-
-      const percent =
-        Math.round(
-          (completed / total) * 100
-        );
-
-
-      document.getElementById(
-        "progressFill"
-      ).style.width =
-        percent + "%";
-
-
-      document.getElementById(
-        "progressText"
-      ).textContent =
-        `${completed} / ${total} รายการ`;
-
-
-      document.getElementById(
-        "completedText"
-      ).textContent =
-        `ความคืบหน้า ${percent}%`;
-
-
-      document.getElementById(
-        "completedDetail"
-      ).textContent =
-        `ตรวจสอบแล้ว ${completed} จาก ${total} รายการ`;
-
-    }
-
-
-
-    /* =========================
-       GET GPS
-    ========================= */
-
-    function getLocation() {
-
-
-      if (
-        !navigator.geolocation
-      ) {
-
-        alert(
-          "อุปกรณ์นี้ไม่รองรับ GPS"
-        );
-
-        return;
-
-      }
-
-
-      navigator.geolocation.getCurrentPosition(
-
-
-        position => {
-
-
-          document.getElementById(
-            "latitude"
-          ).value =
-            position.coords.latitude.toFixed(6);
-
-
-          document.getElementById(
-            "longitude"
-          ).value =
-            position.coords.longitude.toFixed(6);
-
-
-          autoSave();
-
-
-          alert(
-            "✓ บันทึกตำแหน่งเรียบร้อย"
-          );
-
-        },
-
-
-        error => {
-
-          alert(
-            "ไม่สามารถดึงตำแหน่งได้ กรุณาอนุญาตการเข้าถึงตำแหน่ง"
-          );
+            count++;
 
         }
 
-      );
+    });
+
+
+    if(count > 0){
+
+        let average = sum / count;
+
+        document.getElementById(resultId).innerText =
+            average.toFixed(2);
+
+    }
+
+    else{
+
+        document.getElementById(resultId).innerText = "-";
 
     }
 
 
+    autoSave();
 
-    /* =========================
-       AUTO SAVE
-    ========================= */
+}
 
-    let saveTimer;
 
 
-    function autoSave() {
+/* บันทึกอัตโนมัติ */
 
+function autoSave(){
 
-      clearTimeout(
-        saveTimer
-      );
+    clearTimeout(window.saveTimer);
 
 
-      document.getElementById(
-        "saveStatus"
-      ).textContent =
-        "● กำลังบันทึก...";
+    window.saveTimer = setTimeout(function(){
 
+        saveData(false);
 
-      saveTimer =
-        setTimeout(() => {
+    },500);
 
+}
 
-          saveDraft(false);
 
 
-          document.getElementById(
-            "saveStatus"
-          ).textContent =
-            "✓ บันทึกแล้ว";
+/* บันทึกข้อมูล */
 
+function saveData(showMessage = true){
 
-          setTimeout(() => {
+    let data = {};
 
-            document.getElementById(
-              "saveStatus"
-            ).textContent =
-              "● Auto Save";
 
-          }, 2000);
+    let inputs =
+        document.querySelectorAll("input");
 
 
-        }, 700);
+    inputs.forEach(function(input,index){
 
-    }
+        data["input" + index] = input.value;
 
+    });
 
 
-    /* =========================
-       SAVE DRAFT
-    ========================= */
+    data.recommend =
+        document.getElementById("recommend").value;
 
-    function saveDraft(
-      showMessage = true
-    ) {
 
+    localStorage.setItem(
 
-      if (!currentForm) return;
-
-
-      const data = {
-
-
-        location:
-          document.getElementById(
-            "location"
-          ).value,
-
-
-        stationId:
-          document.getElementById(
-            "stationId"
-          ).value,
-
-
-        meaNo:
-          document.getElementById(
-            "meaNo"
-          ).value,
-
-
-        inspectionDate:
-          document.getElementById(
-            "inspectionDate"
-          ).value,
-
-
-        inspectionTime:
-          document.getElementById(
-            "inspectionTime"
-          ).value,
-
-
-        latitude:
-          document.getElementById(
-            "latitude"
-          ).value,
-
-
-        longitude:
-          document.getElementById(
-            "longitude"
-          ).value,
-
-
-        additionalInfo:
-          document.getElementById(
-            "additionalInfo"
-          ).value,
-
-
-        improvement:
-          document.getElementById(
-            "improvement"
-          ).value,
-
-
-        inspector:
-          document.getElementById(
-            "inspector"
-          ).value,
-
-
-        inspectorPosition:
-          document.getElementById(
-            "inspectorPosition"
-          ).value,
-
-
-        verifier:
-          document.getElementById(
-            "verifier"
-          ).value,
-
-
-        verifierPosition:
-          document.getElementById(
-            "verifierPosition"
-          ).value,
-
-
-        results: results,
-
-
-        defects: {}
-
-      };
-
-
-      currentForm.items.forEach(
-        (item, index) => {
-
-
-          const defect =
-            document.getElementById(
-              `defect-${index}`
-            );
-
-
-          if (defect) {
-
-            data.defects[index] =
-              defect.value;
-
-          }
-
-        }
-      );
-
-
-      localStorage.setItem(
-
-        "inspection-" +
-        currentForm.id,
+        "oilInspection",
 
         JSON.stringify(data)
 
-      );
+    );
 
 
-      if (showMessage) {
+    if(showMessage){
 
-        alert(
-          "✓ บันทึกแบบร่างเรียบร้อย"
-        );
-
-      }
+        alert("บันทึกข้อมูลเรียบร้อย");
 
     }
 
+}
 
 
-    /* =========================
-       LOAD DRAFT
-    ========================= */
 
-    function loadDraft() {
+/* โหลดข้อมูล */
 
+function loadData(){
 
-      const saved =
-        localStorage.getItem(
+    let saved =
+        localStorage.getItem("oilInspection");
 
-          "inspection-" +
-          currentForm.id
 
-        );
-
-
-      if (!saved) return;
-
-
-      const data =
-        JSON.parse(saved);
-
-
-      document.getElementById(
-        "location"
-      ).value =
-        data.location || "";
-
-
-      document.getElementById(
-        "stationId"
-      ).value =
-        data.stationId || "";
-
-
-      document.getElementById(
-        "meaNo"
-      ).value =
-        data.meaNo || "";
-
-
-      document.getElementById(
-        "inspectionDate"
-      ).value =
-        data.inspectionDate || "";
-
-
-      document.getElementById(
-        "inspectionTime"
-      ).value =
-        data.inspectionTime || "";
-
-
-      document.getElementById(
-        "latitude"
-      ).value =
-        data.latitude || "";
-
-
-      document.getElementById(
-        "longitude"
-      ).value =
-        data.longitude || "";
-
-
-      document.getElementById(
-        "additionalInfo"
-      ).value =
-        data.additionalInfo || "";
-
-
-      document.getElementById(
-        "improvement"
-      ).value =
-        data.improvement || "";
-
-
-      document.getElementById(
-        "inspector"
-      ).value =
-        data.inspector || "";
-
-
-      document.getElementById(
-        "inspectorPosition"
-      ).value =
-        data.inspectorPosition || "";
-
-
-      document.getElementById(
-        "verifier"
-      ).value =
-        data.verifier || "";
-
-
-      document.getElementById(
-        "verifierPosition"
-      ).value =
-        data.verifierPosition || "";
-
-
-      results =
-        data.results || {};
-
-
-      Object.keys(results).forEach(
-        index => {
-
-
-          const status =
-            results[index];
-
-
-          const button =
-            document.getElementById(
-              `${status}-${index}`
-            );
-
-
-          if (button) {
-
-            button.classList.add(
-              "selected"
-            );
-
-
-            button.innerHTML = "✓";
-
-          }
-
-
-          if (
-            status === "damaged"
-          ) {
-
-
-            const defectRow =
-              document.getElementById(
-                `defectRow-${index}`
-              );
-
-
-            defectRow.style.display =
-              "table-row";
-
-
-            const defect =
-              document.getElementById(
-                `defect-${index}`
-              );
-
-
-            if (
-              defect &&
-              data.defects
-            ) {
-
-              defect.value =
-                data.defects[index] || "";
-
-            }
-
-          }
-
-        }
-      );
-
-    }
-
-
-
-    /* =========================
-       SUBMIT FORM
-    ========================= */
-
-    function submitForm() {
-
-
-      const completed =
-        Object.keys(results).length;
-
-
-      const total =
-        currentForm.items.length;
-
-
-      if (
-        completed < total
-      ) {
-
-        alert(
-
-          `⚠ กรุณาตรวจสอบให้ครบก่อนส่ง\n\n` +
-
-          `ตรวจสอบแล้ว ${completed} จาก ${total} รายการ`
-
-        );
-
+    if(!saved){
 
         return;
 
-      }
-
-
-      saveDraft(false);
-
-
-      alert(
-
-        "✓ ส่งใบตรวจสอบเรียบร้อย"
-
-      );
-
     }
 
 
-
-    /* =========================
-       GO HOME
-    ========================= */
-
-    function goHome() {
+    let data =
+        JSON.parse(saved);
 
 
-      document.getElementById(
-        "inspectionPage"
-      ).style.display =
-        "none";
+    let inputs =
+        document.querySelectorAll("input");
 
 
-      document.getElementById(
-        "homePage"
-      ).style.display =
-        "block";
+    inputs.forEach(function(input,index){
+
+        if(data["input" + index]){
+
+            input.value =
+                data["input" + index];
+
+        }
+
+    });
 
 
-      currentForm = null;
+    document.getElementById("recommend").value =
+        data.recommend || "";
 
 
-      results = {};
+    calculateAverage("test1","avg1");
+
+    calculateAverage("test2","avg2");
+
+    calculateAverage("test3","avg3");
+
+}
+
+
+
+/* บันทึกเมื่อพิมพ์ */
+
+document.addEventListener("input",function(event){
+
+    if(event.target.tagName === "TEXTAREA"){
+
+        autoSave();
 
     }
 
+});
 
 
-    /* =========================
-       START APP
-    ========================= */
-
-    createFormCards();
-
-
-  </script>
+</script>
 
 
 </body>
