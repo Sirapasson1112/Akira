@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแบบฟอร์มตรวจสอบอุปกรณ์ไฟฟ้า PEA</title>
+    <title>ระบบตรวจสอบและบำรุงรักษาอุปกรณ์ไฟฟ้า PEA</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Sarabun', sans-serif; }
-        @media print {
-            body { background: white !important; }
-            .no-print { display: none !important; }
-            .paper-sheet { box-shadow: none !important; border: none !important; margin: 0 !important; width: 100% !important; }
-        }
-    </style>
+    <style>body { font-family: 'Sarabun', sans-serif; }</style>
 </head>
-<body class="bg-slate-200 text-slate-900 pb-12 antialiased">
+<body class="bg-gray-100 text-gray-800 pb-12">
 
-    <!-- Top Action Bar (No Print) -->
-    <header class="no-print bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-md">
-        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-4xl mx-auto px-4 py-2 flex flex-wrap justify-between items-center gap-2">
+            <span class="text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded text-xs font-medium">
+                ยังไม่ได้เข้าสู่ระบบ – ข้อมูลจะไม่ถูกบันทึก
+            </span>
             <div class="flex items-center gap-2">
-                <span class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">PEA</span>
-                <span class="text-xs font-semibold">เลือกแบบฟอร์มบันทึกข้อมูลสนาม</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <select id="formSelector" class="border border-slate-700 rounded px-3 py-1.5 text-xs bg-slate-800 text-white font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select id="formSelector" class="border border-gray-300 rounded px-2 py-1 text-xs bg-gray-50 font-medium focus:outline-none">
                     <option value="015">SF-07-0-015: หม้อแปลงจำหน่าย</option>
                     <option value="016">SF-07-0-016: Load Break Switch</option>
                     <option value="017">SF-07-0-017: Sectionalizer</option>
@@ -38,49 +30,108 @@
                     <option value="024">SF-07-0-024: รายงานจุดร้อนแดง (Hot Spot)</option>
                     <option value="025">SF-07-0-025: รายงานตรวจสอบ Partial Discharge</option>
                 </select>
-                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-3 py-1.5 rounded transition shadow-xs">
-                    🖨️ พิมพ์เอกสาร / PDF
+                <button class="flex items-center gap-1.5 px-3 py-1 border border-gray-300 rounded text-xs font-medium hover:bg-gray-50 transition bg-white">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                    เข้าสู่ระบบด้วย Google
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Paper Sheet Container -->
-    <main class="max-w-4xl mx-auto px-2 sm:px-4 mt-6">
-        <div id="paperContainer" class="paper-sheet bg-white border border-slate-300 shadow-xl rounded-none sm:rounded-sm p-6 sm:p-10 text-xs space-y-6">
-            <!-- Dynamic Form Paper Content -->
+    <main class="max-w-4xl mx-auto px-4 mt-3 text-xs">
+        
+        <!-- Action Toolbar -->
+        <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-2xs mb-3 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-gray-500 font-medium px-1">พร้อมใช้งาน</span>
+                <button class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">บันทึกเป็นรายการใหม่</button>
+                <button class="px-2.5 py-1 bg-gray-100 border border-gray-300 text-gray-700 rounded hover:bg-gray-200">บันทึกกับรายการปัจจุบัน</button>
+                <button class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">ฟอร์มใหม่</button>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <button class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">ล้างฟอร์ม</button>
+                <button onclick="window.print()" class="px-2.5 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50">พิมพ์ / PDF</button>
+            </div>
         </div>
+
+        <!-- Station Quick Pills -->
+        <div class="flex gap-1.5 overflow-x-auto pb-2 mb-3">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-full whitespace-nowrap shadow-2xs">SF-07-0-015...</button>
+            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-016...</button>
+            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-017...</button>
+            <button class="px-3 py-1 bg-white border border-gray-300 text-gray-600 rounded-full whitespace-nowrap hover:bg-gray-50">SF-07-0-018...</button>
+        </div>
+
+        <!-- Saved Data Search Bar -->
+        <div class="bg-white p-2.5 rounded-lg border border-gray-300 shadow-2xs mb-3 flex items-center justify-between">
+            <div class="flex items-center gap-4 text-gray-500">
+                <span class="font-bold text-gray-700">ข้อมูลที่บันทึกไว้ (0)</span>
+                <span class="border-b border-dashed border-gray-400 pb-0.5">🔍 Plant</span>
+                <span class="border-b border-dashed border-gray-400 pb-0.5">🔍 Work Order</span>
+            </div>
+            <div class="flex gap-1">
+                <button class="px-2 py-0.5 border border-gray-300 rounded hover:bg-gray-50">รีเฟรช</button>
+                <button class="px-2 py-0.5 border border-red-200 text-red-600 rounded hover:bg-red-50">ล้าง</button>
+            </div>
+        </div>
+
+        <!-- Photo Inspection Section -->
+        <div class="bg-white p-3 rounded-lg border border-gray-300 shadow-2xs mb-3">
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-gray-700 flex items-center gap-1">📷 รูปภาพประกอบการตรวจสอบ</span>
+                <div class="flex items-center gap-2">
+                    <button class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">+ เพิ่มรูป</button>
+                    <span class="text-gray-400">0 KB</span>
+                </div>
+            </div>
+            <div class="border border-dashed border-gray-300 rounded p-3 text-center text-gray-400 bg-gray-50/50">
+                ยังไม่มีรูปภาพ — กด "เพิ่มรูป" เพื่อถ่ายหรือเลือกจากคลังภาพ
+            </div>
+        </div>
+
+        <!-- Criticality Evaluation Section -->
+        <div class="bg-white p-3 rounded-lg border border-gray-300 shadow-2xs mb-4">
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-red-600 flex items-center gap-1">⚠️ การประเมินความสำคัญของอุปกรณ์ (Criticality)</span>
+                <span class="text-gray-400">ยังไม่ประเมิน</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+                <div><label class="block text-gray-500 mb-1">SAF – ความปลอดภัย</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
+                <div><label class="block text-gray-500 mb-1">REL – ความต่อเนื่องจ่ายไฟ</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
+                <div><label class="block text-gray-500 mb-1">OPR – การปฏิบัติงาน/ภารกิจ</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
+                <div><label class="block text-gray-500 mb-1">CON – สภาพอุปกรณ์</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 items-end">
+                <div><label class="block text-gray-500 mb-1">REC – ความยากในการกู้คืน</label><select class="w-full border border-gray-300 rounded p-1 bg-white"><option>- เลือก -</option></select></div>
+                <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200">
+                    <span class="font-bold text-gray-700">คะแนนรวม: - / 100</span>
+                    <div class="text-right text-[11px] text-gray-500">
+                        <div>PLANT: <span class="font-mono text-gray-800">7901</span></div>
+                        <div>WORK ORDER: <span class="font-mono text-gray-800">WOXXXXXXXXX</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Paper Form Container -->
+        <div id="formContainer" class="bg-white rounded border border-gray-400 shadow-sm overflow-hidden p-4 space-y-4">
+            <!-- Rendered by JavaScript -->
+        </div>
+
     </main>
 
     <script>
         const formSelector = document.getElementById('formSelector');
-        const container = document.getElementById('paperContainer');
+        const container = document.getElementById('formContainer');
 
-        const formsData = {
+        const formsContent = {
             "015": {
                 title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย",
                 code: "SF-07-0-015",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-24">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 focus:ring-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-24">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 focus:ring-0 outline-none"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">GIS Lat.</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">Long.</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">MEA No.1</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">MEA No.2 / No.3</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">Long.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">MEA No.1</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">MEA No.2 / No.3</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: [
                     "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse",
@@ -93,21 +144,9 @@
             "016": {
                 title: "แบบตรวจสอบบำรุงรักษา Load Break Switch",
                 code: "SF-07-0-016",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">GIS Lat / Long</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">ยี่ห้อ LBS / No.</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat / Long</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">ยี่ห้อ LBS / No.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: [
                     "2.1 ตัวถัง LBS /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing",
@@ -121,21 +160,9 @@
             "017": {
                 title: "แบบตรวจสอบบำรุงรักษา Sectionalizer",
                 code: "SF-07-0-017",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">GIS Lat / Long</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold">ยี่ห้อ SZ / No.</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
+                    <tr><td class="border p-1.5 bg-gray-50">GIS Lat / Long</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50">ยี่ห้อ SZ / No.</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: [
                     "2.1 ตัวถัง SZ /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing",
@@ -147,154 +174,91 @@
             "018": {
                 title: "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)",
                 code: "SF-07-0-018",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["2.1 สภาพภายนอก", "2.2 ประตู", "2.3 ฐานตู้", "2.4 สภาพ RMU", "2.5 ก๊าซ SF6", "2.6 ตัวแสดงสถานะสวิทซ์", "2.7 กุญแจล็อค", "2.8 คันสับ", "2.9 ตัวตรวจสอบแรงดัน", "2.10 ตัวตรวจสอบลัดวงจร", "2.11 แรงดันเลี้ยงอุปกรณ์", "2.12 แบตเตอรี่/UPS", "2.13 FRTU", "2.14 อุปกรณ์ควบคุม", "2.15 Remote", "2.16 Local", "2.17 คันสับ", "2.18 แรงดัน ATF", "2.19 ทดสอบ ATF"]
             },
             "019": {
                 title: "แบบตรวจสอบบำรุงรักษา Unit Substation",
                 code: "SF-07-0-019",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["2.1 สภาพภายนอก Encloser", "2.2 ประตู", "2.3 ฐานตู้", "2.4 สภาพ RMU", "2.5 ก๊าซ SF6", "2.6 สถานะสวิตช์", "2.7 กุญแจล็อค", "2.8 คันสับ", "2.9 ตัวตรวจสอบแรงดัน", "2.10 ตัวตรวจสอบลัดวงจร", "2.11 แรงดันเลี้ยงอุปกรณ์", "2.12 แบตเตอรี่/UPS", "2.13 FRTU", "2.14 อุปกรณ์ควบคุม", "2.15 Remote", "2.16 Local", "2.17 คันสับ", "2.18 แรงดัน ATF", "2.19 ทดสอบ ATF", "2.20 ตัวถังหม้อแปลง", "2.21 Bushing HV-LV", "2.22 สายหน้าหม้อแปลง", "2.23 LV Ground", "2.24 HV Ground", "2.25 CB/FUSE", "2.26 สายไฟฟ้า", "2.27 บัสบาร์", "2.28 เครื่องวัดไฟฟ้า", "2.29 CT-TLM Meter"]
             },
             "020": {
                 title: "แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV",
                 code: "SF-07-0-020",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["2.1 Drop Fuse", "2.2 Insulator", "2.3 สายเข้า-ออก", "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 L/A", "2.7 Cover", "2.8 HV Ground", "2.9 Vacuum CB", "2.10 Supply", "2.11 Fuse Control", "2.12 หลอดไฟแสดงสถานะ", "2.13 Digital Control", "2.14 เสียงนาฬิกา", "2.15 อุปกรณ์ในตู้", "2.16 ตัวถังคาปาซิเตอร์", "2.17 Bushing", "2.18 Fuse ภายใน", "2.19 ค่าคาปาซิแตนท์"]
             },
             "021": {
                 title: "แบบตรวจสอบบำรุงรักษาเครื่องป้องกันหม้อแปลงตาข่าย",
                 code: "SF-07-0-021",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่ / Station</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">FIX ID / WLN</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่ / Station</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">FIX ID / WLN</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["1.1 สถานะ MV.SW.", "1.2 สถานะ NP", "1.3 เบอร์ตู้/สีตู้", "1.4 ระบบกราวด์", "1.5 อุปกรณ์ป้องกันแรงดันเกิน", "1.6 ตัวถัง รอยต่อ", "1.7 ฝาตู้", "1.8 ป้ายแดงห้ามปลด-สับ", "2.1 ปลด MV.SW. ครั้งที่ 1", "2.2 สับ MV.SW. ครั้งที่ 1", "2.3 ปลด MV.SW. ครั้งที่ 2", "3.1 อุปกรณ์ภายใน", "3.2 รีเลย์", "4.1 ตู้อุปกรณ์", "4.2 ไฟเลี้ยง", "4.3 อินเตอร์เน็ตสวิตช์"]
             },
             "022": {
                 title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง",
                 code: "SF-07-0-022",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่ / STATION</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">FIX ID / WLN</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่ / STATION</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">FIX ID / WLN</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["1.1 สภาพภายนอกสวิทซ์แรงกลาง", "1.2 ก๊าซ SF6", "1.3 หัวต่อสาย", "1.4 ระบบกราวด์", "2.1 ตัวถังหม้อแปลง", "2.2 น้ำมัน", "2.3 ฟิวส์ 12 kV", "2.4 อุณหภูมิสูงสุด", "2.5 อุณหภูมิจริง", "3.1 สายไฟฟ้าแรงต่ำ", "3.2 คาปาซิเตอร์แรงต่ำ"]
             },
             "023": {
                 title: "แบบตรวจสอบบำรุงรักษาทดสอบและกรองน้ำมันหม้อแปลง",
                 code: "SF-07-0-023",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">STATION ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">STATION ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["1. ทดสอบน้ำมันครั้งที่ 1-5 (Breakdown Voltage)", "2. กรองน้ำมันครั้งที่ 1 และทดสอบซ้ำ", "3. กรองน้ำมันครั้งที่ 2 และทดสอบซ้ำ"]
             },
             "024": {
                 title: "รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)",
                 code: "SF-07-0-024",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["ตรวจสอบอุณหภูมิสูงสุดที่จุดวัดฯ (Delta T)", "ประเมินลำดับความสำคัญ (Criticality)"]
             },
             "025": {
                 title: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)",
                 code: "SF-07-0-025",
-                generalHTML: `
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
-                        <tr>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">Station ID</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                            <td class="border border-slate-800 p-1.5 bg-slate-100 font-semibold w-28">สถานที่</td>
-                            <td class="border border-slate-800 p-1.5"><input type="text" class="w-full border-0 outline-none"></td>
-                        </tr>
-                    </table>
+                general: `
+                    <tr><td class="border p-1.5 bg-gray-50 w-28">Station ID</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td><td class="border p-1.5 bg-gray-50 w-28">สถานที่</td><td class="border p-1.5"><input type="text" class="w-full border-0 outline-none"></td></tr>
                 `,
                 items: ["ตรวจสอบจุดผิดปกติด้วย Acoustic Camera", "ประเมินระดับความเข้มเสียงและระดับความรุนแรง"]
             }
         };
 
         function renderForm(val) {
-            const form = formsData[val];
+            const form = formsContent[val];
             let html = `
-                <!-- Form Header (Paper Style) -->
-                <div class="text-center border-b-2 border-slate-800 pb-4 mb-4">
-                    <h1 class="text-base font-bold text-slate-900">${form.title}</h1>
-                    <div class="flex justify-between items-center mt-2 text-slate-600 font-semibold">
-                        <span>การไฟฟ้าส่วนภูมิภาค (PEA)</span>
-                        <span class="font-mono">${form.code}</span>
-                    </div>
+                <div class="bg-gray-800 text-white text-center py-2 font-bold text-sm">
+                    ${form.title}
                 </div>
-
-                <!-- Section 1: General Info -->
-                <div class="space-y-1">
-                    <div class="bg-slate-800 text-white px-2 py-1 font-bold text-xs">1. ข้อมูลทั่วไป</div>
-                    ${form.generalHTML}
+                <div>
+                    <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700 mb-2">1 ข้อมูลทั่วไป</div>
+                    <table class="w-full border-collapse border border-gray-300 text-left">
+                        ${form.general}
+                    </table>
                 </div>
-
-                <!-- Section 2: Inspection Items -->
-                <div class="space-y-1 mt-4">
-                    <div class="bg-slate-800 text-white px-2 py-1 font-bold text-xs">2. รายการตรวจสอบบำรุงรักษา</div>
-                    <table class="w-full border-collapse border border-slate-800 text-xs">
+                <div>
+                    <div class="bg-gray-200 px-2 py-0.5 font-bold text-gray-700 mb-2">2 รายการตรวจสอบบำรุงรักษา</div>
+                    <table class="w-full border-collapse border border-gray-300 text-left">
                         <thead>
-                            <tr class="bg-slate-100 text-center">
-                                <th class="border border-slate-800 p-1.5 text-left">รายการตรวจสอบ</th>
-                                <th class="border border-slate-800 p-1.5 w-16">ปกติ</th>
-                                <th class="border border-slate-800 p-1.5 w-16">ชำรุด</th>
-                                <th class="border border-slate-800 p-1.5 w-16">ไม่มี</th>
-                                <th class="border border-slate-800 p-1.5 w-48">ข้อบกพร่อง / การดำเนินการ</th>
+                            <tr class="bg-gray-100 text-center">
+                                <th class="border border-gray-300 p-1.5 text-left">รายการ</th>
+                                <th class="border border-gray-300 p-1.5 w-16">ปกติ</th>
+                                <th class="border border-gray-300 p-1.5 w-16">ชำรุด</th>
+                                <th class="border border-gray-300 p-1.5 w-16">ไม่มี</th>
+                                <th class="border border-gray-300 p-1.5 w-48">ข้อบกพร่อง</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -303,11 +267,11 @@
             form.items.forEach((item, idx) => {
                 html += `
                     <tr>
-                        <td class="border border-slate-800 p-1.5">${item}</td>
-                        <td class="border border-slate-800 text-center"><input type="radio" name="chk_${idx}" class="accent-slate-900 cursor-pointer"></td>
-                        <td class="border border-slate-800 text-center"><input type="radio" name="chk_${idx}" class="accent-slate-900 cursor-pointer"></td>
-                        <td class="border border-slate-800 text-center"><input type="radio" name="chk_${idx}" class="accent-slate-900 cursor-pointer"></td>
-                        <td class="border border-slate-800 p-1"><input type="text" class="w-full border-0 outline-none text-xs"></td>
+                        <td class="border border-gray-300 p-1.5">${item}</td>
+                        <td class="border border-gray-300 text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600 cursor-pointer"></td>
+                        <td class="border border-gray-300 text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600 cursor-pointer"></td>
+                        <td class="border border-gray-300 text-center"><input type="radio" name="chk_${idx}" class="accent-blue-600 cursor-pointer"></td>
+                        <td class="border border-gray-300 p-1"><input type="text" class="w-full border-0 outline-none text-xs"></td>
                     </tr>
                 `;
             });
@@ -316,34 +280,17 @@
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Section 3 & 4: Notes & Comments -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div class="border border-slate-800 p-2">
-                        <div class="font-bold text-slate-800 mb-1">3. สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</div>
-                        <textarea class="w-full h-16 border-0 focus:ring-0 resize-none outline-none text-xs"></textarea>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                    <div class="border border-gray-300 rounded p-2">
+                        <div class="font-bold mb-1 text-gray-700">4 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</div>
+                        <textarea class="w-full h-16 border border-gray-200 rounded p-1 resize-none outline-none text-xs"></textarea>
                     </div>
-                    <div class="border border-slate-800 p-2">
-                        <div class="font-bold text-slate-800 mb-1">4. การปรับปรุงข้อบกพร่อง :</div>
-                        <textarea class="w-full h-16 border-0 focus:ring-0 resize-none outline-none text-xs"></textarea>
-                    </div>
-                </div>
-
-                <!-- Section 5: Signatures -->
-                <div class="grid grid-cols-2 gap-8 border-t-2 border-slate-800 pt-6 mt-6 text-slate-800">
-                    <div class="space-y-4">
-                        <div class="flex items-end gap-2"><span>ผู้ตรวจ:</span> <input type="text" class="border-b border-slate-800 border-dashed flex-1 outline-none"></div>
-                        <div class="flex items-end gap-2"><span>ตำแหน่ง:</span> <input type="text" class="border-b border-slate-800 border-dashed flex-1 outline-none"></div>
-                        <div class="flex items-end gap-2"><span>วันที่:</span> <input type="date" class="border-b border-slate-800 border-dashed flex-1 outline-none"></div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-end gap-2"><span>ผู้ตรวจสอบ:</span> <input type="text" class="border-b border-slate-800 border-dashed flex-1 outline-none"></div>
-                        <div class="flex items-end gap-2"><span>ตำแหน่ง:</span> <input type="text" class="border-b border-slate-800 border-dashed flex-1 outline-none"></div>
-                        <div class="flex items-end gap-2"><span>วันที่:</span> <input type="date" class="border-b border-slate-800 border-dashed flex-1 outline-none"></div>
+                    <div class="border border-gray-300 rounded p-2">
+                        <div class="font-bold mb-1 text-gray-700">5 การปรับปรุงข้อบกพร่อง :</div>
+                        <textarea class="w-full h-16 border border-gray-200 rounded p-1 resize-none outline-none text-xs"></textarea>
                     </div>
                 </div>
             `;
-
             container.innerHTML = html;
         }
 
@@ -351,7 +298,6 @@
             renderForm(e.target.value);
         });
 
-        // Load default form
         renderForm("015");
     </script>
 </body>
