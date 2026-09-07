@@ -25,19 +25,17 @@
             .no-print { display: none !important; }
             .a4-page { box-shadow: none; padding: 0; width: 100%; }
         }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased" x-data="inspectionApp()">
 
-    <!-- HEADER / SUPER FAST NAVIGATION BAR -->
+    <!-- HEADER BAR -->
     <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3.5 flex flex-wrap justify-between items-center border-b border-slate-800">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-xl font-bold shadow">⚡</div>
             <div>
-                <h1 class="text-base font-bold tracking-wide text-white">Digital Inspection (Easy Mode)</h1>
-                <p class="text-xs text-slate-400">ระบบใบตรวจสอบไฟฟ้า กฟน. ใช้งานง่าย บันทึกออโต้</p>
+                <h1 class="text-base font-bold tracking-wide text-white">Digital Inspection (Field Mode)</h1>
+                <p class="text-xs text-slate-400">ระบบใบตรวจสอบไฟฟ้า กฟน. ใช้งานง่าย ไม่ต้องเลื่อนหา</p>
             </div>
         </div>
         <div class="flex items-center space-x-3 text-sm mt-2 sm:mt-0">
@@ -50,30 +48,43 @@
         </div>
     </header>
 
-    <!-- HORIZONTAL SCROLLABLE FORM SELECTOR -->
-    <nav class="no-print bg-white border-b border-slate-200 shadow-sm px-6 py-3 sticky top-[69px] z-40">
-        <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap mr-2">เลือกใบงาน:</span>
-            <template x-for="form in formsList" :key="form.code">
-                <button @click="selectForm(form.code)" 
-                    :class="activeFormCode === form.code ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20 border-blue-600 scale-105' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'"
-                    class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 border flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full" :class="activeFormCode === form.code ? 'bg-white' : 'bg-blue-500'"></span>
-                    <span x-text="form.code + ' : ' + form.name"></span>
-                </button>
-            </template>
-        </div>
-    </nav>
+    <!-- MAIN CONTAINER -->
+    <main class="py-6 px-4 max-w-7xl mx-auto space-y-6">
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="py-6 px-4 max-w-7xl mx-auto">
+        <!-- FORM SELECTOR GRID (เปลี่ยนจากแถบเลื่อน เป็น Grid เลือกง่ายเห็นชัดเจน) -->
+        <div class="no-print bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">📋 เลือกประเภทใบตรวจสอบภาคสนาม</h2>
+                    <p class="text-xs text-slate-500">คลิกเลือกแบบฟอร์มที่ต้องการปฏิบัติงานด้านล่างนี้</p>
+                </div>
+                <div class="w-full sm:w-72">
+                    <input type="text" x-model="searchQuery" placeholder="🔍 ค้นหารหัส หรือ ชื่ออุปกรณ์..." class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-500 bg-slate-50">
+                </div>
+            </div>
+
+            <!-- Grid Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-64 overflow-y-auto p-1">
+                <template x-for="form in filteredForms" :key="form.code">
+                    <button @click="selectForm(form.code)" 
+                        :class="activeFormCode === form.code ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'"
+                        class="p-3 rounded-2xl text-left transition border flex flex-col justify-between gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-md" :class="activeFormCode === form.code ? 'bg-blue-500 text-white' : 'bg-slate-200 text-slate-600'" x-text="form.code"></span>
+                            <span class="text-xs">⚡</span>
+                        </div>
+                        <span class="text-xs font-semibold line-clamp-2" x-text="form.name"></span>
+                    </button>
+                </template>
+            </div>
+        </div>
 
         <!-- Welcome State -->
         <template x-if="!activeFormCode">
-            <div class="text-center py-24 space-y-4 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-2xl mx-auto p-10">
-                <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner">⚡</div>
-                <h2 class="text-2xl font-bold text-slate-900">เลือกประเภทใบตรวจสอบจากด้านบนได้เลยครับ</h2>
-                <p class="text-sm text-slate-500 max-w-md mx-auto">ระบบถูกออกแบบให้ใช้งานง่าย กรอกสะดวก มีปุ่มลัดติ๊กปกติทั้งหมด และบันทึกข้อมูลให้อัตโนมัติทันทีที่คุณพิมพ์</p>
+            <div class="text-center py-16 space-y-3 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-xl mx-auto p-8">
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto">👆</div>
+                <h3 class="text-xl font-bold text-slate-900">กรุณาเลือกใบงานด้านบนเพื่อเริ่มต้น</h3>
+                <p class="text-xs text-slate-500">ข้อมูลจะถูกบันทึกออโต้ทันที มีปุ่มลัดติ๊กปกติทั้งหมดเพื่อความรวดเร็ว</p>
             </div>
         </template>
 
@@ -81,7 +92,7 @@
         <template x-if="activeFormCode">
             <div class="space-y-6">
                 
-                <!-- Quick Control Toolbar (ตัวช่วยให้ทำงานเร็วขึ้น) -->
+                <!-- Quick Control Toolbar -->
                 <div class="max-w-[210mm] mx-auto bg-white p-4 rounded-2xl shadow-sm border border-slate-200 no-print flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div class="flex items-center gap-3 w-full sm:w-auto">
                         <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
@@ -118,33 +129,15 @@
 
                     <!-- Section 1: General Info -->
                     <div class="space-y-3">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">1. ข้อมูลทั่วไป (กรอกเฉพาะข้อมูลที่จำเป็น)</h3>
-                        
-                        <!-- Dynamic Inputs based on Form -->
-                        <template x-if="activeFormCode === 'SF-07-0-015'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl hover:bg-blue-500 transition">📍 ดึงพิกัด</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No.1</label><input type="text" x-model="formData.mea_no1" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ขนาด (kVA)</label><input type="text" x-model="formData.capacity" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อหม้อแปลง</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ลักษณะติดตั้ง</label><input type="text" x-model="formData.install_style" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                            </div>
-                        </template>
-
-                        <!-- Standard General Info for other forms -->
-                        <template x-if="activeFormCode !== 'SF-07-0-015'">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-1">Station ID / FIX ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">สถานที่ติดตั้ง</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl">📍 ดึงพิกัด</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">MEA No. / Equipment No.</label><input type="text" x-model="formData.mea_no" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้ออุปกรณ์ (Brand)</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                            </div>
-                        </template>
+                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-500 mb-1">Station ID / FIX ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
+                            <div><label class="block font-medium text-slate-500 mb-1">สถานที่ติดตั้ง</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
+                            <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl hover:bg-blue-500 transition">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-500 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                            <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ (Brand)</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                        </div>
                     </div>
 
                     <!-- Section 2: Checklist Table -->
@@ -189,7 +182,7 @@
                         </div>
                     </div>
 
-                    <!-- Section 3 & 4: Remarks & Rectification -->
+                    <!-- Section 3 & 4 -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="space-y-2">
                             <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">3. ข้อเสนอแนะ / ข้อมูลเพิ่มเติม</h3>
@@ -223,13 +216,14 @@
 
     </main>
 
-    <!-- AUTOMATED SCRIPT & APP STATE -->
+    <!-- SCRIPT -->
     <script>
         function inspectionApp() {
             return {
                 activeFormCode: '',
                 activeFormTitle: '',
-                autoSaveStatus: '✓ พร้อมบันทึกออโต้',
+                searchQuery: '',
+                autoSaveStatus: '✓ พร้อมใช้งาน',
                 currentDate: new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }),
                 
                 formsList: [
@@ -246,9 +240,13 @@
                     { code: 'SF-07-0-025', name: 'คายประจุไฟฟ้า (Acoustic Camera)' }
                 ],
 
+                get filteredForms() {
+                    if (!this.searchQuery) return this.formsList;
+                    return this.formsList.filter(f => f.code.toLowerCase().includes(this.searchQuery.toLowerCase()) || f.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+                },
+
                 formData: {
-                    station_id: '', location: '', latitude: '', longitude: '',
-                    mea_no1: '', mea_no: '', capacity: '', brand: '', install_style: '',
+                    station_id: '', location: '', latitude: '', longitude: '', mea_no: '', brand: '',
                     remarks: '', rectification: '', inspector_name: '', inspector_pos: '', verifier_name: '', verifier_pos: ''
                 },
 
@@ -322,17 +320,19 @@
                     this.activeFormCode = found.code;
                     this.activeFormTitle = found.name;
                     
-                    // โหลดข้อมูลเก่าจาก LocalStorage ถ้ามี
                     const savedData = localStorage.getItem('mea_form_' + code);
                     if (savedData) {
                         const parsed = JSON.parse(savedData);
                         this.formData = parsed.formData || {};
                         this.currentChecklistItems = parsed.items || [];
                     } else {
-                        this.formData = { station_id: '', location: '', latitude: '', longitude: '', mea_no1: '', mea_no: '', capacity: '', brand: '', install_style: '', remarks: '', rectification: '', inspector_name: '', inspector_pos: '', verifier_name: '', verifier_pos: '' };
+                        // โหลดข้อมูลชื่อผู้ตรวจล่าสุดจาก LocalStorage ถ้ามี
+                        const lastInspector = localStorage.getItem('mea_last_inspector') || '';
+                        const lastPos = localStorage.getItem('mea_last_pos') || '';
+                        
+                        this.formData = { station_id: '', location: '', latitude: '', longitude: '', mea_no: '', brand: '', remarks: '', rectification: '', inspector_name: lastInspector, inspector_pos: lastPos, verifier_name: '', verifier_pos: '' };
                         this.currentChecklistItems = JSON.parse(JSON.stringify(this.checklistDatabase[code] || []));
                     }
-                    window.scrollTo({ top: 120, behavior: 'smooth' });
                 },
 
                 saveToStorage() {
@@ -342,7 +342,12 @@
                         items: this.currentChecklistItems
                     };
                     localStorage.setItem('mea_form_' + this.activeFormCode, JSON.stringify(dataToSave));
-                    this.autoSaveStatus = '✓ บันทึกอัตโนมัติแล้ว';
+                    
+                    // บันทึกชื่อผู้ตรวจจำไว้ใช้รอบหน้า
+                    if (this.formData.inspector_name) localStorage.setItem('mea_last_inspector', this.formData.inspector_name);
+                    if (this.formData.inspector_pos) localStorage.setItem('mea_last_pos', this.formData.inspector_pos);
+
+                    this.autoSaveStatus = '✓ บันทึกออโต้แล้ว';
                     setTimeout(() => { this.autoSaveStatus = '✓ พร้อมใช้งาน'; }, 2000);
                 },
 
