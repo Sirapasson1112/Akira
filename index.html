@@ -24,7 +24,6 @@
         @media print {
             body { background: white; }
             .no-print { display: none !important; }
-            .print-only { display: block !important; }
             .a4-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
             @page { size: A4; margin: 10mm; }
         }
@@ -176,7 +175,7 @@
                 </div>
             </div>
 
-            <!-- ================= MENU 4: ฟอร์มเอกสารการบำรุงรักษา (เวลาพิมพ์จะพิมพ์แค่ส่วน A4 นี้เท่านั้น) ================= -->
+            <!-- ================= MENU 4: ฟอร์มเอกสารการบำรุงรักษา ================= -->
             <div x-show="currentMenu === 'forms'" class="space-y-5">
                 
                 <div class="no-print bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
@@ -219,7 +218,7 @@
                             </div>
                         </div>
 
-                        <!-- A4 Sheet (ส่วนที่จะถูกพิมพ์ออกทางกระดาษ A4 เท่านั้น) -->
+                        <!-- A4 Sheet -->
                         <div class="a4-page border border-slate-100 text-slate-800 text-sm space-y-5">
                             <div class="border-b border-slate-100 pb-4 flex justify-between items-start">
                                 <div>
@@ -281,17 +280,35 @@
                 </template>
             </div>
 
-            <!-- ================= MENU 5: นำทางเส้นทางตรวจ PM ================= -->
+            <!-- ================= MENU 5: นำทางเส้นทางตรวจ PM ภาคสนาม (Pro Navigation) ================= -->
             <div x-show="currentMenu === 'field_nav'" class="space-y-6">
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-1">
-                    <h2 class="text-base font-bold text-slate-800">🧭 นำทางเส้นทางตรวจ PM ภาคสนาม (Field Navigation)</h2>
-                    <p class="text-xs text-slate-400">ระบบเชื่อมต่อพิกัด GPS อุปกรณ์หน้างานเพื่อนำทางทีมปฏิบัติการ</p>
+                    <h2 class="text-base font-bold text-slate-800">🧭 นำทางเส้นทางตรวจ PM ภาคสนาม (Field Navigation Pro)</h2>
+                    <p class="text-xs text-slate-400">ระบบนำทางอัจฉริยะเชื่อมต่อพิกัด GPS อุปกรณ์ในแผน PM เปิด Google Maps และเช็คอินหน้างาน</p>
                 </div>
-                <div class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm text-center space-y-4">
-                    <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">🛰️</div>
-                    <h3 class="text-sm font-bold text-slate-800">เปิดระบบนำทาง GPS ภาคสนาม</h3>
-                    <p class="text-xs text-slate-400 max-w-md mx-auto">ระบบจะดึงพิกัดจากฐานข้อมูลอุปกรณ์ในแผน PM เพื่อเปิดลิงก์แผนที่นำทางอัตโนมัติ</p>
-                    <button @click="getGPS()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-2xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition">📍 เปิดแผนที่นำทางไปยังจุดตรวจถัดไป</button>
+
+                <!-- Interactive Field Navigation List -->
+                <div class="grid grid-cols-1 gap-4">
+                    <template x-for="(plan, index) in pmPlans" :key="index">
+                        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition hover:shadow-md">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-600" x-text="plan.formCode"></span>
+                                    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full" :class="plan.priority === 'High' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'" x-text="plan.priority + ' Priority'"></span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-800" x-text="'สถานี: ' + (plan.stationId || 'N/A') + ' - ' + plan.location"></h3>
+                                <p class="text-xs text-slate-400">พิกัด GPS: 13.652100, 100.621400 (จำลอง)</p>
+                            </div>
+                            <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                                <a :href="'https://www.google.com/maps/search/?api=1&query=13.652100,100.621400'" target="_blank" class="flex-1 sm:flex-none bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-4 py-2 rounded-2xl text-xs font-bold transition text-center flex items-center justify-center gap-1.5">
+                                    🗺️ เปิด Google Maps
+                                </a>
+                                <button @click="currentMenu = 'forms'; selectForm(plan.formCode);" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-md shadow-indigo-600/20 transition">
+                                    📝 เปิดใบตรวจ
+                                </button>
+                            </div>
+                        </div>
+                    </template>
                 </div>
             </div>
 
