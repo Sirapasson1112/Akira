@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEA - Digital Inspection & PM Cost Management System</title>
+    <title>MEA - Smart Maintenance & Inspection System</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js CDN -->
@@ -29,246 +29,78 @@
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased" x-data="inspectionApp()">
 
-    <!-- HEADER BAR WITH "ใบตรวจสอบทั้งหมด" BUTTON AT TOP -->
-    <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3 flex flex-wrap justify-between items-center border-b border-slate-800">
+    <!-- TOP HEADER BAR -->
+    <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3 flex justify-between items-center border-b border-slate-800">
         <div class="flex items-center space-x-3">
             <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-sm font-bold shadow">⚡</div>
             <div>
-                <h1 class="text-sm font-bold tracking-wide text-white">MEA Maintenance System</h1>
-                <p class="text-[11px] text-slate-400">ระบบใบตรวจสอบไฟฟ้า และการจัดการแผน PM & ต้นทุน</p>
+                <h1 class="text-sm font-bold tracking-wide text-white">MEA Smart Maintenance System</h1>
+                <p class="text-[11px] text-slate-400">ระบบบริหารจัดการงานบำรุงรักษาและตรวจสอบอุปกรณ์ไฟฟ้า กฟน.</p>
             </div>
         </div>
-        <div class="flex items-center space-x-2 text-sm mt-1 sm:mt-0">
-            <!-- ปุ่ม "ใบตรวจสอบทั้งหมด" อยู่ด้านบนสุด -->
-            <button @click="currentTab = 'forms'" :class="currentTab === 'forms' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-                📋 ใบตรวจสอบทั้งหมด
-            </button>
-            <button @click="currentTab = 'pm_plan'" :class="currentTab === 'pm_plan' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
-                📊 แผน PM & ต้นทุน
-            </button>
-        </div>
+        <div class="text-xs text-emerald-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700" x-text="autoSaveStatus"></div>
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <main class="py-4 px-4 max-w-7xl mx-auto space-y-4">
-
-        <!-- ================= TAB 1: FORM INSPECTION (ใบตรวจสอบทั้งหมด) ================= -->
-        <div x-show="currentTab === 'forms'" class="space-y-4">
+    <!-- LAYOUT CONTAINER WITH SIDEBAR -->
+    <div class="flex min-h-[calc(100vh-57px)]">
+        
+        <!-- SIDEBAR MENU (แท็บเมนูด้านซ้าย) -->
+        <aside class="no-print w-72 bg-slate-900 text-slate-300 border-r border-slate-800 flex flex-col p-4 space-y-2 shrink-0">
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-1">เมนูหลัก (Main Menu)</div>
             
-            <!-- Form Selector Grid -->
-            <div class="no-print bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <button @click="currentMenu = 'pm_table'" :class="currentMenu === 'pm_table' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800 text-slate-300'" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition flex items-center gap-2.5">
+                <span>📊</span> ตารางวางแผน PM อุปกรณ์ไฟฟ้า
+            </button>
+            <button @click="currentMenu = 'outage_stats'" :class="currentMenu === 'outage_stats' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800 text-slate-300'" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition flex items-center gap-2.5">
+                <span>📉</span> สถิติไฟฟ้าดับรายสายป้อน
+            </button>
+            <button @click="currentMenu = 'pm_route_plan'" :class="currentMenu === 'pm_route_plan' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800 text-slate-300'" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition flex items-center gap-2.5">
+                <span>🗺️</span> วางแผนเส้นทางตรวจอุปกรณ์
+            </button>
+            <button @click="currentMenu = 'forms'" :class="currentMenu === 'forms' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800 text-slate-300'" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition flex items-center gap-2.5">
+                <span>📋</span> ฟอร์มเอกสารการบำรุงรักษาอุปกรณ์ไฟฟ้า
+            </button>
+            <button @click="currentMenu = 'field_nav'" :class="currentMenu === 'field_nav' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800 text-slate-300'" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition flex items-center gap-2.5">
+                <span>🧭</span> นำทางเส้นทางตรวจ PM ภาคสนาม
+            </button>
+            <button @click="currentMenu = 'wo_analysis'" :class="currentMenu === 'wo_analysis' ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-slate-800 text-slate-300'" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition flex items-center gap-2.5">
+                <span>🔍</span> วิเคราะห์ความผิดปกติของ Work Order
+            </button>
+        </aside>
+
+        <!-- CONTENT AREA -->
+        <main class="flex-1 p-6 max-w-6xl mx-auto space-y-6">
+
+            <!-- ================= MENU 1: ตารางวางแผน PM อุปกรณ์ไฟฟ้า ================= -->
+            <div x-show="currentMenu === 'pm_table'" class="space-y-6">
+                <div class="flex justify-between items-center bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
-                        <h2 class="text-sm font-bold text-slate-900">📋 เลือกประเภทใบตรวจสอบภาคสนาม (11 แบบฟอร์มมาตรฐาน)</h2>
+                        <h2 class="text-base font-bold text-slate-900">📊 ตารางวางแผน PM อุปกรณ์ไฟฟ้า</h2>
+                        <p class="text-xs text-slate-500">จัดการรอบเวลา งบประมาณ และสถานะการบำรุงรักษาอุปกรณ์เครือข่ายไฟฟ้า</p>
                     </div>
-                    <div class="w-full sm:w-64">
-                        <input type="text" x-model="searchQuery" placeholder="🔍 ค้นหารหัส หรือ ชื่ออุปกรณ์..." class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs outline-none focus:border-blue-500 bg-slate-50">
-                    </div>
+                    <button @click="addNewPmPlan()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow transition">+ เพิ่มแผน PM</button>
                 </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1">
-                    <template x-for="form in filteredForms" :key="form.code">
-                        <button @click="selectForm(form.code)" 
-                            :class="activeFormCode === form.code ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'"
-                            class="p-2 rounded-xl text-left transition border flex flex-col justify-between gap-1">
-                            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded w-max" :class="activeFormCode === form.code ? 'bg-blue-500 text-white' : 'bg-slate-200 text-slate-600'" x-text="form.code"></span>
-                            <span class="text-[11px] font-semibold line-clamp-1" x-text="form.name"></span>
-                        </button>
-                    </template>
-                </div>
-            </div>
-
-            <!-- Welcome State -->
-            <template x-if="!activeFormCode">
-                <div class="text-center py-16 space-y-2 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md mx-auto p-8">
-                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl mx-auto">👆</div>
-                    <h3 class="text-sm font-bold text-slate-900">กรุณาเลือกใบงานด้านบนเพื่อเริ่มต้นกรอกข้อมูล</h3>
-                    <p class="text-[11px] text-slate-500">ข้อมูลรายละเอียดครบถ้วนทุกข้อตามต้นฉบับ กฟน. บันทึกออโต้ทันที</p>
-                </div>
-            </template>
-
-            <!-- Active Form Layout -->
-            <template x-if="activeFormCode">
-                <div class="space-y-4">
-                    
-                    <!-- Quick Control Toolbar -->
-                    <div class="max-w-[210mm] mx-auto bg-white p-3 rounded-xl shadow-sm border border-slate-200 no-print flex flex-col sm:flex-row justify-between items-center gap-3">
-                        <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                                ✅ ติ๊ก "ปกติ" ทั้งหมด
-                            </button>
-                            <button @click="resetForm()" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
-                                🔄 ล้างข้อมูล
-                            </button>
-                        </div>
-                        <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-                            <div class="text-xs font-semibold text-slate-600">
-                                ตรวจแล้ว: <span class="text-blue-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> (<span x-text="progressPercentage"></span>%)
-                            </div>
-                            <button @click="validateAndSaveToPM()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-lg font-bold text-xs transition shadow-sm">
-                                💾 บันทึก & ส่งเข้าแผน PM
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- A4 Form Sheet -->
-                    <div class="a4-page rounded-xl border border-slate-200 text-slate-900 text-sm space-y-4">
-                        
-                        <!-- Header -->
-                        <div class="border-b border-slate-200 pb-3 flex justify-between items-start">
-                            <div>
-                                <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-100" x-text="activeFormCode"></span>
-                                <h2 class="text-base font-bold text-slate-900 mt-1.5" x-text="activeFormTitle"></h2>
-                                <p class="text-[11px] text-slate-400">การไฟฟ้านครหลวง (MEA) • ระบบบันทึกข้อมูลภาคสนามดิจิทัล</p>
-                            </div>
-                            <div class="text-right text-xs text-slate-500 font-medium">
-                                วันที่: <span class="text-slate-900 font-semibold" x-text="currentDate"></span>
-                            </div>
-                        </div>
-
-                        <!-- Section 1: General Info -->
-                        <div class="space-y-2">
-                            <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 text-xs">
-                                <div><label class="block font-medium text-slate-500 mb-0.5">Station ID / FIX ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-lg p-1.5 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-0.5">สถานที่ติดตั้ง</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-lg p-1.5 outline-none bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-0.5">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50" readonly></div>
-                                <div><label class="block font-medium text-slate-500 mb-0.5">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded-lg">📍</button></div></div>
-                                <div><label class="block font-medium text-slate-500 mb-0.5">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50/50"></div>
-                                <div><label class="block font-medium text-slate-500 mb-0.5">ยี่ห้ออุปกรณ์</label><input type="text" x-model="formData.brand" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50/50"></div>
-                            </div>
-                        </div>
-
-                        <!-- Section 2: Checklist Table -->
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500">2. รายการตรวจสอบบำรุงรักษา (ครบถ้วนทุกรายการตามต้นฉบับ)</h3>
-                            </div>
-                            <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
-                                <table class="w-full text-left border-collapse text-xs">
-                                    <thead>
-                                        <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-600">
-                                            <th class="p-2 w-12 text-center font-semibold">ลำดับ</th>
-                                            <th class="p-2 font-semibold">รายการตรวจสอบ</th>
-                                            <th class="p-2 w-16 text-center font-semibold text-emerald-600">ปกติ</th>
-                                            <th class="p-2 w-16 text-center font-semibold text-rose-600">ชำรุด</th>
-                                            <th class="p-2 w-16 text-center font-semibold text-slate-500">ไม่มี</th>
-                                            <th class="p-2 w-48 font-semibold">ข้อบกพร่อง / การดำเนินการ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-slate-100">
-                                        <template x-for="(item, index) in currentChecklistItems" :key="item.id">
-                                            <tr class="hover:bg-blue-50/30 transition">
-                                                <td class="p-2 text-center font-bold text-slate-500" x-text="item.no"></td>
-                                                <td class="p-2 font-medium text-slate-800" x-text="item.name"></td>
-                                                <td class="p-2 text-center"><input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" class="w-3.5 h-3.5 text-emerald-600 cursor-pointer"></td>
-                                                <td class="p-2 text-center"><input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" class="w-3.5 h-3.5 text-rose-600 cursor-pointer"></td>
-                                                <td class="p-2 text-center"><input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" class="w-3.5 h-3.5 text-slate-400 cursor-pointer"></td>
-                                                <td class="p-2"><input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง" class="w-full border border-slate-200 rounded-lg p-1.5 text-xs outline-none bg-slate-50/30"></td>
-                                            </tr>
-                                        </template>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Section 3 & 4 -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div class="space-y-1.5">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">3. ข้อเสนอแนะ / ข้อมูลเพิ่มเติม</h3>
-                                <textarea x-model="formData.remarks" rows="2" class="w-full border border-slate-200 rounded-xl p-2.5 text-xs outline-none bg-slate-50/30" placeholder="ระบุรายละเอียด..."></textarea>
-                            </div>
-                            <div class="space-y-1.5">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">4. การปรับปรุงข้อบกพร่อง</h3>
-                                <textarea x-model="formData.rectification" rows="2" class="w-full border border-slate-200 rounded-xl p-2.5 text-xs outline-none bg-slate-50/30" placeholder="ระบุการแก้ไข..."></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </template>
-        </div>
-
-
-        <!-- ================= TAB 2: PM PLAN & COST MANAGEMENT ================= -->
-        <div x-show="currentTab === 'pm_plan'" class="space-y-6">
-            
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-400">งาน PM ทั้งหมดในระบบ</p>
-                        <h3 class="text-2xl font-bold text-slate-900 mt-1" x-text="pmPlans.length + ' งาน'"></h3>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl font-bold">📋</div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-400">งานเร่งด่วน (High Priority)</p>
-                        <h3 class="text-2xl font-bold text-rose-600 mt-1" x-text="pmPlans.filter(p => p.priority === 'High').length + ' งาน'"></h3>
-                    </div>
-                    <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl font-bold">🚨</div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-400">งบประมาณต้นทุนรวม (Cost)</p>
-                        <h3 class="text-2xl font-bold text-emerald-600 mt-1" x-text="totalPmCost.toLocaleString() + ' ฿'"></h3>
-                    </div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl font-bold">💰</div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div>
-                        <h3 class="text-base font-bold text-slate-900">📊 ตารางแผนงานบำรุงรักษาเชิงป้องกัน (PM Schedule & Cost Tracking)</h3>
-                        <p class="text-xs text-slate-500">จัดการลำดับความสำคัญและควบคุมงบประมาณค่าใช้จ่ายรายชิ้นอุปกรณ์</p>
-                    </div>
-                    <button @click="addNewPmPlan()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow transition">
-                        + เพิ่มแผนงาน PM ใหม่
-                    </button>
-                </div>
-
-                <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs">
                         <thead>
                             <tr class="bg-slate-50 border-b border-slate-200 text-slate-600">
-                                <th class="p-3">รหัส / อุปกรณ์</th>
+                                <th class="p-3">รหัสอุปกรณ์</th>
                                 <th class="p-3">Station ID / สถานที่</th>
-                                <th class="p-3">⭐ ลำดับความสำคัญ</th>
-                                <th class="p-3">💰 ต้นทุน PM (บาท)</th>
-                                <th class="p-3">สถานะงาน</th>
+                                <th class="p-3">ความสำคัญ</th>
+                                <th class="p-3">งบประมาณ (บาท)</th>
+                                <th class="p-3">สถานะ</th>
                                 <th class="p-3 text-center">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                             <template x-for="(plan, index) in pmPlans" :key="index">
-                                <tr class="hover:bg-slate-50/50">
+                                <tr class="hover:bg-slate-50">
                                     <td class="p-3 font-semibold text-blue-600" x-text="plan.formCode"></td>
-                                    <td class="p-3">
-                                        <div class="font-medium text-slate-900" x-text="plan.stationId || 'ไม่ระบุ Station'"></div>
-                                        <div class="text-[11px] text-slate-400" x-text="plan.location || '-' "></div>
-                                    </td>
-                                    <td class="p-3">
-                                        <select x-model="plan.priority" @change="savePmPlans()" class="border border-slate-200 rounded-lg p-1 font-semibold text-xs" :class="plan.priority === 'High' ? 'text-rose-600 bg-rose-50' : (plan.priority === 'Medium' ? 'text-amber-600 bg-amber-50' : 'text-emerald-600 bg-emerald-50')">
-                                            <option value="High">🔴 สูง (High)</option>
-                                            <option value="Medium">🟡 ปานกลาง (Medium)</option>
-                                            <option value="Low">🟢 ปกติ (Low)</option>
-                                        </select>
-                                    </td>
-                                    <td class="p-3">
-                                        <input type="number" x-model="plan.cost" @input="savePmPlans()" class="border border-slate-200 rounded-lg p-1 w-28 text-xs font-semibold text-slate-700 bg-slate-50" placeholder="0.00"> ฿
-                                    </td>
-                                    <td class="p-3">
-                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold" :class="plan.status === 'Completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'" x-text="plan.status === 'Completed' ? 'เสร็จสิ้น' : 'รอดำเนินการ'"></span>
-                                    </td>
-                                    <td class="p-3 text-center">
-                                        <button @click="deletePmPlan(index)" class="text-rose-500 hover:text-rose-700 font-semibold text-xs px-2 py-1 bg-rose-50 rounded-lg">ลบ</button>
-                                    </td>
-                                </tr>
-                            </template>
-                            <template x-if="pmPlans.length === 0">
-                                <tr>
-                                    <td colspan="6" class="text-center py-8 text-slate-400 text-xs">ยังไม่มีข้อมูลแผนงาน PM</td>
+                                    <td class="p-3" x-text="plan.stationId + ' (' + plan.location + ')'"></td>
+                                    <td class="p-3 font-semibold" :class="plan.priority === 'High' ? 'text-rose-600' : 'text-amber-600'" x-text="plan.priority"></td>
+                                    <td class="p-3 font-semibold text-emerald-600" x-text="Number(plan.cost).toLocaleString() + ' ฿'"></td>
+                                    <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700" x-text="plan.status"></span></td>
+                                    <td class="p-3 text-center"><button @click="deletePmPlan(index)" class="text-rose-500 hover:text-rose-700 font-semibold">ลบ</button></td>
                                 </tr>
                             </template>
                         </tbody>
@@ -276,15 +108,194 @@
                 </div>
             </div>
 
-        </div>
+            <!-- ================= MENU 2: สถิติไฟฟ้าดับรายสายป้อน ================= -->
+            <div x-show="currentMenu === 'outage_stats'" class="space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h2 class="text-base font-bold text-slate-900">📉 สถิติไฟฟ้าดับรายสายป้อน (Feeder Outage Statistics)</h2>
+                    <p class="text-xs text-slate-500">วิเคราะห์ความถี่และสาเหตุไฟฟ้าดับเพื่อนำมาวางแผนจัดลำดับความสำคัญของงาน PM</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-xs text-slate-400">สายป้อนเกิดเหตุดับสูงสุด</p>
+                        <h3 class="text-lg font-bold text-rose-600 mt-1">FEEDER SKN-01</h3>
+                        <p class="text-[11px] text-slate-500 mt-2">สถิติ: 12 ครั้ง / ไตรมาสนี้</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-xs text-slate-400">สาเหตุหลักอุปกรณ์ชำรุด</p>
+                        <h3 class="text-lg font-bold text-amber-600 mt-1">ลูกถ้วยเสื่อมสภาพ / LBS</h3>
+                        <p class="text-[11px] text-slate-500 mt-2">สัดส่วน: 45% ของเหตุทั้งหมด</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-xs text-slate-400">ดัชนีความเชื่อถือได้ (SAIDI)</p>
+                        <h3 class="text-lg font-bold text-emerald-600 mt-1">18.4 นาที/ราย</h3>
+                        <p class="text-[11px] text-slate-500 mt-2">อยู่ในเกณฑ์มาตรฐาน กฟน.</p>
+                    </div>
+                </div>
+            </div>
 
-    </main>
+            <!-- ================= MENU 3: วางแผนเส้นทางตรวจอุปกรณ์ ================= -->
+            <div x-show="currentMenu === 'pm_route_plan'" class="space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h2 class="text-base font-bold text-slate-900">🗺️ วางแผนเส้นทางตรวจอุปกรณ์ (PM Route Optimization)</h2>
+                    <p class="text-xs text-slate-500">จัดลำดับจุดตรวจสอบภาคสนามรายวันเพื่อลดระยะเวลาการเดินทางของทีมงาน</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 bg-slate-50 p-3 rounded-xl">
+                        <span>📌 เส้นทางแนะนำประจำวัน: โซนสมุทรปราการเขตเหนือ (5 จุดตรวจสอบ)</span>
+                        <span class="text-blue-600">ระยะทางรวม: 34.5 กม.</span>
+                    </div>
+                    <ul class="space-y-2 text-xs">
+                        <li class="p-3 border border-slate-200 rounded-xl flex justify-between items-center bg-slate-50/50">
+                            <span>1. สถานีไฟฟ้าย่อยบางนา (Station ID: STA-001) - หม้อแปลงจำหน่าย[cite: 1]</span>
+                            <span class="text-emerald-600 font-bold">จุดเริ่มต้อน (08:30 น.)</span>
+                        </li>
+                        <li class="p-3 border border-slate-200 rounded-xl flex justify-between items-center bg-slate-50/50">
+                            <span>2. จุดตัดถนนศรีนครินทร์ (Station ID: LBS-042) - Load Break Switch[cite: 2]</span>
+                            <span class="text-slate-500">ระยะห่าง 5.2 กม.</span>
+                        </li>
+                        <li class="p-3 border border-slate-200 rounded-xl flex justify-between items-center bg-slate-50/50">
+                            <span>3. นิคมอุตสาหกรรมบางปู (Station ID: RMU-112) - Ring Main Unit[cite: 4]</span>
+                            <span class="text-slate-500">ระยะห่าง 12.1 กม.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ================= MENU 4: ฟอร์มเอกสารการบำรุงรักษา (11 ใบงานต้นฉบับ) ================= -->
+            <div x-show="currentMenu === 'forms'" class="space-y-4">
+                
+                <!-- Selector Grid -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-2">
+                        <h2 class="text-sm font-bold text-slate-900">📋 เลือกฟอร์มเอกสารการบำรุงรักษาอุปกรณ์ไฟฟ้า (11 แบบฟอร์ม กฟน.)</h2>
+                        <input type="text" x-model="searchQuery" placeholder="🔍 ค้นหารหัส หรือ ชื่อ..." class="border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs outline-none bg-slate-50 w-64">
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1">
+                        <template x-for="form in filteredForms" :key="form.code">
+                            <button @click="selectForm(form.code)" :class="activeFormCode === form.code ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'" class="p-2 rounded-xl text-left transition border flex flex-col justify-between gap-1">
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded w-max" :class="activeFormCode === form.code ? 'bg-blue-500 text-white' : 'bg-slate-200 text-slate-600'" x-text="form.code"></span>
+                                <span class="text-[11px] font-semibold line-clamp-1" x-text="form.name"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <template x-if="!activeFormCode">
+                    <div class="text-center py-16 space-y-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl mx-auto">👆</div>
+                        <h3 class="text-sm font-bold text-slate-900">กรุณาเลือกฟอร์มเอกสารด้านบนเพื่อเริ่มต้นกรอกข้อมูล</h3>
+                    </div>
+                </template>
+
+                <template x-if="activeFormCode">
+                    <div class="space-y-4">
+                        <div class="max-w-[210mm] mx-auto bg-white p-3 rounded-xl shadow-sm border border-slate-200 no-print flex justify-between items-center">
+                            <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold transition">✅ ติ๊ก "ปกติ" ทั้งหมด</button>
+                            <div class="text-xs font-semibold text-slate-600">ตรวจแล้ว: <span class="text-blue-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> (<span x-text="progressPercentage"></span>%)</div>
+                            <button @click="validateAndSaveToPM()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-lg font-bold text-xs transition shadow-sm">💾 บันทึกส่งเข้าแผน PM</button>
+                        </div>
+
+                        <!-- A4 Sheet -->
+                        <div class="a4-page rounded-xl border border-slate-200 text-slate-900 text-sm space-y-4">
+                            <div class="border-b border-slate-200 pb-3 flex justify-between items-start">
+                                <div>
+                                    <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-100" x-text="activeFormCode"></span>
+                                    <h2 class="text-base font-bold text-slate-900 mt-1.5" x-text="activeFormTitle"></h2>
+                                    <p class="text-[11px] text-slate-400">การไฟฟ้านครหลวง (MEA) • ระบบบันทึกข้อมูลภาคสนามดิจิทัล</p>
+                                </div>
+                                <div class="text-right text-xs text-slate-500 font-medium">วันที่: <span class="text-slate-900 font-semibold" x-text="currentDate"></span></div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 text-xs">
+                                    <div><label class="block font-medium text-slate-500 mb-0.5">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50/50"></div>
+                                    <div><label class="block font-medium text-slate-500 mb-0.5">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50/50"></div>
+                                    <div><label class="block font-medium text-slate-500 mb-0.5">Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50" readonly></div>
+                                    <div><label class="block font-medium text-slate-500 mb-0.5">Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded-lg">📍</button></div></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">2. รายการตรวจสอบบำรุงรักษา (ครบถ้วนทุกรายการ)</h3>
+                                <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                                    <table class="w-full text-left border-collapse text-xs">
+                                        <thead>
+                                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                                                <th class="p-2 w-12 text-center">ลำดับ</th>
+                                                <th class="p-2">รายการตรวจสอบ</th>
+                                                <th class="p-2 w-16 text-center text-emerald-600">ปกติ</th>
+                                                <th class="p-2 w-16 text-center text-rose-600">ชำรุด</th>
+                                                <th class="p-2 w-16 text-center text-slate-500">ไม่มี</th>
+                                                <th class="p-2 w-48">ข้อบกพร่อง / การดำเนินการ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100">
+                                            <template x-for="(item, index) in currentChecklistItems" :key="item.id">
+                                                <tr class="hover:bg-blue-50/30">
+                                                    <td class="p-2 text-center font-bold text-slate-500" x-text="item.no"></td>
+                                                    <td class="p-2 font-medium text-slate-800" x-text="item.name"></td>
+                                                    <td class="p-2 text-center"><input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" class="w-3.5 h-3.5 text-emerald-600 cursor-pointer"></td>
+                                                    <td class="p-2 text-center"><input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" class="w-3.5 h-3.5 text-rose-600 cursor-pointer"></td>
+                                                    <td class="p-2 text-center"><input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" class="w-3.5 h-3.5 text-slate-400 cursor-pointer"></td>
+                                                    <td class="p-2"><input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง" class="w-full border border-slate-200 rounded-lg p-1.5 text-xs bg-slate-50/30"></td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- ================= MENU 5: นำทางเส้นทางตรวจ PM ภาคสนาม ================= -->
+            <div x-show="currentMenu === 'field_nav'" class="space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h2 class="text-base font-bold text-slate-900">🧭 นำทางเส้นทางตรวจ PM ภาคสนาม (Field Navigation)</h2>
+                    <p class="text-xs text-slate-500">ระบบเชื่อมต่อพิกัด GPS อุปกรณ์หน้างานเพื่อนำทางทีมปฏิบัติการภาคสนาม</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center space-y-3">
+                    <div class="text-4xl">🛰️</div>
+                    <h3 class="text-sm font-bold text-slate-900">เปิดระบบนำทาง GPS ภาคสนาม</h3>
+                    <p class="text-xs text-slate-500 max-w-md mx-auto">ระบบจะดึงพิกัด Latitude / Longitude จากฐานข้อมูลอุปกรณ์ในแผน PM เพื่อเปิดลิงก์นำทางผ่านแผนที่</p>
+                    <button @click="getGPS()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-semibold shadow transition">📍 เปิดแผนที่นำทางไปยังจุดตรวจถัดไป</button>
+                </div>
+            </div>
+
+            <!-- ================= MENU 6: วิเคราะห์ความผิดปกติของ Work Order ================= -->
+            <div x-show="currentMenu === 'wo_analysis'" class="space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <h2 class="text-base font-bold text-slate-900">🔍 วิเคราะห์ความผิดปกติของ Work Order</h2>
+                    <p class="text-xs text-slate-500">ตรวจสอบความล่าช้าและการซ่อมแซมซ้ำซ้อนของใบสั่งงาน (Work Order Anomalies)</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <h3 class="text-xs font-bold text-rose-600 uppercase">🚨 Work Order ค้างดำเนินการเกิน 30 วัน</h3>
+                        <div class="p-3 bg-rose-50 border border-rose-100 rounded-xl text-xs space-y-1">
+                            <div class="font-semibold text-slate-900">WO-2026-8891 : เปลี่ยน Bushing RMU[cite: 4]</div>
+                            <div class="text-slate-500">สถานี: STA-09 (รอดำเนินการจัดซื้ออะไหล่)</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <h3 class="text-xs font-bold text-amber-600 uppercase">⚠️ อุปกรณ์ซ่อมซ้ำซ้อน (Recurring Defects)</h3>
+                        <div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-xs space-y-1">
+                            <div class="font-semibold text-slate-900">หม้อแปลงจำหน่าย Station ID: TR-102[cite: 1]</div>
+                            <div class="text-slate-500">พบปัญหา LV Ground ซ้ำซ้อน 3 รอบในรอบปี</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
 
     <!-- SCRIPT -->
     <script>
         function inspectionApp() {
             return {
-                currentTab: 'forms',
+                currentMenu: 'pm_table',
                 activeFormCode: '',
                 activeFormTitle: '',
                 searchQuery: '',
@@ -310,14 +321,13 @@
                     return this.formsList.filter(f => f.code.toLowerCase().includes(this.searchQuery.toLowerCase()) || f.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
                 },
 
-                formData: { station_id: '', location: '', latitude: '', longitude: '', mea_no: '', brand: '', remarks: '', rectification: '' },
+                formData: { station_id: '', location: '', latitude: '', longitude: '', mea_no: '', brand: '' },
                 currentChecklistItems: [],
                 pmPlans: JSON.parse(localStorage.getItem('mea_pm_plans')) || [
                     { formCode: 'SF-07-0-015', stationId: 'STA-001', location: 'สถานีฟีดเดอร์ A', priority: 'High', cost: 15000, status: 'Pending' },
                     { formCode: 'SF-07-0-018', stationId: 'RMU-089', location: 'ย่านธุรกิจใจกลางเมือง', priority: 'Medium', cost: 8500, status: 'Completed' }
                 ],
 
-                // ฐานข้อมูลรายการตรวจสอบครบถ้วนทุกข้อตามเอกสาร PDF ต้นฉบับทั้ง 11 แบบฟอร์ม
                 checklistDatabase: {
                     'SF-07-0-015': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
@@ -340,155 +350,17 @@
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
                         { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
                         { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'Drop Fuse ลง VT', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'สายควบคุม LBS', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'อุปกรณ์ป้องกันสัตว์ Control/FRTU/Ground', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'Ground HV (L/A, LBS)', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'Ground LV (ดู Control)', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'ทดสอบ ปลด/สับ ทาง Remote', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'ทดสอบ ปลด/สับ ทาง Local', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'แรงดันไฟฟ้าเลี้ยงอุปกรณ์ (ทดสอบ ATS)', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'การทดสอบ ATS', result: '', defect: '' }
+                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' }
                     ],
-                    'SF-07-0-017': [
-                        { id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'สายควบคุม SZ', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'อุปกรณ์ป้องกันสัตว์ Control/Ground', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'Ground HV (L/A, SZ)', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'Ground LV (ตู้ Control)', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'ทดลอง ปลด/สับ ทาง Local', result: '', defect: '' }
-                    ],
-                    'SF-07-0-018': [
-                        { id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'ตู้ครอบ RMU: ประตู', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'ตู้ครอบ RMU: ฐานตู้', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU / ห้อง', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิทซ์', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด-สับ', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่หรือ UPS', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่นๆ', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'ทดสอบการปลดสับ: ด้วย REMOTE', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'ทดสอบการปลดสับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'ทดสอบการปลดสับ: ด้วยคันสับ', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' }
-                    ],
-                    'SF-07-0-019': [
-                        { id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'ตู้ครอบ Encloser: ประตู', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'ตู้ครอบ Encloser: ฐานตู้ / นั่งร้าน', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิตช์', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด - สับ', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่ หรือ UPS', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่น ๆ', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'ทดสอบการปลด-สับ: ด้วย REMOTE', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'ทดสอบการปลด-สับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'ทดสอบการปลด-สับ: ด้วยคันสับ', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
-                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' },
-                        { id: 20, no: '2.20', name: 'หม้อแปลง: ตัวถังหม้อแปลง', result: '', defect: '' },
-                        { id: 21, no: '2.21', name: 'หม้อแปลง: Bushing HV-LV', result: '', defect: '' },
-                        { id: 22, no: '2.22', name: 'หม้อแปลง: สายหน้าหม้อแปลง HV - LV', result: '', defect: '' },
-                        { id: 23, no: '2.23', name: 'หม้อแปลง: LV Ground', result: '', defect: '' },
-                        { id: 24, no: '2.24', name: 'หม้อแปลง: HV Ground', result: '', defect: '' },
-                        { id: 25, no: '2.25', name: 'อุปกรณ์ด้านแรงต่ำ: สภาพทั่วไป CB หรือ FUSE', result: '', defect: '' },
-                        { id: 26, no: '2.26', name: 'อุปกรณ์ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' },
-                        { id: 27, no: '2.27', name: 'อุปกรณ์ด้านแรงต่ำ: บัสบาร์', result: '', defect: '' },
-                        { id: 28, no: '2.28', name: 'อุปกรณ์ด้านแรงต่ำ: เครื่องวัดไฟฟ้า', result: '', defect: '' },
-                        { id: 29, no: '2.29', name: 'อุปกรณ์ด้านแรงต่ำ: CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
-                    ],
-                    'SF-07-0-020': [
-                        { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'Cover (Bushing, L/A)', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'HV Ground', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'Supply', result: '', defect: '' },
-                        { id: 11, no: '2.11', name: 'Fuse Control ภายในตู้', result: '', defect: '' },
-                        { id: 12, no: '2.12', name: 'หลอดไฟแสดงสถานะในตู้', result: '', defect: '' },
-                        { id: 13, no: '2.13', name: 'หน้าจอ Digital Control', result: '', defect: '' },
-                        { id: 14, no: '2.14', name: 'เสียงนาฬิกาเดิน', result: '', defect: '' },
-                        { id: 15, no: '2.15', name: 'อุปกรณ์ทั่วไปภายในตู้', result: '', defect: '' },
-                        { id: 16, no: '2.16', name: 'คาปาซิเตอร์เซลล์: ตัวถังคาปาซิเตอร์', result: '', defect: '' },
-                        { id: 17, no: '2.17', name: 'คาปาซิเตอร์เซลล์: Bushing', result: '', defect: '' },
-                        { id: 18, no: '2.18', name: 'คาปาซิเตอร์เซลล์: Fuse ภายใน', result: '', defect: '' },
-                        { id: 19, no: '2.19', name: 'คาปาซิเตอร์เซลล์: ค่าคาปาซิแตนท์ที่วัดได้', result: '', defect: '' }
-                    ],
-                    'SF-07-0-021': [
-                        { id: 1, no: '1.1', name: 'สภาพภายนอก: สถานะ MV.SW. (CLOSE)', result: '', defect: '' },
-                        { id: 2, no: '1.2', name: 'สภาพภายนอก: สถานะ NP (CLOSE)', result: '', defect: '' },
-                        { id: 3, no: '1.3', name: 'สภาพภายนอก: เบอร์ตู้/สีตู้ (ชัดเจน ไม่ลอก)', result: '', defect: '' },
-                        { id: 4, no: '1.4', name: 'สภาพภายนอก: ระบบกราวด์ (มีทั้งกราวด์ N และ G)', result: '', defect: '' },
-                        { id: 5, no: '1.5', name: 'สภาพภายนอก: อุปกรณ์ป้องกันแรงดันเกินภายนอก (ด้าน N และ T ไม่ชำรุด)', result: '', defect: '' },
-                        { id: 6, no: '1.6', name: 'สภาพภายนอก: ตัวถัง รอยต่อหม้อแปลง (ไม่เสียหาย/ไม่มีน้ำมันรั่วซึม)', result: '', defect: '' },
-                        { id: 7, no: '1.7', name: 'สภาพภายนอก: ฝาตู้ (ปิดแน่นสนิท)', result: '', defect: '' },
-                        { id: 8, no: '1.8', name: 'สภาพภายนอก: มีการแขวนป้ายแดงห้ามปลด-สับ (ที่ SW และ NP)', result: '', defect: '' },
-                        { id: 9, no: '2.1', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 1 (NP OPEN)', result: '', defect: '' },
-                        { id: 10, no: '2.2', name: 'การทดสอบ MV.SW: สับ MV.SW. ครั้งที่ 1 (NP CLOSE)', result: '', defect: '' },
-                        { id: 11, no: '2.3', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 2 (NP OPEN)', result: '', defect: '' },
-                        { id: 12, no: '3.1', name: 'สภาพภายใน: อุปกรณ์ภายใน (ไม่มีน้ำหรือหยดน้ำเกาะ)', result: '', defect: '' },
-                        { id: 13, no: '3.2', name: 'สภาพภายใน: รีเลย์ (อยู่ในสถานะถูกต้อง)', result: '', defect: '' },
-                        { id: 14, no: '4.1', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ตู้อุปกรณ์ (ไม่ชำรุดเสียหาย)', result: '', defect: '' },
-                        { id: 15, no: '4.2', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ไฟเลี้ยง / CB & FUSE', result: '', defect: '' },
-                        { id: 16, no: '4.3', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: อินเตอร์เน็ตสวิตช์', result: '', defect: '' },
-                        { id: 17, no: '5.1', name: 'สับ SW.แรงกลาง เมื่อลงจากเสาแล้ว (NP CLOSE)', result: '', defect: '' }
-                    ],
-                    'SF-07-0-022': [
-                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก (ไม่มีรอยแตก ปลด-สับได้)', result: '', defect: '' },
-                        { id: 2, no: '1.2', name: 'สวิตช์แรงกลาง: ก๊าซ SF6 (อยู่ในโซนที่กำหนด)', result: '', defect: '' },
-                        { id: 3, no: '1.3', name: 'สวิตช์แรงกลาง: หัวต่อสาย/สายไฟฟ้า (ไม่มีรอยปิ่น ไหม้ หรือแตกร้าว)', result: '', defect: '' },
-                        { id: 4, no: '1.4', name: 'สวิตช์แรงกลาง: ระบบกราวด์ (มีกราวด์ทั้งแรงสูง แรงต่ำ)', result: '', defect: '' },
-                        { id: 5, no: '2.1', name: 'หม้อแปลง: ตัวถัง (ไม่มีรอยแตก บุบ ฉีกขาด)', result: '', defect: '' },
-                        { id: 6, no: '2.2', name: 'หม้อแปลง: น้ำมัน (ไม่รั่วไหล อยู่ในระดับที่กำหนด)', result: '', defect: '' },
-                        { id: 7, no: '2.3', name: 'หม้อแปลง: ฟิวส์ 12 kV (ไม่ชำรุด)', result: '', defect: '' },
-                        { id: 8, no: '2.4', name: 'หม้อแปลง: อุณหภูมิสูงสุด (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
-                        { id: 9, no: '2.5', name: 'หม้อแปลง: อุณหภูมิจริง (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
-                        { id: 10, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' },
-                        { id: 11, no: '3.2', name: 'ด้านแรงต่ำ: คาปาซิเตอร์แรงต่ำ (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' }
-                    ],
-                    'SF-07-0-023': [
-                        { id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงด้วยเครื่องทดสอบ 5 ครั้ง (Breakdown Voltage ค่าเฉลี่ย)', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' },
-                        { id: 3, no: '3', name: 'กรองน้ำมันครั้งที่ 2 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' }
-                    ],
-                    'SF-07-0-024': [
-                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Thermal Imaging & Hot Spot Inspection)', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'บันทึกอุณหภูมิเปรียบเทียบที่จุดวัด (Delta T) และประเมินระดับความสำคัญ', result: '', defect: '' },
-                        { id: 3, no: '3', name: 'สรุปรายละเอียดการตรวจสอบและส่งต่อแก้ไขตามมาตรฐาน', result: '', defect: '' }
-                    ],
-                    'SF-07-0-025': [
-                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge) ด้วยกล้อง Acoustic Camera', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'บันทึกระดับความเข้มเสียง (dB) และประเมินระดับความรุนแรงจากซอฟต์แวร์', result: '', defect: '' }
-                    ]
+                    'SF-07-0-017': [{ id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' }],
+                    'SF-07-0-018': [{ id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '' }],
+                    'SF-07-0-019': [{ id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '' }],
+                    'SF-07-0-020': [{ id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' }],
+                    'SF-07-0-021': [{ id: 1, no: '1.1', name: 'สถานะ MV.SW. (CLOSE)', result: '', defect: '' }],
+                    'SF-07-0-022': [{ id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก', result: '', defect: '' }],
+                    'SF-07-0-023': [{ id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงครั้งที่ 1 (Breakdown Voltage)', result: '', defect: '' }],
+                    'SF-07-0-024': [{ id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Hot Spot Inspection)', result: '', defect: '' }],
+                    'SF-07-0-025': [{ id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Acoustic Camera)', result: '', defect: '' }]
                 },
 
                 selectForm(code) {
@@ -502,28 +374,9 @@
                     this.currentChecklistItems.forEach(item => { item.result = 'normal'; });
                 },
 
-                resetForm() {
-                    if (confirm('ล้างข้อมูลทั้งหมดในฟอร์มนี้?')) {
-                        this.selectForm(this.activeFormCode);
-                    }
-                },
-
-                get checkedCount() {
-                    return this.currentChecklistItems.filter(i => i.result !== '').length;
-                },
-
-                get totalItems() {
-                    return this.currentChecklistItems.length;
-                },
-
-                get progressPercentage() {
-                    if (this.totalItems === 0) return 0;
-                    return Math.round((this.checkedCount / this.totalItems) * 100);
-                },
-
-                get totalPmCost() {
-                    return this.pmPlans.reduce((sum, item) => sum + (Number(item.cost) || 0), 0);
-                },
+                get checkedCount() { return this.currentChecklistItems.filter(i => i.result !== '').length; },
+                get totalItems() { return this.currentChecklistItems.length; },
+                get progressPercentage() { return this.totalItems === 0 ? 0 : Math.round((this.checkedCount / this.totalItems) * 100); },
 
                 getGPS() {
                     if (navigator.geolocation) {
@@ -540,7 +393,6 @@
                         alert('⚠ กรุณาตรวจสอบผลการตรวจสอบให้ครบทุกข้อก่อนบันทึก');
                         return;
                     }
-                    
                     this.pmPlans.push({
                         formCode: this.activeFormCode,
                         stationId: this.formData.station_id || 'N/A',
@@ -549,35 +401,21 @@
                         cost: 5000,
                         status: 'Completed'
                     });
-                    this.savePmPlans();
-
-                    alert('✓ บันทึกใบตรวจสอบและอัปเดตเข้าสู่ระบบแผนงาน PM สำเร็จ!');
-                    this.currentTab = 'pm_plan';
+                    localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
+                    alert('✓ บันทึกใบตรวจสอบและส่งเข้าแผน PM สำเร็จ!');
+                    this.currentMenu = 'pm_table';
                 },
 
                 addNewPmPlan() {
-                    this.pmPlans.push({
-                        formCode: 'SF-07-0-015',
-                        stationId: 'NEW-STA',
-                        location: 'ระบุสถานที่',
-                        priority: 'Medium',
-                        cost: 10000,
-                        status: 'Pending'
-                    });
-                    this.savePmPlans();
+                    this.pmPlans.push({ formCode: 'SF-07-0-015', stationId: 'NEW-STA', location: 'ระบุสถานที่', priority: 'Medium', cost: 10000, status: 'Pending' });
+                    localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
                 },
 
                 deletePmPlan(index) {
                     if (confirm('ต้องการลบแผนงานนี้ใช่หรือไม่?')) {
                         this.pmPlans.splice(index, 1);
-                        this.savePmPlans();
+                        localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
                     }
-                },
-
-                savePmPlans() {
-                    localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
-                    this.autoSaveStatus = '✓ บันทึกแผน PM แล้ว';
-                    setTimeout(() => { this.autoSaveStatus = '✓ พร้อมใช้งาน'; }, 2000);
                 }
             }
         }
