@@ -24,7 +24,9 @@
         @media print {
             body { background: white; }
             .no-print { display: none !important; }
-            .a4-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; }
+            .print-only { display: block !important; }
+            .a4-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
+            @page { size: A4; margin: 10mm; }
         }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -174,10 +176,10 @@
                 </div>
             </div>
 
-            <!-- ================= MENU 4: ฟอร์มเอกสารการบำรุงรักษา (พร้อมฟังก์ชัน AI Risk & Photo Pro) ================= -->
+            <!-- ================= MENU 4: ฟอร์มเอกสารการบำรุงรักษา (เวลาพิมพ์จะพิมพ์แค่ส่วน A4 นี้เท่านั้น) ================= -->
             <div x-show="currentMenu === 'forms'" class="space-y-5">
                 
-                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+                <div class="no-print bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
                         <div>
                             <h2 class="text-sm font-bold text-slate-800">📋 เลือกฟอร์มเอกสารการบำรุงรักษาอุปกรณ์ไฟฟ้า</h2>
@@ -196,7 +198,7 @@
                 </div>
 
                 <template x-if="!activeFormCode">
-                    <div class="text-center py-20 space-y-2 bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
+                    <div class="no-print text-center py-20 space-y-2 bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
                         <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner">👆</div>
                         <h3 class="text-sm font-bold text-slate-800">กรุณาเลือกฟอร์มเอกสารด้านบนเพื่อเริ่มต้นกรอกข้อมูล</h3>
                         <p class="text-xs text-slate-400">ข้อมูลรายละเอียดครบถ้วนทุกข้อ พร้อมระบบประเมินความเสี่ยงอัตโนมัติ</p>
@@ -209,12 +211,15 @@
                             <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold transition">✅ ติ๊ก "ปกติ" ทั้งหมด</button>
                             <div class="text-xs font-semibold text-slate-600">
                                 ตรวจแล้ว: <span class="text-indigo-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> (<span x-text="progressPercentage"></span>%) | 
-                                ระดับความเสี่ยง AI: <span class="px-2 py-0.5 rounded text-[10px] font-bold" :class="aiRiskLevel === 'HIGH' ? 'bg-rose-100 text-rose-700' : (aiRiskLevel === 'MEDIUM' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700')" x-text="aiRiskLevel"></span>
+                                ความเสี่ยง AI: <span class="px-2 py-0.5 rounded text-[10px] font-bold" :class="aiRiskLevel === 'HIGH' ? 'bg-rose-100 text-rose-700' : (aiRiskLevel === 'MEDIUM' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700')" x-text="aiRiskLevel"></span>
                             </div>
-                            <button @click="validateAndSaveToPM()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-bold text-xs transition shadow-md shadow-indigo-600/20">💾 บันทึกส่งเข้าแผน PM</button>
+                            <div class="flex gap-2">
+                                <button @click="printForm()" class="bg-slate-800 hover:bg-slate-700 text-white px-3.5 py-2 rounded-xl font-bold text-xs transition">🖨️ พิมพ์ใบตรวจ</button>
+                                <button @click="validateAndSaveToPM()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-bold text-xs transition shadow-md shadow-indigo-600/20">💾 บันทึกส่งเข้าแผน PM</button>
+                            </div>
                         </div>
 
-                        <!-- A4 Sheet -->
+                        <!-- A4 Sheet (ส่วนที่จะถูกพิมพ์ออกทางกระดาษ A4 เท่านั้น) -->
                         <div class="a4-page border border-slate-100 text-slate-800 text-sm space-y-5">
                             <div class="border-b border-slate-100 pb-4 flex justify-between items-start">
                                 <div>
@@ -231,12 +236,12 @@
                                     <div><label class="block font-medium text-slate-400 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50 focus:border-indigo-500 outline-none transition"></div>
                                     <div><label class="block font-medium text-slate-400 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50 focus:border-indigo-500 outline-none transition"></div>
                                     <div><label class="block font-medium text-slate-400 mb-1">Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                    <div><label class="block font-medium text-slate-400 mb-1">Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-indigo-600 text-white px-2.5 rounded-xl hover:bg-indigo-500 transition">📍</button></div></div>
+                                    <div><label class="block font-medium text-slate-400 mb-1">Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="no-print bg-indigo-600 text-white px-2.5 rounded-xl hover:bg-indigo-500 transition">📍</button></div></div>
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-400 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-indigo-600">2. รายการตรวจสอบบำรุงรักษา (พร้อมฟังก์ชันแนบรูปถ่ายหลักฐาน)</h3>
+                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-400 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-indigo-600">2. รายการตรวจสอบบำรุงรักษา (ครบถ้วนทุกรายการ)</h3>
                                 <div class="overflow-x-auto border border-slate-100 rounded-2xl shadow-sm">
                                     <table class="w-full text-left border-collapse text-xs">
                                         <thead>
@@ -246,8 +251,8 @@
                                                 <th class="p-3 w-16 text-center text-emerald-600 font-semibold">ปกติ</th>
                                                 <th class="p-3 w-16 text-center text-rose-600 font-semibold">ชำรุด</th>
                                                 <th class="p-3 w-16 text-center text-slate-400 font-semibold">ไม่มี</th>
-                                                <th class="p-3 w-48">ข้อบกพร่อง / การดำเนินการ</th>
-                                                <th class="p-3 w-28 text-center">📷 รูปถ่าย</th>
+                                                <th class="p-3 w-52">ข้อบกพร่อง / การดำเนินการ</th>
+                                                <th class="no-print p-3 w-28 text-center">📷 รูปถ่าย</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-slate-50">
@@ -259,7 +264,7 @@
                                                     <td class="p-3 text-center"><input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" class="w-4 h-4 text-rose-600 cursor-pointer accent-rose-600"></td>
                                                     <td class="p-3 text-center"><input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" class="w-4 h-4 text-slate-300 cursor-pointer accent-slate-500"></td>
                                                     <td class="p-3"><input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง" class="w-full border border-slate-200 rounded-xl p-2 text-xs bg-slate-50/30 focus:border-indigo-500 outline-none transition"></td>
-                                                    <td class="p-3 text-center">
+                                                    <td class="no-print p-3 text-center">
                                                         <label class="cursor-pointer bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] px-2.5 py-1.5 rounded-xl font-bold transition inline-block">
                                                             <span x-text="item.photo ? '✓ แนบแล้ว' : '+ เพิ่มรูป'"></span>
                                                             <input type="file" @change="uploadPhoto($event, item)" class="hidden" accept="image/*">
@@ -432,6 +437,10 @@
                     }
                 },
 
+                printForm() {
+                    window.print();
+                },
+
                 validateAndSaveToPM() {
                     if (this.checkedCount < this.totalItems) {
                         alert('⚠ กรุณาตรวจสอบผลการตรวจสอบให้ครบทุกข้อก่อนบันทึก');
@@ -446,7 +455,7 @@
                         status: 'Completed'
                     });
                     localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
-                    alert('✓ บันทึกใบตรวจสอบและส่งเข้าแผน PM สำเร็จ! (ระบบประเมินความเสี่ยง: ' + this.aiRiskLevel + ')');
+                    alert('✓ บันทึกใบตรวจสอบและส่งเข้าแผน PM สำเร็จ! (ระดับความเสี่ยง: ' + this.aiRiskLevel + ')');
                     this.currentMenu = 'pm_table';
                 },
 
