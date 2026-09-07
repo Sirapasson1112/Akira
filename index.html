@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Sarabun', sans-serif; }
-        /* สไตล์จำลองกระดาษ A4 */
         .a4-page {
             width: 210mm;
             min-height: 297mm;
@@ -30,11 +29,11 @@
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased" x-data="inspectionApp()">
 
-    <!-- TOP NAVIGATION / TOOLBAR (Fixed) -->
+    <!-- TOP NAVIGATION / TOOLBAR -->
     <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-md px-4 py-3 flex flex-wrap justify-between items-center">
         <div class="flex items-center space-x-3">
             <span class="text-xl font-bold text-blue-400">⚡ Digital Inspection</span>
-            <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">MEA Enterprise Standard</span>
+            <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">MEA Enterprise Standard (11 Forms)</span>
         </div>
         <div class="flex items-center space-x-3 text-sm">
             <span class="text-xs text-emerald-400 flex items-center gap-1" x-text="autoSaveStatus"></span>
@@ -50,11 +49,11 @@
     <!-- MAIN CONTAINER -->
     <main class="py-6 px-4">
 
-        <!-- VIEW 1: HOME (Modern Selection Page) -->
-        <div x-show="currentView === 'home'" class="max-w-5xl mx-auto space-y-6">
+        <!-- VIEW 1: HOME (Modern Selection Page - 11 Forms) -->
+        <div x-show="currentView === 'home'" class="max-w-6xl mx-auto space-y-6">
             <div class="text-center space-y-2 mb-8">
                 <h1 class="text-3xl font-bold text-slate-900">ระบบใบตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
-                <p class="text-slate-600">กรุณาเลือกประเภทใบตรวจสอบอุปกรณ์ที่ต้องการปฏิบัติงานภาคสนาม</p>
+                <p class="text-slate-600">กรุณาเลือกประเภทใบตรวจสอบอุปกรณ์ที่ต้องการปฏิบัติงานภาคสนาม (รองรับ 11 ประเภทมาตรฐาน MEA)</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -62,7 +61,7 @@
                     <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
                         <div class="space-y-3">
                             <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">⚡</div>
-                            <h3 class="font-bold text-lg text-slate-900" x-text="form.name"></h3>
+                            <h3 class="font-bold text-sm text-slate-900 h-10 flex items-center" x-text="form.name"></h3>
                             <p class="text-xs font-semibold text-blue-600 bg-blue-50 inline-block px-2 py-1 rounded" x-text="form.code"></p>
                         </div>
                         <div class="mt-6">
@@ -102,7 +101,7 @@
                 <!-- Header Document -->
                 <div class="border-b pb-4 flex justify-between items-start">
                     <div>
-                        <h2 class="text-xl font-bold text-slate-900" x-text="activeFormTitle"></h2>
+                        <h2 class="text-lg font-bold text-slate-900" x-text="activeFormTitle"></h2>
                         <p class="text-xs text-slate-500 mt-1">การไฟฟ้านครหลวง (MEA) • ระบบสารสนเทศงานบำรุงรักษา</p>
                     </div>
                     <div class="text-right">
@@ -115,7 +114,7 @@
                     <h3 class="font-bold text-sm bg-slate-100 px-2 py-1 border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                         <div>
-                            <label class="block font-medium text-slate-600 mb-1">Station ID</label>
+                            <label class="block font-medium text-slate-600 mb-1">Station ID / STATION</label>
                             <input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="ระบุ Station ID">
                         </div>
                         <div>
@@ -177,7 +176,7 @@
 
                 <!-- Section 3: Additional Notes / Remarks -->
                 <div class="space-y-2">
-                    <h3 class="font-bold text-sm bg-slate-100 px-2 py-1 border-l-4 border-blue-600">3. สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม</h3>
+                    <h3 class="font-bold text-sm bg-slate-100 px-2 py-1 border-l-4 border-blue-600">3. สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม / ข้อเสนอแนะ</h3>
                     <textarea x-model="formData.remarks" rows="3" class="w-full border border-slate-300 rounded p-2 text-xs outline-none focus:ring-1 focus:ring-blue-500" placeholder="ระบุรายละเอียดเพิ่มเติม..."></textarea>
                 </div>
 
@@ -214,7 +213,7 @@
     <script>
         function inspectionApp() {
             return {
-                currentView: 'home', // 'home' หรือ 'form'
+                currentView: 'home',
                 activeFormCode: '',
                 activeFormTitle: '',
                 autoSaveStatus: '✓ บันทึกแล้ว',
@@ -224,7 +223,13 @@
                     { code: 'SF-07-0-016', name: 'แบบตรวจสอบบำรุงรักษา Load Break Switch' },
                     { code: 'SF-07-0-017', name: 'แบบตรวจสอบบำรุงรักษา Sectionalizer' },
                     { code: 'SF-07-0-018', name: 'แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)' },
-                    { code: 'SF-07-0-019', name: 'แบบตรวจสอบบำรุงรักษา UNITSUBSTATION' }
+                    { code: 'SF-07-0-019', name: 'แบบตรวจสอบบำรุงรักษา UNITSUBSTATION' },
+                    { code: 'SF-07-0-020', name: 'แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV' },
+                    { code: 'SF-07-0-021', name: 'แบบตรวจสอบบำรุงรักษาเครื่องป้องกันหม้อแปลงวงจรตาข่าย' },
+                    { code: 'SF-07-0-022', name: 'แบบตรวจสอบบำรุงรักษาหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง' },
+                    { code: 'SF-07-0-023', name: 'แบบตรวจสอบบำรุงรักษาทดสอบและกรองน้ำมันหม้อแปลงวงจรตาข่าย' },
+                    { code: 'SF-07-0-024', name: 'รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)' },
+                    { code: 'SF-07-0-025', name: 'รายงานผลการตรวจสอบการคายประจุไฟฟ้าบางส่วน (Acoustic Camera)' }
                 ],
 
                 formData: {
@@ -240,44 +245,67 @@
 
                 currentChecklistItems: [],
 
-                // ตัวอย่างรายการตรวจสอบจำลองตามต้นฉบับ
                 checklistDatabase: {
                     'SF-07-0-015': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
                         { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
                         { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
-                        { id: 6, no: '2.6', name: 'Low Voltage Capacitor', result: '', defect: '' },
-                        { id: 7, no: '2.7', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
-                        { id: 8, no: '2.8', name: 'ตัวถังหม้อแปลง', result: '', defect: '' },
-                        { id: 9, no: '2.9', name: 'Bushing HV-LV', result: '', defect: '' },
-                        { id: 10, no: '2.10', name: 'Cover (Bushing, L/A, Term. kit)', result: '', defect: '' }
+                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' }
                     ],
                     'SF-07-0-016': [
                         { id: 1, no: '2.1', name: 'ตัวถัง LBS / สลักล็อคการปลดสับ', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
                         { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' }
+                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' }
                     ],
                     'SF-07-0-017': [
                         { id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' }
+                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' }
                     ],
                     'SF-07-0-018': [
                         { id: 1, no: '2.1', name: 'สภาพภายนอกตู้ครอบ RMU', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'ประตูตู้ครอบ', result: '', defect: '' },
-                        { id: 3, no: '2.4', name: 'สภาพ RMU / ห้อง', result: '', defect: '' },
-                        { id: 4, no: '2.5', name: 'ก๊าซ SF6', result: '', defect: '' }
+                        { id: 3, no: '2.4', name: 'สภาพ RMU / ห้อง', result: '', defect: '' }
                     ],
                     'SF-07-0-019': [
                         { id: 1, no: '2.1', name: 'สภาพภายนอก Encloser', result: '', defect: '' },
                         { id: 2, no: '2.4', name: 'สภาพ RMU', result: '', defect: '' },
-                        { id: 3, no: '2.20', name: 'ตัวถังหม้อแปลง Unit Substation', result: '', defect: '' },
-                        { id: 4, no: '2.21', name: 'Bushing HV-LV', result: '', defect: '' }
+                        { id: 3, no: '2.20', name: 'ตัวถังหม้อแปลง Unit Substation', result: '', defect: '' }
+                    ],
+                    'SF-07-0-020': [
+                        { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
+                        { id: 3, no: '2.8', name: 'HV Ground', result: '', defect: '' },
+                        { id: 4, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
+                        { id: 5, no: '2.16', name: 'ตัวถังคาปาซิเตอร์', result: '', defect: '' }
+                    ],
+                    'SF-07-0-021': [
+                        { id: 1, no: '1.1', name: 'สถานะ MV.SW.', result: '', defect: '' },
+                        { id: 2, no: '1.2', name: 'สถานะ NP', result: '', defect: '' },
+                        { id: 3, no: '1.4', name: 'ระบบกราวด์ (N และ G)', result: '', defect: '' },
+                        { id: 4, no: '3.1', name: 'อุปกรณ์ภายใน (ไม่มีหยดน้ำเกาะ)', result: '', defect: '' },
+                        { id: 5, no: '4.1', name: 'ตู้อุปกรณ์ส่งข้อมูลระยะไกล', result: '', defect: '' }
+                    ],
+                    'SF-07-0-022': [
+                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก', result: '', defect: '' },
+                        { id: 2, no: '1.2', name: 'ก๊าซ SF6', result: '', defect: '' },
+                        { id: 3, no: '2.1', name: 'หม้อแปลง: ตัวถัง', result: '', defect: '' },
+                        { id: 4, no: '2.2', name: 'น้ำมันหม้อแปลง', result: '', defect: '' },
+                        { id: 5, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' }
+                    ],
+                    'SF-07-0-023': [
+                        { id: 1, no: '1', name: 'ทดสอบน้ำมันครั้งที่ 1 (Breakdown Voltage)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และทดสอบซ้ำ', result: '', defect: '' },
+                        { id: 3, no: '3', name: 'กรองน้ำมันครั้งที่ 2 และทดสอบซ้ำ', result: '', defect: '' }
+                    ],
+                    'SF-07-0-024': [
+                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายและความร้อน (Hot Spot)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'วัดอุณหภูมิเปรียบเทียบที่จุดวัดฯ (Delta T)', result: '', defect: '' }
+                    ],
+                    'SF-07-0-025': [
+                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge) ด้วย Acoustic Camera', result: '', defect: '' }
                     ]
                 },
 
