@@ -29,7 +29,7 @@
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased" x-data="inspectionApp()">
 
-    <!-- HEADER BAR -->
+    <!-- HEADER BAR WITH "ใบตรวจสอบทั้งหมด" BUTTON AT TOP -->
     <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3 flex flex-wrap justify-between items-center border-b border-slate-800">
         <div class="flex items-center space-x-3">
             <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-sm font-bold shadow">⚡</div>
@@ -39,10 +39,11 @@
             </div>
         </div>
         <div class="flex items-center space-x-2 text-sm mt-1 sm:mt-0">
-            <button @click="currentTab = 'forms'" :class="currentTab === 'forms' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition">
-                📋 เลือกใบตรวจสอบ
+            <!-- ปุ่ม "ใบตรวจสอบทั้งหมด" อยู่ด้านบนสุด -->
+            <button @click="currentTab = 'forms'" :class="currentTab === 'forms' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+                📋 ใบตรวจสอบทั้งหมด
             </button>
-            <button @click="currentTab = 'pm_plan'" :class="currentTab === 'pm_plan' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1">
+            <button @click="currentTab = 'pm_plan'" :class="currentTab === 'pm_plan' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
                 📊 แผน PM & ต้นทุน
             </button>
         </div>
@@ -51,7 +52,7 @@
     <!-- MAIN CONTAINER -->
     <main class="py-4 px-4 max-w-7xl mx-auto space-y-4">
 
-        <!-- ================= TAB 1: FORM INSPECTION ================= -->
+        <!-- ================= TAB 1: FORM INSPECTION (ใบตรวจสอบทั้งหมด) ================= -->
         <div x-show="currentTab === 'forms'" class="space-y-4">
             
             <!-- Form Selector Grid -->
