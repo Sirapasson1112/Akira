@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Inspection Form - ระบบใบตรวจสอบอุปกรณ์ไฟฟ้า</title>
+    <title>Digital Inspection Form - ระบบใบตรวจสอบอุปกรณ์ไฟฟ้า MEA</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js CDN -->
@@ -33,7 +33,7 @@
     <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-md px-4 py-3 flex flex-wrap justify-between items-center">
         <div class="flex items-center space-x-3">
             <span class="text-xl font-bold text-blue-400">⚡ Digital Inspection</span>
-            <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">MEA Enterprise Standard (11 Forms)</span>
+            <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">MEA Standard (ครบถ้วน 11 แบบฟอร์ม)</span>
         </div>
         <div class="flex items-center space-x-3 text-sm">
             <span class="text-xs text-emerald-400 flex items-center gap-1" x-text="autoSaveStatus"></span>
@@ -49,11 +49,11 @@
     <!-- MAIN CONTAINER -->
     <main class="py-6 px-4">
 
-        <!-- VIEW 1: HOME (Modern Selection Page - 11 Forms) -->
+        <!-- VIEW 1: HOME (Modern Selection Page) -->
         <div x-show="currentView === 'home'" class="max-w-6xl mx-auto space-y-6">
             <div class="text-center space-y-2 mb-8">
                 <h1 class="text-3xl font-bold text-slate-900">ระบบใบตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
-                <p class="text-slate-600">กรุณาเลือกประเภทใบตรวจสอบอุปกรณ์ที่ต้องการปฏิบัติงานภาคสนาม (รองรับ 11 ประเภทมาตรฐาน MEA)</p>
+                <p class="text-slate-600">เลือกประเภทใบตรวจสอบภาคสนาม รายละเอียดครบถ้วนตรงตามเอกสารต้นฉบับ กฟน. (MEA)</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -114,7 +114,7 @@
                     <h3 class="font-bold text-sm bg-slate-100 px-2 py-1 border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                         <div>
-                            <label class="block font-medium text-slate-600 mb-1">Station ID / STATION</label>
+                            <label class="block font-medium text-slate-600 mb-1">Station ID / FIX ID</label>
                             <input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="ระบุ Station ID">
                         </div>
                         <div>
@@ -122,13 +122,13 @@
                             <input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="ระบุสถานที่ติดตั้ง">
                         </div>
                         <div>
-                            <label class="block font-medium text-slate-600 mb-1">Latitude</label>
-                            <input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly placeholder="กดดึงตำแหน่ง">
+                            <label class="block font-medium text-slate-600 mb-1">Latitude (Lat.)</label>
+                            <input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly placeholder="กดดึงพิกัด">
                         </div>
                         <div>
-                            <label class="block font-medium text-slate-600 mb-1">Longitude</label>
+                            <label class="block font-medium text-slate-600 mb-1">Longitude (Long.)</label>
                             <div class="flex gap-1">
-                                <input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly placeholder="กดดึงตำแหน่ง">
+                                <input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly placeholder="กดดึงพิกัด">
                                 <button @click="getGPS()" class="bg-blue-600 hover:bg-blue-500 text-white px-2 rounded text-xs" title="ดึงพิกัด GPS">📍</button>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                     <th class="p-2 w-16 text-center">ปกติ</th>
                                     <th class="p-2 w-16 text-center">ชำรุด</th>
                                     <th class="p-2 w-16 text-center">ไม่มี</th>
-                                    <th class="p-2 w-48">ข้อบกพร่อง / หมายเหตุ</th>
+                                    <th class="p-2 w-48">ข้อบกพร่อง / การดำเนินการ</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200">
@@ -165,7 +165,7 @@
                                             <input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" class="w-4 h-4 text-slate-400 cursor-pointer">
                                         </td>
                                         <td class="p-2">
-                                            <input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง (ถ้ามี)" class="w-full border border-slate-200 rounded p-1 text-xs focus:border-blue-500 outline-none">
+                                            <input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง / แก้ไข" class="w-full border border-slate-200 rounded p-1 text-xs focus:border-blue-500 outline-none">
                                         </td>
                                     </tr>
                                 </template>
@@ -193,14 +193,16 @@
                         <div class="h-16 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">
                             ลงลายมือชื่อดิจิทัล
                         </div>
-                        <input type="text" x-model="formData.inspector_name" placeholder="ชื่อ-นามสกุล ผู้ตรวจ" class="w-full border border-slate-300 rounded p-1 text-center text-xs">
+                        <input type="text" x-model="formData.inspector_name" placeholder="ชื่อ-นามสกุล ผู้ตรวจ" class="w-full border border-slate-300 rounded p-1 text-center text-xs mb-1">
+                        <input type="text" x-model="formData.inspector_pos" placeholder="ตำแหน่ง" class="w-full border border-slate-300 rounded p-1 text-center text-xs">
                     </div>
                     <div class="space-y-2 text-center border p-3 rounded bg-slate-50">
                         <p class="font-bold">ผู้ตรวจสอบ (Verifier)</p>
                         <div class="h-16 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">
                             ลงลายมือชื่อดิจิทัล
                         </div>
-                        <input type="text" x-model="formData.verifier_name" placeholder="ชื่อ-นามสกุล ผู้ตรวจสอบ" class="w-full border border-slate-300 rounded p-1 text-center text-xs">
+                        <input type="text" x-model="formData.verifier_name" placeholder="ชื่อ-นามสกุล ผู้ตรวจสอบ" class="w-full border border-slate-300 rounded p-1 text-center text-xs mb-1">
+                        <input type="text" x-model="formData.verifier_pos" placeholder="ตำแหน่ง" class="w-full border border-slate-300 rounded p-1 text-center text-xs">
                     </div>
                 </div>
 
@@ -209,7 +211,7 @@
 
     </main>
 
-    <!-- JS LOGIC & STATE MANAGEMENT -->
+    <!-- JS LOGIC & FULL DATA -->
     <script>
         function inspectionApp() {
             return {
@@ -240,72 +242,184 @@
                     remarks: '',
                     rectification: '',
                     inspector_name: '',
-                    verifier_name: ''
+                    inspector_pos: '',
+                    verifier_name: '',
+                    verifier_pos: ''
                 },
 
                 currentChecklistItems: [],
 
+                // ฐานข้อมูลรายการตรวจสอบครบถ้วนทุกข้อตาม PDF ต้นฉบับทั้ง 11 แบบฟอร์ม
                 checklistDatabase: {
                     'SF-07-0-015': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
                         { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
                         { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
-                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' }
+                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'Low Voltage Capacitor', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'ตัวถังหม้อแปลง', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'Bushing HV-LV', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'Cover (Bushing, L/A, Term. kit)', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'สายหน้าหม้อแปลง LV', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'LV Ground', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'HV Ground', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
                     ],
                     'SF-07-0-016': [
                         { id: 1, no: '2.1', name: 'ตัวถัง LBS / สลักล็อคการปลดสับ', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
                         { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
-                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' }
+                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'Drop Fuse ลง VT', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'สายควบคุม LBS', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'อุปกรณ์ป้องกันสัตว์ Control/FRTU/Ground', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'Ground HV (L/A, LBS)', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'Ground LV (ดู Control)', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'ทดสอบ ปลด/สับ ทาง Remote', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'ทดสอบ ปลด/สับ ทาง Local', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'แรงดันไฟฟ้าเลี้ยงอุปกรณ์ (ทดสอบ ATS)', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'การทดสอบ ATS', result: '', defect: '' }
                     ],
                     'SF-07-0-017': [
                         { id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
-                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' }
+                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'สายควบคุม SZ', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'อุปกรณ์ป้องกันสัตว์ Control/Ground', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'Ground HV (L/A, SZ)', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'Ground LV (ตู้ Control)', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'ทดลอง ปลด/สับ ทาง Local', result: '', defect: '' }
                     ],
                     'SF-07-0-018': [
-                        { id: 1, no: '2.1', name: 'สภาพภายนอกตู้ครอบ RMU', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'ประตูตู้ครอบ', result: '', defect: '' },
-                        { id: 3, no: '2.4', name: 'สภาพ RMU / ห้อง', result: '', defect: '' }
+                        { id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'ตู้ครอบ RMU: ประตู', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'ตู้ครอบ RMU: ฐานตู้', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU / ห้อง', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิทซ์', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด-สับ', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่หรือ UPS', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่นๆ', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'ทดสอบการปลดสับ: ด้วย REMOTE', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'ทดสอบการปลดสับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'ทดสอบการปลดสับ: ด้วยคันสับ', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' }
                     ],
                     'SF-07-0-019': [
-                        { id: 1, no: '2.1', name: 'สภาพภายนอก Encloser', result: '', defect: '' },
-                        { id: 2, no: '2.4', name: 'สภาพ RMU', result: '', defect: '' },
-                        { id: 3, no: '2.20', name: 'ตัวถังหม้อแปลง Unit Substation', result: '', defect: '' }
+                        { id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'ตู้ครอบ Encloser: ประตู', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'ตู้ครอบ Encloser: ฐานตู้ / นั่งร้าน', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิตช์', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด - สับ', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่ หรือ UPS', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่น ๆ', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'ทดสอบการปลด-สับ: ด้วย REMOTE', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'ทดสอบการปลด-สับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'ทดสอบการปลด-สับ: ด้วยคันสับ', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' },
+                        { id: 20, no: '2.20', name: 'หม้อแปลง: ตัวถังหม้อแปลง', result: '', defect: '' },
+                        { id: 21, no: '2.21', name: 'หม้อแปลง: Bushing HV-LV', result: '', defect: '' },
+                        { id: 22, no: '2.22', name: 'หม้อแปลง: สายหน้าหม้อแปลง HV - LV', result: '', defect: '' },
+                        { id: 23, no: '2.23', name: 'หม้อแปลง: LV Ground', result: '', defect: '' },
+                        { id: 24, no: '2.24', name: 'หม้อแปลง: HV Ground', result: '', defect: '' },
+                        { id: 25, no: '2.25', name: 'อุปกรณ์ด้านแรงต่ำ: สภาพทั่วไป CB หรือ FUSE', result: '', defect: '' },
+                        { id: 26, no: '2.26', name: 'อุปกรณ์ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' },
+                        { id: 27, no: '2.27', name: 'อุปกรณ์ด้านแรงต่ำ: บัสบาร์', result: '', defect: '' },
+                        { id: 28, no: '2.28', name: 'อุปกรณ์ด้านแรงต่ำ: เครื่องวัดไฟฟ้า', result: '', defect: '' },
+                        { id: 29, no: '2.29', name: 'อุปกรณ์ด้านแรงต่ำ: CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
                     ],
                     'SF-07-0-020': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
-                        { id: 3, no: '2.8', name: 'HV Ground', result: '', defect: '' },
-                        { id: 4, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
-                        { id: 5, no: '2.16', name: 'ตัวถังคาปาซิเตอร์', result: '', defect: '' }
+                        { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'Cover (Bushing, L/A)', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'HV Ground', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'Supply', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'Fuse Control ภายในตู้', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'หลอดไฟแสดงสถานะในตู้', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'หน้าจอ Digital Control', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'เสียงนาฬิกาเดิน', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'อุปกรณ์ทั่วไปภายในตู้', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'คาปาซิเตอร์เซลล์: ตัวถังคาปาซิเตอร์', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'คาปาซิเตอร์เซลล์: Bushing', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'คาปาซิเตอร์เซลล์: Fuse ภายใน', result: '', defect: '' },
+                        { id: 19, no: '2.19', name: 'คาปาซิเตอร์เซลล์: ค่าคาปาซิแตนท์ที่วัดได้', result: '', defect: '' }
                     ],
                     'SF-07-0-021': [
-                        { id: 1, no: '1.1', name: 'สถานะ MV.SW.', result: '', defect: '' },
-                        { id: 2, no: '1.2', name: 'สถานะ NP', result: '', defect: '' },
-                        { id: 3, no: '1.4', name: 'ระบบกราวด์ (N และ G)', result: '', defect: '' },
-                        { id: 4, no: '3.1', name: 'อุปกรณ์ภายใน (ไม่มีหยดน้ำเกาะ)', result: '', defect: '' },
-                        { id: 5, no: '4.1', name: 'ตู้อุปกรณ์ส่งข้อมูลระยะไกล', result: '', defect: '' }
+                        { id: 1, no: '1.1', name: 'สภาพภายนอก: สถานะ MV.SW. (CLOSE)', result: '', defect: '' },
+                        { id: 2, no: '1.2', name: 'สภาพภายนอก: สถานะ NP (CLOSE)', result: '', defect: '' },
+                        { id: 3, no: '1.3', name: 'สภาพภายนอก: เบอร์ตู้/สีตู้ (ชัดเจน ไม่ลอก)', result: '', defect: '' },
+                        { id: 4, no: '1.4', name: 'สภาพภายนอก: ระบบกราวด์ (มีทั้งกราวด์ N และ G)', result: '', defect: '' },
+                        { id: 5, no: '1.5', name: 'สภาพภายนอก: อุปกรณ์ป้องกันแรงดันเกินภายนอก (ด้าน N และ T ไม่ชำรุด)', result: '', defect: '' },
+                        { id: 6, no: '1.6', name: 'สภาพภายนอก: ตัวถัง รอยต่อหม้อแปลง (ไม่เสียหาย/ไม่มีน้ำมันรั่วซึม)', result: '', defect: '' },
+                        { id: 7, no: '1.7', name: 'สภาพภายนอก: ฝาตู้ (ปิดแน่นสนิท)', result: '', defect: '' },
+                        { id: 8, no: '1.8', name: 'สภาพภายนอก: มีการแขวนป้ายแดงห้ามปลด-สับ (ที่ SW และ NP)', result: '', defect: '' },
+                        { id: 9, no: '2.1', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 1 (NP OPEN)', result: '', defect: '' },
+                        { id: 10, no: '2.2', name: 'การทดสอบ MV.SW: สับ MV.SW. ครั้งที่ 1 (NP CLOSE)', result: '', defect: '' },
+                        { id: 11, no: '2.3', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 2 (NP OPEN)', result: '', defect: '' },
+                        { id: 12, no: '3.1', name: 'สภาพภายใน: อุปกรณ์ภายใน (ไม่มีน้ำหรือหยดน้ำเกาะ)', result: '', defect: '' },
+                        { id: 13, no: '3.2', name: 'สภาพภายใน: รีเลย์ (อยู่ในสถานะถูกต้อง)', result: '', defect: '' },
+                        { id: 14, no: '4.1', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ตู้อุปกรณ์ (ไม่ชำรุดเสียหาย)', result: '', defect: '' },
+                        { id: 15, no: '4.2', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ไฟเลี้ยง / CB & FUSE', result: '', defect: '' },
+                        { id: 16, no: '4.3', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: อินเตอร์เน็ตสวิตช์', result: '', defect: '' },
+                        { id: 17, no: '5.1', name: 'สับ SW.แรงกลาง เมื่อลงจากเสาแล้ว (NP CLOSE)', result: '', defect: '' }
                     ],
                     'SF-07-0-022': [
-                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก', result: '', defect: '' },
-                        { id: 2, no: '1.2', name: 'ก๊าซ SF6', result: '', defect: '' },
-                        { id: 3, no: '2.1', name: 'หม้อแปลง: ตัวถัง', result: '', defect: '' },
-                        { id: 4, no: '2.2', name: 'น้ำมันหม้อแปลง', result: '', defect: '' },
-                        { id: 5, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' }
+                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก (ไม่มีรอยแตก ปลด-สับได้)', result: '', defect: '' },
+                        { id: 2, no: '1.2', name: 'สวิตช์แรงกลาง: ก๊าซ SF6 (อยู่ในโซนที่กำหนด)', result: '', defect: '' },
+                        { id: 3, no: '1.3', name: 'สวิตช์แรงกลาง: หัวต่อสาย/สายไฟฟ้า (ไม่มีรอยปิ่น ไหม้ หรือแตกร้าว)', result: '', defect: '' },
+                        { id: 4, no: '1.4', name: 'สวิตช์แรงกลาง: ระบบกราวด์ (มีกราวด์ทั้งแรงสูง แรงต่ำ)', result: '', defect: '' },
+                        { id: 5, no: '2.1', name: 'หม้อแปลง: ตัวถัง (ไม่มีรอยแตก บุบ ฉีกขาด)', result: '', defect: '' },
+                        { id: 6, no: '2.2', name: 'หม้อแปลง: น้ำมัน (ไม่รั่วไหล อยู่ในระดับที่กำหนด)', result: '', defect: '' },
+                        { id: 7, no: '2.3', name: 'หม้อแปลง: ฟิวส์ 12 kV (ไม่ชำรุด)', result: '', defect: '' },
+                        { id: 8, no: '2.4', name: 'หม้อแปลง: อุณหภูมิสูงสุด (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
+                        { id: 9, no: '2.5', name: 'หม้อแปลง: อุณหภูมิจริง (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
+                        { id: 10, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' },
+                        { id: 11, no: '3.2', name: 'ด้านแรงต่ำ: คาปาซิเตอร์แรงต่ำ (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' }
                     ],
                     'SF-07-0-023': [
-                        { id: 1, no: '1', name: 'ทดสอบน้ำมันครั้งที่ 1 (Breakdown Voltage)', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และทดสอบซ้ำ', result: '', defect: '' },
-                        { id: 3, no: '3', name: 'กรองน้ำมันครั้งที่ 2 และทดสอบซ้ำ', result: '', defect: '' }
+                        { id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงด้วยเครื่องทดสอบ 5 ครั้ง (Breakdown Voltage ค่าเฉลี่ย)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' },
+                        { id: 3, no: '3', name: 'กรองน้ำมันครั้งที่ 2 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' }
                     ],
                     'SF-07-0-024': [
-                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายและความร้อน (Hot Spot)', result: '', defect: '' },
-                        { id: 2, no: '2', name: 'วัดอุณหภูมิเปรียบเทียบที่จุดวัดฯ (Delta T)', result: '', defect: '' }
+                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Thermal Imaging & Hot Spot Inspection)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'บันทึกอุณหภูมิเปรียบเทียบที่จุดวัด (Delta T) และประเมินระดับความสำคัญ', result: '', defect: '' },
+                        { id: 3, no: '3', name: 'สรุปรายละเอียดการตรวจสอบและส่งต่อแก้ไขตามมาตรฐาน', result: '', defect: '' }
                     ],
                     'SF-07-0-025': [
-                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge) ด้วย Acoustic Camera', result: '', defect: '' }
+                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge) ด้วยกล้อง Acoustic Camera', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'บันทึกระดับความเข้มเสียง (dB) และประเมินระดับความรุนแรงจากซอฟต์แวร์', result: '', defect: '' }
                     ]
                 },
 
@@ -335,7 +449,7 @@
                         navigator.geolocation.getCurrentPosition(position => {
                             this.formData.latitude = position.coords.latitude.toFixed(6);
                             this.formData.longitude = position.coords.longitude.toFixed(6);
-                            this.autoSaveStatus = '✓ บันทึกพิกัด GPS แล้ว';
+                            this.autoSaveStatus = '✓ ดึงพิกัด GPS สำเร็จ';
                         }, error => {
                             alert('ไม่สามารถดึงตำแหน่งพิกัดได้ กรุณาเปิดใช้งาน Location GPS');
                         });
