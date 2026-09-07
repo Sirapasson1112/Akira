@@ -1,499 +1,2560 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEA - Smart Maintenance & Inspection System Pro</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Google Fonts (Sarabun) -->
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
-        .a4-page {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 15mm;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 20px 40px -15px rgba(71, 85, 105, 0.1);
-            border-radius: 16px;
-        }
-        @media print {
-            body { background: white; }
-            .no-print { display: none !important; }
-            .a4-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
-            @page { size: A4; margin: 10mm; }
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Digital Inspection Form</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, "Noto Sans Thai", sans-serif;
+    }
+
+    body {
+      background: #e9eef5;
+      color: #1e293b;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      background: #062b5c;
+      color: white;
+      padding: 20px 0;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 55px;
+      height: 55px;
+      background: #1677ff;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+    }
+
+    .header-container h1 {
+      font-size: 24px;
+    }
+
+    .header-container p {
+      color: #cbd5e1;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    /* =========================
+       HOME PAGE
+    ========================= */
+
+    #homePage {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .title-area {
+      margin-bottom: 35px;
+    }
+
+    .title-area span {
+      color: #1677ff;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .title-area h2 {
+      font-size: 36px;
+      margin-top: 8px;
+    }
+
+    .title-area p {
+      margin-top: 10px;
+      color: #64748b;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      border: 1px solid #dbe3ee;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    .form-icon {
+      width: 55px;
+      height: 55px;
+      background: #eaf3ff;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+    }
+
+    .form-card h3 {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    .form-card p {
+      margin-top: 10px;
+      color: #64748b;
+      font-size: 14px;
+      min-height: 40px;
+    }
+
+    .form-card-bottom {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-code {
+      color: #1677ff;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .primary-btn {
+      background: #062b5c;
+      color: white;
+      padding: 11px 18px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: #0b438c;
+    }
+
+    .secondary-btn {
+      background: white;
+      border: 1px solid #cbd5e1;
+      padding: 10px 16px;
+      border-radius: 8px;
+    }
+
+    .secondary-btn:hover {
+      background: #f1f5f9;
+    }
+
+    /* =========================
+       INSPECTION PAGE
+    ========================= */
+
+    #inspectionPage {
+      display: none;
+    }
+
+    .top-nav {
+      background: white;
+      border-bottom: 1px solid #dbe3ee;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-nav-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .autosave {
+      color: #16a34a;
+      font-size: 13px;
+    }
+
+    /* =========================
+       PROGRESS
+    ========================= */
+
+    .progress-area {
+      background: white;
+      border-bottom: 1px solid #dbe3ee;
+      padding: 15px;
+    }
+
+    .progress-container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #progressFill {
+      height: 100%;
+      width: 0%;
+      background: #1677ff;
+      transition: width 0.4s;
+    }
+
+    /* =========================
+       A4 DOCUMENT
+    ========================= */
+
+    .document-area {
+      padding: 40px 15px;
+    }
+
+    .a4-document {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 50px;
+      min-height: 1100px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+
+    .document-header {
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .document-header h1 {
+      margin-top: 5px;
+      font-size: 26px;
+    }
+
+    .document-header small {
+      color: #64748b;
+    }
+
+    .document-code {
+      text-align: right;
+      font-size: 13px;
+    }
+
+    .document-code strong {
+      display: block;
+      margin-top: 5px;
+      color: #1677ff;
+    }
+
+    /* =========================
+       SECTION
+    ========================= */
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-number {
+      width: 30px;
+      height: 30px;
+      background: #062b5c;
+      color: white;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+    }
+
+    /* =========================
+       FORM INPUT
+    ========================= */
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      font-size: 13px;
+      margin-bottom: 7px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    input,
+    textarea {
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 11px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #1677ff;
+      box-shadow: 0 0 0 3px rgba(22,119,255,0.1);
+    }
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* =========================
+       GPS
+    ========================= */
+
+    .gps-box {
+      background: #f8fafc;
+      border: 1px solid #dbe3ee;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .gps-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* =========================
+       TABLE
+    ========================= */
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      border: 1px solid #94a3b8;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: center;
+    }
+
+    td.center {
+      text-align: center;
+    }
+
+    .status-button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid #cbd5e1;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .status-button:hover {
+      background: #f1f5f9;
+    }
+
+    .normal.selected {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #15803d;
+    }
+
+    .damaged.selected {
+      background: #ffedd5;
+      color: #c2410c;
+      border-color: #c2410c;
+    }
+
+    .none.selected {
+      background: #e2e8f0;
+      color: #475569;
+      border-color: #475569;
+    }
+
+    .defect-row {
+      display: none;
+    }
+
+    .defect-content {
+      background: #fff7ed;
+      padding: 15px;
+    }
+
+    /* =========================
+       SIGNATURE
+    ========================= */
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 50px;
+      margin-top: 25px;
+    }
+
+    .signature-box {
+      margin-top: 20px;
+      height: 80px;
+      border-bottom: 1px solid #64748b;
+    }
+
+    /* =========================
+       FOOTER BUTTONS
+    ========================= */
+
+    .document-actions {
+      margin-top: 50px;
+      padding-top: 25px;
+      border-top: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .document-footer {
+      margin-top: 50px;
+      padding-top: 15px;
+      border-top: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width: 700px) {
+
+      .header-container h1 {
+        font-size: 18px;
+      }
+
+      .title-area h2 {
+        font-size: 27px;
+      }
+
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .a4-document {
+        padding: 25px 15px;
+      }
+
+      .document-header {
+        flex-direction: column;
+      }
+
+      .document-code {
+        text-align: left;
+      }
+
+      .signature-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .top-nav-container {
+        flex-wrap: wrap;
+      }
+
+      .nav-right {
+        width: 100%;
+      }
+
+      .gps-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .document-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .action-buttons {
+        width: 100%;
+      }
+
+      .action-buttons button {
+        flex: 1;
+      }
+    }
+
+    /* =========================
+       PRINT
+    ========================= */
+
+    @media print {
+
+      body {
+        background: white;
+      }
+
+      header,
+      .top-nav,
+      .progress-area,
+      .document-actions,
+      .gps-button,
+      #homePage {
+        display: none !important;
+      }
+
+      #inspectionPage {
+        display: block !important;
+      }
+
+      .document-area {
+        padding: 0;
+      }
+
+      .a4-document {
+        box-shadow: none;
+        width: 100%;
+        max-width: none;
+        padding: 20px;
+      }
+
+      input,
+      textarea {
+        border: none;
+      }
+
+    }
+  </style>
 </head>
-<body class="text-slate-700 antialiased" x-data="inspectionApp()">
 
-    <!-- TOP HEADER BAR -->
-    <header class="no-print sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white shadow-xl px-6 py-3.5 flex justify-between items-center border-b border-slate-800/80">
-        <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white text-base font-bold shadow-lg shadow-blue-500/30">⚡</div>
-            <div>
-                <h1 class="text-sm font-bold tracking-wide text-white">MEA Smart Maintenance Pro</h1>
-                <p class="text-[11px] text-slate-400">ระบบบริหารจัดการงานบำรุงรักษาและตรวจสอบอุปกรณ์ไฟฟ้าระดับองค์กร</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-3">
-            <button @click="exportExecutiveReport()" class="bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-slate-700 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-                📊 พิมพ์รายงานผู้บริหาร
-            </button>
-            <div class="text-xs text-emerald-400 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700/50 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span x-text="autoSaveStatus"></span>
-            </div>
-        </div>
-    </header>
+<body>
 
-    <!-- LAYOUT CONTAINER WITH SIDEBAR -->
-    <div class="flex min-h-[calc(100vh-65px)]">
-        
-        <!-- SIDEBAR MENU -->
-        <aside class="no-print w-72 bg-slate-900 text-slate-300 border-r border-slate-800/80 flex flex-col p-4 space-y-2 shrink-0">
-            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-1">เมนูหลัก (Main Navigation)</div>
-            
-            <button @click="currentMenu = 'pm_table'" :class="currentMenu === 'pm_table' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold' : 'hover:bg-slate-800/60 text-slate-300'" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs transition flex items-center gap-3">
-                <span class="text-sm">📊</span> ตารางวางแผน PM อุปกรณ์ไฟฟ้า
-            </button>
-            <button @click="currentMenu = 'outage_stats'" :class="currentMenu === 'outage_stats' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold' : 'hover:bg-slate-800/60 text-slate-300'" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs transition flex items-center gap-3">
-                <span class="text-sm">📉</span> สถิติไฟฟ้าดับรายสายป้อน
-            </button>
-            <button @click="currentMenu = 'pm_route_plan'" :class="currentMenu === 'pm_route_plan' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold' : 'hover:bg-slate-800/60 text-slate-300'" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs transition flex items-center gap-3">
-                <span class="text-sm">🗺️</span> วางแผนเส้นทางตรวจอุปกรณ์
-            </button>
-            <button @click="currentMenu = 'forms'" :class="currentMenu === 'forms' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold' : 'hover:bg-slate-800/60 text-slate-300'" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs transition flex items-center gap-3">
-                <span class="text-sm">📋</span> ฟอร์มเอกสารการบำรุงรักษา <span class="ml-auto bg-indigo-500/20 text-indigo-300 text-[10px] px-2 py-0.5 rounded-full font-bold">11 ใบ</span>
-            </button>
-            <button @click="currentMenu = 'field_nav'" :class="currentMenu === 'field_nav' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold' : 'hover:bg-slate-800/60 text-slate-300'" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs transition flex items-center gap-3">
-                <span class="text-sm">🧭</span> นำทางเส้นทางตรวจ PM ภาคสนาม
-            </button>
-            <button @click="currentMenu = 'wo_analysis'" :class="currentMenu === 'wo_analysis' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold' : 'hover:bg-slate-800/60 text-slate-300'" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs transition flex items-center gap-3">
-                <span class="text-sm">🔍</span> วิเคราะห์ความผิดปกติ Work Order
-            </button>
-        </aside>
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-        <!-- CONTENT AREA -->
-        <main class="flex-1 p-8 max-w-6xl mx-auto space-y-6">
+  <header>
 
-            <!-- ================= MENU 1: ตารางวางแผน PM ================= -->
-            <div x-show="currentMenu === 'pm_table'" class="space-y-6">
-                <div class="flex justify-between items-center bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-                    <div>
-                        <h2 class="text-base font-bold text-slate-800">📊 ตารางวางแผน PM อุปกรณ์ไฟฟ้า</h2>
-                        <p class="text-xs text-slate-400 mt-0.5">จัดการรอบเวลา งบประมาณ และสถานะการบำรุงรักษาอุปกรณ์เครือข่ายไฟฟ้า</p>
-                    </div>
-                    <button @click="addNewPmPlan()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition">+ เพิ่มแผน PM</button>
-                </div>
-                <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
-                        <thead>
-                            <tr class="bg-slate-50/70 border-b border-slate-100 text-slate-500">
-                                <th class="p-3.5 font-semibold rounded-l-xl">รหัสอุปกรณ์</th>
-                                <th class="p-3.5 font-semibold">Station ID / สถานที่</th>
-                                <th class="p-3.5 font-semibold">ความสำคัญ</th>
-                                <th class="p-3.5 font-semibold">งบประมาณ (บาท)</th>
-                                <th class="p-3.5 font-semibold">สถานะ</th>
-                                <th class="p-3.5 font-semibold text-center rounded-r-xl">จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-50">
-                            <template x-for="(plan, index) in pmPlans" :key="index">
-                                <tr class="hover:bg-slate-50/50 transition">
-                                    <td class="p-3.5 font-semibold text-indigo-600" x-text="plan.formCode"></td>
-                                    <td class="p-3.5">
-                                        <div class="font-medium text-slate-800" x-text="plan.stationId || 'ไม่ระบุ Station'"></div>
-                                        <div class="text-[11px] text-slate-400" x-text="plan.location || '-'"></div>
-                                    </td>
-                                    <td class="p-3.5">
-                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold" :class="plan.priority === 'High' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'" x-text="plan.priority"></span>
-                                    </td>
-                                    <td class="p-3.5 font-semibold text-slate-700" x-text="Number(plan.cost).toLocaleString() + ' ฿'"></td>
-                                    <td class="p-3.5"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600" x-text="plan.status"></span></td>
-                                    <td class="p-3.5 text-center"><button @click="deletePmPlan(index)" class="text-rose-400 hover:text-rose-600 font-semibold">ลบ</button></td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="header-container">
 
-            <!-- ================= MENU 2: สถิติไฟฟ้าดับ ================= -->
-            <div x-show="currentMenu === 'outage_stats'" class="space-y-6">
-                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-1">
-                    <h2 class="text-base font-bold text-slate-800">📉 สถิติไฟฟ้าดับรายสายป้อน (Feeder Outage Statistics)</h2>
-                    <p class="text-xs text-slate-400">วิเคราะห์ความถี่และสาเหตุไฟฟ้าดับเพื่อนำมาวางแผนจัดลำดับความสำคัญของงาน PM</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-2">
-                        <p class="text-xs font-medium text-slate-400">สายป้อนเกิดเหตุดับสูงสุด</p>
-                        <h3 class="text-xl font-bold text-rose-600">FEEDER SKN-01</h3>
-                        <p class="text-xs text-slate-500">สถิติ: 12 ครั้ง / ไตรมาสนี้</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-2">
-                        <p class="text-xs font-medium text-slate-400">สาเหตุหลักอุปกรณ์ชำรุด</p>
-                        <h3 class="text-xl font-bold text-amber-600">ลูกถ้วยเสื่อม / LBS</h3>
-                        <p class="text-xs text-slate-500">สัดส่วน: 45% ของเหตุทั้งหมด</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-2">
-                        <p class="text-xs font-medium text-slate-400">ดัชนีความเชื่อถือได้ (SAIDI)</p>
-                        <h3 class="text-xl font-bold text-emerald-600">18.4 นาที/ราย</h3>
-                        <p class="text-xs text-slate-500">อยู่ในเกณฑ์มาตรฐาน กฟน.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="logo">⚡</div>
 
-            <!-- ================= MENU 3: วางแผนเส้นทางตรวจอุปกรณ์ ================= -->
-            <div x-show="currentMenu === 'pm_route_plan'" class="space-y-6">
-                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-1">
-                    <h2 class="text-base font-bold text-slate-800">🗺️ วางแผนเส้นทางตรวจอุปกรณ์ (PM Route Optimization)</h2>
-                    <p class="text-xs text-slate-400">จัดลำดับจุดตรวจสอบภาคสนามรายวันเพื่อลดระยะเวลาการเดินทาง</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
-                    <div class="flex justify-between items-center text-xs font-semibold text-slate-600 bg-slate-50 p-4 rounded-2xl">
-                        <span>📌 เส้นทางแนะนำ: โซนสมุทรปราการเขตเหนือ (5 จุด)</span>
-                        <span class="text-indigo-600 font-bold">ระยะทางรวม: 34.5 กม.</span>
-                    </div>
-                    <ul class="space-y-3 text-xs">
-                        <li class="p-4 border border-slate-100 rounded-2xl flex justify-between items-center bg-slate-50/50">
-                            <span>1. สถานีไฟฟ้าย่อยบางนา (Station ID: STA-001) - หม้อแปลงจำหน่าย[cite: 1]</span>
-                            <span class="text-emerald-600 font-bold">จุดเริ่มต้น (08:30 น.)</span>
-                        </li>
-                        <li class="p-4 border border-slate-100 rounded-2xl flex justify-between items-center bg-slate-50/50">
-                            <span>2. จุดตัดถนนศรีนครินทร์ (Station ID: LBS-042) - Load Break Switch[cite: 2]</span>
-                            <span class="text-slate-400">ระยะห่าง 5.2 กม.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      <div>
+        <h1>DIGITAL INSPECTION FORM</h1>
+        <p>ระบบใบตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้า</p>
+      </div>
 
-            <!-- ================= MENU 4: ฟอร์มเอกสารการบำรุงรักษา ================= -->
-            <div x-show="currentMenu === 'forms'" class="space-y-5">
-                
-                <div class="no-print bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
-                    <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
-                        <div>
-                            <h2 class="text-sm font-bold text-slate-800">📋 เลือกฟอร์มเอกสารการบำรุงรักษาอุปกรณ์ไฟฟ้า</h2>
-                            <p class="text-xs text-slate-400 mt-0.5">รวมแบบฟอร์มมาตรฐาน กฟน. ครบถ้วนทั้ง 11 ประเภท</p>
-                        </div>
-                        <input type="text" x-model="searchQuery" placeholder="🔍 ค้นหารหัส หรือ ชื่ออุปกรณ์..." class="border border-slate-200 rounded-2xl px-4 py-2 text-xs outline-none bg-slate-50 w-72 focus:border-indigo-500 transition">
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 max-h-48 overflow-y-auto p-1">
-                        <template x-for="form in filteredForms" :key="form.code">
-                            <button @click="selectForm(form.code)" :class="activeFormCode === form.code ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-600/20' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-100'" class="p-3 rounded-2xl text-left transition border flex flex-col justify-between gap-1.5">
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md w-max" :class="activeFormCode === form.code ? 'bg-indigo-500 text-white' : 'bg-slate-200 text-slate-600'" x-text="form.code"></span>
-                                <span class="text-[11px] font-semibold line-clamp-1" x-text="form.name"></span>
-                            </button>
-                        </template>
-                    </div>
-                </div>
-
-                <template x-if="!activeFormCode">
-                    <div class="no-print text-center py-20 space-y-2 bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
-                        <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner">👆</div>
-                        <h3 class="text-sm font-bold text-slate-800">กรุณาเลือกฟอร์มเอกสารด้านบนเพื่อเริ่มต้นกรอกข้อมูล</h3>
-                        <p class="text-xs text-slate-400">ข้อมูลรายละเอียดครบถ้วนทุกข้อ พร้อมระบบประเมินความเสี่ยงอัตโนมัติ</p>
-                    </div>
-                </template>
-
-                <template x-if="activeFormCode">
-                    <div class="space-y-4">
-                        <div class="max-w-[210mm] mx-auto bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 no-print flex justify-between items-center">
-                            <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold transition">✅ ติ๊ก "ปกติ" ทั้งหมด</button>
-                            <div class="text-xs font-semibold text-slate-600">
-                                ตรวจแล้ว: <span class="text-indigo-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> (<span x-text="progressPercentage"></span>%) | 
-                                ความเสี่ยง AI: <span class="px-2 py-0.5 rounded text-[10px] font-bold" :class="aiRiskLevel === 'HIGH' ? 'bg-rose-100 text-rose-700' : (aiRiskLevel === 'MEDIUM' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700')" x-text="aiRiskLevel"></span>
-                            </div>
-                            <div class="flex gap-2">
-                                <button @click="printForm()" class="bg-slate-800 hover:bg-slate-700 text-white px-3.5 py-2 rounded-xl font-bold text-xs transition">🖨️ พิมพ์ใบตรวจ</button>
-                                <button @click="validateAndSaveToPM()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-bold text-xs transition shadow-md shadow-indigo-600/20">💾 บันทึกส่งเข้าแผน PM</button>
-                            </div>
-                        </div>
-
-                        <!-- A4 Sheet -->
-                        <div class="a4-page border border-slate-100 text-slate-800 text-sm space-y-5">
-                            <div class="border-b border-slate-100 pb-4 flex justify-between items-start">
-                                <div>
-                                    <span class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-100" x-text="activeFormCode"></span>
-                                    <h2 class="text-base font-bold text-slate-800 mt-2" x-text="activeFormTitle"></h2>
-                                    <p class="text-[11px] text-slate-400">การไฟฟ้านครหลวง (MEA) • ระบบบันทึกข้อมูลภาคสนามดิจิทัล Pro Edition</p>
-                                </div>
-                                <div class="text-right text-xs text-slate-400 font-medium">วันที่: <span class="text-slate-700 font-semibold" x-text="currentDate"></span></div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-400 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-indigo-600">1. ข้อมูลทั่วไป</h3>
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                                    <div><label class="block font-medium text-slate-400 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50 focus:border-indigo-500 outline-none transition"></div>
-                                    <div><label class="block font-medium text-slate-400 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50 focus:border-indigo-500 outline-none transition"></div>
-                                    <div><label class="block font-medium text-slate-400 mb-1">Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                                    <div><label class="block font-medium text-slate-400 mb-1">Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="no-print bg-indigo-600 text-white px-2.5 rounded-xl hover:bg-indigo-500 transition">📍</button></div></div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-400 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-indigo-600">2. รายการตรวจสอบบำรุงรักษา (ครบถ้วนทุกรายการ)</h3>
-                                <div class="overflow-x-auto border border-slate-100 rounded-2xl shadow-sm">
-                                    <table class="w-full text-left border-collapse text-xs">
-                                        <thead>
-                                            <tr class="bg-slate-50/70 border-b border-slate-100 text-slate-500">
-                                                <th class="p-3 w-12 text-center">ลำดับ</th>
-                                                <th class="p-3">รายการตรวจสอบ</th>
-                                                <th class="p-3 w-16 text-center text-emerald-600 font-semibold">ปกติ</th>
-                                                <th class="p-3 w-16 text-center text-rose-600 font-semibold">ชำรุด</th>
-                                                <th class="p-3 w-16 text-center text-slate-400 font-semibold">ไม่มี</th>
-                                                <th class="p-3 w-52">ข้อบกพร่อง / การดำเนินการ</th>
-                                                <th class="no-print p-3 w-28 text-center">📷 รูปถ่าย</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-slate-50">
-                                            <template x-for="(item, index) in currentChecklistItems" :key="item.id">
-                                                <tr class="hover:bg-slate-50/50 transition">
-                                                    <td class="p-3 text-center font-bold text-slate-400" x-text="item.no"></td>
-                                                    <td class="p-3 font-medium text-slate-700" x-text="item.name"></td>
-                                                    <td class="p-3 text-center"><input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" class="w-4 h-4 text-emerald-600 cursor-pointer accent-emerald-600"></td>
-                                                    <td class="p-3 text-center"><input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" class="w-4 h-4 text-rose-600 cursor-pointer accent-rose-600"></td>
-                                                    <td class="p-3 text-center"><input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" class="w-4 h-4 text-slate-300 cursor-pointer accent-slate-500"></td>
-                                                    <td class="p-3"><input type="text" x-model="item.defect" placeholder="ระบุข้อบกพร่อง" class="w-full border border-slate-200 rounded-xl p-2 text-xs bg-slate-50/30 focus:border-indigo-500 outline-none transition"></td>
-                                                    <td class="no-print p-3 text-center">
-                                                        <label class="cursor-pointer bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] px-2.5 py-1.5 rounded-xl font-bold transition inline-block">
-                                                            <span x-text="item.photo ? '✓ แนบแล้ว' : '+ เพิ่มรูป'"></span>
-                                                            <input type="file" @change="uploadPhoto($event, item)" class="hidden" accept="image/*">
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                            </template>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <!-- ================= MENU 5: นำทางเส้นทางตรวจ PM ภาคสนาม (Pro Navigation) ================= -->
-            <div x-show="currentMenu === 'field_nav'" class="space-y-6">
-                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-1">
-                    <h2 class="text-base font-bold text-slate-800">🧭 นำทางเส้นทางตรวจ PM ภาคสนาม (Field Navigation Pro)</h2>
-                    <p class="text-xs text-slate-400">ระบบนำทางอัจฉริยะเชื่อมต่อพิกัด GPS อุปกรณ์ในแผน PM เปิด Google Maps และเช็คอินหน้างาน</p>
-                </div>
-
-                <!-- Interactive Field Navigation List -->
-                <div class="grid grid-cols-1 gap-4">
-                    <template x-for="(plan, index) in pmPlans" :key="index">
-                        <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition hover:shadow-md">
-                            <div class="space-y-1">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs font-bold px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-600" x-text="plan.formCode"></span>
-                                    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full" :class="plan.priority === 'High' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'" x-text="plan.priority + ' Priority'"></span>
-                                </div>
-                                <h3 class="text-sm font-bold text-slate-800" x-text="'สถานี: ' + (plan.stationId || 'N/A') + ' - ' + plan.location"></h3>
-                                <p class="text-xs text-slate-400">พิกัด GPS: 13.652100, 100.621400 (จำลอง)</p>
-                            </div>
-                            <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                                <a :href="'https://www.google.com/maps/search/?api=1&query=13.652100,100.621400'" target="_blank" class="flex-1 sm:flex-none bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-4 py-2 rounded-2xl text-xs font-bold transition text-center flex items-center justify-center gap-1.5">
-                                    🗺️ เปิด Google Maps
-                                </a>
-                                <button @click="currentMenu = 'forms'; selectForm(plan.formCode);" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-md shadow-indigo-600/20 transition">
-                                    📝 เปิดใบตรวจ
-                                </button>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            <!-- ================= MENU 6: วิเคราะห์ Work Order ================= -->
-            <div x-show="currentMenu === 'wo_analysis'" class="space-y-6">
-                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-1">
-                    <h2 class="text-base font-bold text-slate-800">🔍 วิเคราะห์ความผิดปกติของ Work Order</h2>
-                    <p class="text-xs text-slate-400">ตรวจสอบความล่าช้าและการซ่อมแซมซ้ำซ้อนของใบสั่งงาน</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
-                        <h3 class="text-xs font-bold text-rose-600 uppercase tracking-wide">🚨 WO ค้างดำเนินการเกิน 30 วัน</h3>
-                        <div class="p-4 bg-rose-50/60 border border-rose-100 rounded-2xl text-xs space-y-1">
-                            <div class="font-semibold text-slate-800">WO-2026-8891 : เปลี่ยน Bushing RMU[cite: 4]</div>
-                            <div class="text-slate-500">สถานี: STA-09 (รอดำเนินการจัดซื้ออะไหล่)</div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
-                        <h3 class="text-xs font-bold text-amber-600 uppercase tracking-wide">⚠️ อุปกรณ์ซ่อมซ้ำซ้อน (Recurring Defects)</h3>
-                        <div class="p-4 bg-amber-50/60 border border-amber-100 rounded-2xl text-xs space-y-1">
-                            <div class="font-semibold text-slate-800">หม้อแปลงจำหน่าย Station ID: TR-102[cite: 1]</div>
-                            <div class="text-slate-500">พบปัญหา LV Ground ซ้ำซ้อน 3 รอบในรอบปี</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </main>
     </div>
 
-    <!-- SCRIPT -->
-    <script>
-        function inspectionApp() {
-            return {
-                currentMenu: 'pm_table',
-                activeFormCode: '',
-                activeFormTitle: '',
-                searchQuery: '',
-                autoSaveStatus: '✓ พร้อมใช้งาน (Pro Mode)',
-                currentDate: new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }),
-                
-                formsList: [
-                    { code: 'SF-07-0-015', name: 'หม้อแปลงจำหน่าย' },
-                    { code: 'SF-07-0-016', name: 'Load Break Switch' },
-                    { code: 'SF-07-0-017', name: 'Sectionalizer' },
-                    { code: 'SF-07-0-018', name: 'Ring Main Unit (RMU)' },
-                    { code: 'SF-07-0-019', name: 'UNITSUBSTATION' },
-                    { code: 'SF-07-0-020', name: 'Capacitor Bank 12-24 kV' },
-                    { code: 'SF-07-0-021', name: 'เครื่องป้องกันหม้อแปลงตาข่าย' },
-                    { code: 'SF-07-0-022', name: 'หม้อแปลงตาข่ายและสวิตช์แรงกลาง' },
-                    { code: 'SF-07-0-023', name: 'กรองน้ำมันหม้อแปลง' },
-                    { code: 'SF-07-0-024', name: 'รายงานจุดร้อนแดง (Hot Spot)' },
-                    { code: 'SF-07-0-025', name: 'คายประจุไฟฟ้า (Acoustic Camera)' }
-                ],
+  </header>
 
-                get filteredForms() {
-                    if (!this.searchQuery) return this.formsList;
-                    return this.formsList.filter(f => f.code.toLowerCase().includes(this.searchQuery.toLowerCase()) || f.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
-                },
 
-                formData: { station_id: '', location: '', latitude: '', longitude: '', mea_no: '', brand: '' },
-                currentChecklistItems: [],
-                pmPlans: JSON.parse(localStorage.getItem('mea_pm_plans')) || [
-                    { formCode: 'SF-07-0-015', stationId: 'STA-001', location: 'สถานีฟีดเดอร์ A', priority: 'High', cost: 15000, status: 'Pending' },
-                    { formCode: 'SF-07-0-018', stationId: 'RMU-089', location: 'ย่านธุรกิจใจกลางเมือง', priority: 'Medium', cost: 8500, status: 'Completed' }
-                ],
+  <!-- =========================
+       HOME PAGE
+  ========================= -->
 
-                checklistDatabase: {
-                    'SF-07-0-015': [
-                        { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '', photo: null },
-                        { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '', photo: null },
-                        { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '', photo: null },
-                        { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '', photo: null },
-                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '', photo: null },
-                        { id: 6, no: '2.6', name: 'Low Voltage Capacitor', result: '', defect: '', photo: null },
-                        { id: 7, no: '2.7', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '', photo: null },
-                        { id: 8, no: '2.8', name: 'ตัวถังหม้อแปลง', result: '', defect: '', photo: null },
-                        { id: 9, no: '2.9', name: 'Bushing HV-LV', result: '', defect: '', photo: null },
-                        { id: 10, no: '2.10', name: 'Cover (Bushing, L/A, Term. kit)', result: '', defect: '', photo: null },
-                        { id: 11, no: '2.11', name: 'สายหน้าหม้อแปลง LV', result: '', defect: '', photo: null },
-                        { id: 12, no: '2.12', name: 'LV Ground', result: '', defect: '', photo: null },
-                        { id: 13, no: '2.13', name: 'HV Ground', result: '', defect: '', photo: null },
-                        { id: 14, no: '2.14', name: 'CT-TLM Meter (ถ้ามี)', result: '', defect: '', photo: null }
-                    ],
-                    'SF-07-0-016': [
-                        { id: 1, no: '2.1', name: 'ตัวถัง LBS / สลักล็อคการปลดสับ', result: '', defect: '', photo: null },
-                        { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '', photo: null },
-                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '', photo: null },
-                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '', photo: null },
-                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '', photo: null }
-                    ],
-                    'SF-07-0-017': [{ id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '', photo: null }],
-                    'SF-07-0-018': [{ id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '', photo: null }],
-                    'SF-07-0-019': [{ id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '', photo: null }],
-                    'SF-07-0-020': [{ id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '', photo: null }],
-                    'SF-07-0-021': [{ id: 1, no: '1.1', name: 'สถานะ MV.SW. (CLOSE)', result: '', defect: '', photo: null }],
-                    'SF-07-0-022': [{ id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก', result: '', defect: '', photo: null }],
-                    'SF-07-0-023': [{ id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงครั้งที่ 1 (Breakdown Voltage)', result: '', defect: '', photo: null }],
-                    'SF-07-0-024': [{ id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Hot Spot Inspection)', result: '', defect: '', photo: null }],
-                    'SF-07-0-025': [{ id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Acoustic Camera)', result: '', defect: '', photo: null }]
-                },
+  <main id="homePage">
 
-                selectForm(code) {
-                    const found = this.formsList.find(f => f.code === code);
-                    this.activeFormCode = found.code;
-                    this.activeFormTitle = found.name;
-                    this.currentChecklistItems = JSON.parse(JSON.stringify(this.checklistDatabase[code] || []));
-                },
+    <div class="title-area">
 
-                markAllNormal() {
-                    this.currentChecklistItems.forEach(item => { item.result = 'normal'; });
-                },
+      <span>INSPECTION SYSTEM</span>
 
-                get checkedCount() { return this.currentChecklistItems.filter(i => i.result !== '').length; },
-                get totalItems() { return this.currentChecklistItems.length; },
-                get progressPercentage() { return this.totalItems === 0 ? 0 : Math.round((this.checkedCount / this.totalItems) * 100); },
+      <h2>เลือกประเภทใบตรวจสอบ</h2>
 
-                get aiRiskLevel() {
-                    const damagedCount = this.currentChecklistItems.filter(i => i.result === 'damaged').length;
-                    if (damagedCount >= 2) return 'HIGH';
-                    if (damagedCount === 1) return 'MEDIUM';
-                    return 'LOW';
-                },
+      <p>
+        เลือกประเภทอุปกรณ์ที่ต้องการดำเนินการตรวจสอบ
+      </p>
 
-                uploadPhoto(event, item) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            item.photo = e.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                },
+    </div>
 
-                getGPS() {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(position => {
-                            this.formData.latitude = position.coords.latitude.toFixed(6);
-                            this.formData.longitude = position.coords.longitude.toFixed(6);
-                            alert('📍 ดึงพิกัด GPS สำเร็จ');
-                        });
-                    }
-                },
 
-                printForm() {
-                    window.print();
-                },
+    <div class="form-grid" id="formGrid"></div>
 
-                validateAndSaveToPM() {
-                    if (this.checkedCount < this.totalItems) {
-                        alert('⚠ กรุณาตรวจสอบผลการตรวจสอบให้ครบทุกข้อก่อนบันทึก');
-                        return;
-                    }
-                    this.pmPlans.push({
-                        formCode: this.activeFormCode,
-                        stationId: this.formData.station_id || 'N/A',
-                        location: this.formData.location || 'ภาคสนาม',
-                        priority: this.aiRiskLevel === 'HIGH' ? 'High' : 'Medium',
-                        cost: this.aiRiskLevel === 'HIGH' ? 25000 : 8000,
-                        status: 'Completed'
-                    });
-                    localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
-                    alert('✓ บันทึกใบตรวจสอบและส่งเข้าแผน PM สำเร็จ! (ระดับความเสี่ยง: ' + this.aiRiskLevel + ')');
-                    this.currentMenu = 'pm_table';
-                },
+  </main>
 
-                addNewPmPlan() {
-                    this.pmPlans.push({ formCode: 'SF-07-0-015', stationId: 'NEW-STA', location: 'ระบุสถานที่', priority: 'Medium', cost: 10000, status: 'Pending' });
-                    localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
-                },
 
-                deletePmPlan(index) {
-                    if (confirm('ต้องการลบแผนงานนี้ใช่หรือไม่?')) {
-                        this.pmPlans.splice(index, 1);
-                        localStorage.setItem('mea_pm_plans', JSON.stringify(this.pmPlans));
-                    }
-                },
+  <!-- =========================
+       INSPECTION PAGE
+  ========================= -->
 
-                exportExecutiveReport() {
-                    window.print();
-                }
-            }
+  <div id="inspectionPage">
+
+
+    <!-- NAV -->
+
+    <div class="top-nav">
+
+      <div class="top-nav-container">
+
+        <div class="nav-left">
+
+          <button
+            class="secondary-btn"
+            onclick="goHome()"
+          >
+            ← กลับ
+          </button>
+
+
+          <div>
+
+            <strong>DIGITAL INSPECTION FORM</strong>
+
+            <div
+              id="navFormCode"
+              style="font-size:11px;color:#64748b"
+            >
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="nav-right">
+
+          <span
+            id="saveStatus"
+            class="autosave"
+          >
+            ● Auto Save
+          </span>
+
+
+          <button
+            class="secondary-btn"
+            onclick="saveDraft()"
+          >
+            💾 บันทึก
+          </button>
+
+
+          <button
+            class="primary-btn"
+            onclick="window.print()"
+          >
+            📄 Export PDF
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-area">
+
+      <div class="progress-container">
+
+        <div class="progress-info">
+
+          <span>
+            ความคืบหน้าการตรวจสอบ
+          </span>
+
+          <span id="progressText">
+            0 / 0 รายการ
+          </span>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+          <div id="progressFill"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- A4 DOCUMENT -->
+
+    <div class="document-area">
+
+      <div
+        class="a4-document"
+        id="inspectionDocument"
+      >
+
+
+        <!-- DOCUMENT HEADER -->
+
+        <div class="document-header">
+
+          <div>
+
+            <small>
+              DIGITAL INSPECTION FORM
+            </small>
+
+            <h1 id="documentTitle">
+              ใบตรวจสอบ
+            </h1>
+
+          </div>
+
+
+          <div class="document-code">
+
+            รหัสเอกสาร
+
+            <strong id="documentCode">
+              SF-00-000
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             SECTION 1
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+
+            <div class="section-number">
+              1
+            </div>
+
+            <h2>ข้อมูลทั่วไป</h2>
+
+          </div>
+
+
+          <div class="input-grid">
+
+
+            <div class="input-group">
+
+              <label>สถานที่</label>
+
+              <input
+                id="location"
+                type="text"
+                placeholder="ระบุสถานที่"
+                oninput="autoSave()"
+              >
+
+            </div>
+
+
+            <div class="input-group">
+
+              <label>Station ID</label>
+
+              <input
+                id="stationId"
+                type="text"
+                oninput="autoSave()"
+              >
+
+            </div>
+
+
+            <div class="input-group">
+
+              <label>MEA No.</label>
+
+              <input
+                id="meaNo"
+                type="text"
+                oninput="autoSave()"
+              >
+
+            </div>
+
+
+            <div class="input-group">
+
+              <label>วันที่ตรวจสอบ</label>
+
+              <input
+                id="inspectionDate"
+                type="date"
+                oninput="autoSave()"
+              >
+
+            </div>
+
+
+            <div class="input-group">
+
+              <label>เวลา</label>
+
+              <input
+                id="inspectionTime"
+                type="time"
+                oninput="autoSave()"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- GPS -->
+
+          <div class="gps-box">
+
+            <div class="gps-header">
+
+              <div>
+
+                <strong>
+                  📍 GIS Location
+                </strong>
+
+                <p
+                  style="
+                    color:#64748b;
+                    font-size:13px;
+                    margin-top:5px
+                  "
+                >
+                  ตำแหน่งสำหรับการตรวจสอบ
+                </p>
+
+              </div>
+
+
+              <button
+                class="secondary-btn gps-button"
+                onclick="getLocation()"
+              >
+                📍 ดึงตำแหน่งปัจจุบัน
+              </button>
+
+            </div>
+
+
+            <div
+              class="input-grid"
+              style="margin-top:20px"
+            >
+
+              <div class="input-group">
+
+                <label>Latitude</label>
+
+                <input
+                  id="latitude"
+                  type="text"
+                  oninput="autoSave()"
+                >
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>Longitude</label>
+
+                <input
+                  id="longitude"
+                  type="text"
+                  oninput="autoSave()"
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             SECTION 2
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+
+            <div class="section-number">
+              2
+            </div>
+
+            <h2>
+              รายการตรวจสอบบำรุงรักษา
+            </h2>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>ลำดับ</th>
+
+                  <th>
+                    รายการตรวจสอบ
+                  </th>
+
+                  <th>
+                    ปกติ
+                  </th>
+
+                  <th>
+                    ชำรุด
+                  </th>
+
+                  <th>
+                    ไม่มี
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="inspectionItems">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             SECTION 3
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+
+            <div class="section-number">
+              3
+            </div>
+
+            <h2>
+              สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม
+            </h2>
+
+          </div>
+
+
+          <textarea
+            id="additionalInfo"
+            placeholder="ระบุรายละเอียด..."
+            oninput="autoSave()"
+          ></textarea>
+
+        </div>
+
+
+        <!-- =========================
+             SECTION 4
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+
+            <div class="section-number">
+              4
+            </div>
+
+            <h2>
+              การปรับปรุงข้อบกพร่อง
+            </h2>
+
+          </div>
+
+
+          <textarea
+            id="improvement"
+            placeholder="ระบุรายละเอียดการปรับปรุง..."
+            oninput="autoSave()"
+          ></textarea>
+
+        </div>
+
+
+        <!-- =========================
+             SECTION 5
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+
+            <div class="section-number">
+              5
+            </div>
+
+            <h2>ผู้ตรวจสอบ</h2>
+
+          </div>
+
+
+          <div class="signature-grid">
+
+
+            <div>
+
+              <h3>ผู้ตรวจ</h3>
+
+
+              <div
+                class="input-group"
+                style="margin-top:15px"
+              >
+
+                <label>ชื่อผู้ตรวจ</label>
+
+                <input
+                  id="inspector"
+                  type="text"
+                  oninput="autoSave()"
+                >
+
+              </div>
+
+
+              <div
+                class="input-group"
+                style="margin-top:15px"
+              >
+
+                <label>ตำแหน่ง</label>
+
+                <input
+                  id="inspectorPosition"
+                  type="text"
+                  oninput="autoSave()"
+                >
+
+              </div>
+
+
+              <p
+                style="
+                  margin-top:25px;
+                  font-size:13px;
+                  color:#64748b
+                "
+              >
+                ลายเซ็น
+              </p>
+
+              <div class="signature-box"></div>
+
+            </div>
+
+
+            <div>
+
+              <h3>ผู้ตรวจสอบ</h3>
+
+
+              <div
+                class="input-group"
+                style="margin-top:15px"
+              >
+
+                <label>ชื่อผู้ตรวจสอบ</label>
+
+                <input
+                  id="verifier"
+                  type="text"
+                  oninput="autoSave()"
+                >
+
+              </div>
+
+
+              <div
+                class="input-group"
+                style="margin-top:15px"
+              >
+
+                <label>ตำแหน่ง</label>
+
+                <input
+                  id="verifierPosition"
+                  type="text"
+                  oninput="autoSave()"
+                >
+
+              </div>
+
+
+              <p
+                style="
+                  margin-top:25px;
+                  font-size:13px;
+                  color:#64748b
+                "
+              >
+                ลายเซ็น
+              </p>
+
+              <div class="signature-box"></div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTION -->
+
+        <div class="document-actions">
+
+
+          <div>
+
+            <strong id="completedText">
+              ความคืบหน้า 0%
+            </strong>
+
+            <p
+              id="completedDetail"
+              style="
+                font-size:13px;
+                color:#64748b;
+                margin-top:5px
+              "
+            >
+              ตรวจสอบแล้ว 0 รายการ
+            </p>
+
+          </div>
+
+
+          <div class="action-buttons">
+
+            <button
+              class="secondary-btn"
+              onclick="saveDraft()"
+            >
+              💾 บันทึกแบบร่าง
+            </button>
+
+
+            <button
+              class="primary-btn"
+              onclick="submitForm()"
+            >
+              ✓ ส่งใบตรวจสอบ
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="document-footer">
+
+          <span id="footerCode"></span>
+
+          <span>
+            Digital Inspection Form
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+
+    /* =========================
+       FORM DATA
+    ========================= */
+
+    const forms = [
+
+      {
+        id: "SF-07-0-015",
+
+        name:
+          "แบบตรวจสอบบำรุงหม้อแปลงจำหน่าย",
+
+        shortName:
+          "หม้อแปลงจำหน่าย",
+
+        icon: "⚡",
+
+        items: [
+
+          "ตัวถังหม้อแปลง",
+
+          "Bushing HV-LV",
+
+          "สายหน้าหม้อแปลง HV-LV",
+
+          "Drop Fuse",
+
+          "กับดักฟ้าผ่า (L/A)",
+
+          "สายเข้า-ออก",
+
+          "อุปกรณ์ป้องกันสัตว์",
+
+          "Low Voltage Capacitor",
+
+          "HV Ground",
+
+          "LV Ground"
+
+        ]
+
+      },
+
+
+      {
+        id: "SF-07-0-016",
+
+        name:
+          "แบบตรวจสอบบำรุงรักษา Load Break Switch",
+
+        shortName:
+          "Load Break Switch",
+
+        icon: "🔌",
+
+        items: [
+
+          "ตัวถัง LBS / สลักล็อกการปลด-สับ",
+
+          "สถานะก๊าซ SF6",
+
+          "Bushing",
+
+          "กับดักฟ้าผ่า",
+
+          "VT",
+
+          "Drop Fuse ลง VT",
+
+          "คอนสาย",
+
+          "สายควบคุม LBS",
+
+          "อุปกรณ์ป้องกันสัตว์",
+
+          "ไฟสถานะหน้าตู้",
+
+          "แหล่งจ่ายไฟฟ้าและสายควบคุม",
+
+          "สภาพแบตเตอรี่หรือ Capacitor",
+
+          "Ground HV",
+
+          "Ground LV",
+
+          "ทดสอบ ปลด/สับ"
+
+        ]
+
+      },
+
+
+      {
+        id: "SF-07-0-017",
+
+        name:
+          "แบบตรวจสอบบำรุงรักษา Sectionalizer",
+
+        shortName:
+          "Sectionalizer",
+
+        icon: "⚙️",
+
+        items: [
+
+          "ตัวถัง SZ / สลักล็อกการปลด-สับ",
+
+          "สถานะก๊าซ SF6",
+
+          "Bushing",
+
+          "กับดักฟ้าผ่า",
+
+          "คอนสาย",
+
+          "สายควบคุม SZ",
+
+          "อุปกรณ์ป้องกันสัตว์",
+
+          "ไฟสถานะหน้าตู้",
+
+          "แหล่งจ่ายไฟฟ้าและสายควบคุม",
+
+          "สภาพแบตเตอรี่หรือ Capacitor",
+
+          "Ground HV",
+
+          "Ground LV",
+
+          "ทดสอบทาง Local"
+
+        ]
+
+      },
+
+
+      {
+        id: "SF-07-0-018",
+
+        name:
+          "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)",
+
+        shortName:
+          "Ring Main Unit (RMU)",
+
+        icon: "🔋",
+
+        items: [
+
+          "สภาพภายนอก",
+
+          "ประตู",
+
+          "ฐานตู้",
+
+          "สภาพ RMU / ห้อง",
+
+          "ก๊าซ SF6",
+
+          "ตัวแสดงสถานะสวิตช์",
+
+          "กุญแจล็อกป้องกันการปลด-สับ",
+
+          "คันสับ",
+
+          "ตัวตรวจสอบแรงดัน",
+
+          "ตัวตรวจสอบการลัดวงจร",
+
+          "แรงดันไฟฟ้าเลี้ยงอุปกรณ์",
+
+          "สภาพแบตเตอรี่หรือ UPS",
+
+          "FRTU",
+
+          "อุปกรณ์ควบคุมอื่น ๆ",
+
+          "ทดสอบการปลด-สับ"
+
+        ]
+
+      },
+
+
+      {
+        id: "SF-07-0-019",
+
+        name:
+          "แบบตรวจสอบบำรุงรักษา UNITSUBSTATION",
+
+        shortName:
+          "UNITSUBSTATION",
+
+        icon: "🏭",
+
+        items: [
+
+          "สภาพภายนอก",
+
+          "ประตู",
+
+          "ฐานตู้",
+
+          "สภาพ RMU",
+
+          "ตัวถังหม้อแปลง",
+
+          "Bushing HV-LV",
+
+          "สายหน้าหม้อแปลง HV-LV",
+
+          "LV Ground",
+
+          "HV Ground",
+
+          "กุญแจล็อกป้องกันการปลด-สับ",
+
+          "คันสับ",
+
+          "ตัวตรวจสอบแรงดัน",
+
+          "ตัวตรวจสอบการลัดวงจร",
+
+          "แรงดันไฟฟ้าเลี้ยงอุปกรณ์",
+
+          "สภาพแบตเตอรี่หรือ UPS",
+
+          "FRTU",
+
+          "อุปกรณ์ควบคุมอื่น ๆ",
+
+          "ระบบการปลด-สับด้วยไฟฟ้า"
+
+        ]
+
+      }
+
+    ];
+
+
+    let currentForm = null;
+
+    let results = {};
+
+
+
+    /* =========================
+       CREATE HOME CARDS
+    ========================= */
+
+    function createFormCards() {
+
+      const grid =
+        document.getElementById("formGrid");
+
+
+      forms.forEach(form => {
+
+
+        const card =
+          document.createElement("div");
+
+
+        card.className =
+          "form-card";
+
+
+        card.onclick =
+          () => selectForm(form.id);
+
+
+        card.innerHTML = `
+
+          <div class="form-icon">
+
+            ${form.icon}
+
+          </div>
+
+
+          <h3>
+
+            ${form.shortName}
+
+          </h3>
+
+
+          <p>
+
+            ${form.name}
+
+          </p>
+
+
+          <div class="form-card-bottom">
+
+            <span class="form-code">
+
+              ${form.id}
+
+            </span>
+
+
+            <span
+              style="
+                color:#1677ff;
+                font-weight:bold
+              "
+            >
+
+              เริ่มตรวจสอบ →
+
+            </span>
+
+          </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+      });
+
+    }
+
+
+
+    /* =========================
+       SELECT FORM
+    ========================= */
+
+    function selectForm(id) {
+
+
+      currentForm =
+        forms.find(
+          form => form.id === id
+        );
+
+
+      results = {};
+
+
+      document.getElementById(
+        "homePage"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "inspectionPage"
+      ).style.display = "block";
+
+
+      document.getElementById(
+        "documentTitle"
+      ).textContent =
+        currentForm.name;
+
+
+      document.getElementById(
+        "documentCode"
+      ).textContent =
+        currentForm.id;
+
+
+      document.getElementById(
+        "navFormCode"
+      ).textContent =
+        currentForm.id;
+
+
+      document.getElementById(
+        "footerCode"
+      ).textContent =
+        currentForm.id;
+
+
+      createInspectionItems();
+
+
+      loadDraft();
+
+
+      updateProgress();
+
+    }
+
+
+
+    /* =========================
+       CREATE INSPECTION ITEMS
+    ========================= */
+
+    function createInspectionItems() {
+
+
+      const container =
+        document.getElementById(
+          "inspectionItems"
+        );
+
+
+      container.innerHTML = "";
+
+
+      currentForm.items.forEach(
+        (item, index) => {
+
+
+          const number =
+            `2.${index + 1}`;
+
+
+          const row =
+            document.createElement("tr");
+
+
+          row.innerHTML = `
+
+            <td class="center">
+
+              ${number}
+
+            </td>
+
+
+            <td>
+
+              ${item}
+
+            </td>
+
+
+            <td class="center">
+
+              <button
+                class="
+                  status-button
+                  normal
+                "
+
+                onclick="
+                  selectStatus(
+                    ${index},
+                    'normal'
+                  )
+                "
+
+                id="
+                  normal-${index}
+                "
+
+              >
+
+                ○
+
+              </button>
+
+            </td>
+
+
+            <td class="center">
+
+              <button
+                class="
+                  status-button
+                  damaged
+                "
+
+                onclick="
+                  selectStatus(
+                    ${index},
+                    'damaged'
+                  )
+                "
+
+                id="
+                  damaged-${index}
+                "
+
+              >
+
+                ○
+
+              </button>
+
+            </td>
+
+
+            <td class="center">
+
+              <button
+                class="
+                  status-button
+                  none
+                "
+
+                onclick="
+                  selectStatus(
+                    ${index},
+                    'none'
+                  )
+                "
+
+                id="
+                  none-${index}
+                "
+
+              >
+
+                ○
+
+              </button>
+
+            </td>
+
+          `;
+
+
+          container.appendChild(row);
+
+
+          const defectRow =
+            document.createElement("tr");
+
+
+          defectRow.className =
+            "defect-row";
+
+
+          defectRow.id =
+            `defectRow-${index}`;
+
+
+          defectRow.innerHTML = `
+
+            <td
+              colspan="5"
+              class="defect-content"
+            >
+
+              <strong
+                style="
+                  color:#c2410c
+                "
+              >
+
+                ⚠ รายละเอียดข้อบกพร่อง
+
+              </strong>
+
+
+              <textarea
+
+                id="
+                  defect-${index}
+                "
+
+                placeholder="
+                  ระบุรายละเอียดข้อบกพร่อง...
+                "
+
+                style="
+                  margin-top:10px
+                "
+
+                oninput="
+                  autoSave()
+                "
+
+              ></textarea>
+
+
+              <div
+                style="
+                  margin-top:15px
+                "
+              >
+
+                <label
+                  style="
+                    font-size:13px;
+                    font-weight:bold
+                  "
+                >
+
+                  📷 แนบรูปภาพ
+
+                </label>
+
+
+                <br>
+
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  style="
+                    margin-top:8px
+                  "
+                >
+
+              </div>
+
+            </td>
+
+          `;
+
+
+          container.appendChild(
+            defectRow
+          );
+
         }
-    </script>
+      );
+
+    }
+
+
+
+    /* =========================
+       SELECT STATUS
+    ========================= */
+
+    function selectStatus(
+      index,
+      status
+    ) {
+
+
+      results[index] =
+        status;
+
+
+      const types = [
+
+        "normal",
+
+        "damaged",
+
+        "none"
+
+      ];
+
+
+      types.forEach(type => {
+
+
+        const button =
+          document.getElementById(
+            `${type}-${index}`
+          );
+
+
+        button.classList.remove(
+          "selected"
+        );
+
+
+        button.innerHTML = "○";
+
+      });
+
+
+      const selectedButton =
+        document.getElementById(
+          `${status}-${index}`
+        );
+
+
+      selectedButton.classList.add(
+        "selected"
+      );
+
+
+      selectedButton.innerHTML = "✓";
+
+
+      const defectRow =
+        document.getElementById(
+          `defectRow-${index}`
+        );
+
+
+      if (
+        status === "damaged"
+      ) {
+
+        defectRow.style.display =
+          "table-row";
+
+      } else {
+
+        defectRow.style.display =
+          "none";
+
+      }
+
+
+      updateProgress();
+
+
+      autoSave();
+
+    }
+
+
+
+    /* =========================
+       UPDATE PROGRESS
+    ========================= */
+
+    function updateProgress() {
+
+
+      if (!currentForm) return;
+
+
+      const completed =
+        Object.keys(results).length;
+
+
+      const total =
+        currentForm.items.length;
+
+
+      const percent =
+        Math.round(
+          (completed / total) * 100
+        );
+
+
+      document.getElementById(
+        "progressFill"
+      ).style.width =
+        percent + "%";
+
+
+      document.getElementById(
+        "progressText"
+      ).textContent =
+        `${completed} / ${total} รายการ`;
+
+
+      document.getElementById(
+        "completedText"
+      ).textContent =
+        `ความคืบหน้า ${percent}%`;
+
+
+      document.getElementById(
+        "completedDetail"
+      ).textContent =
+        `ตรวจสอบแล้ว ${completed} จาก ${total} รายการ`;
+
+    }
+
+
+
+    /* =========================
+       GET GPS
+    ========================= */
+
+    function getLocation() {
+
+
+      if (
+        !navigator.geolocation
+      ) {
+
+        alert(
+          "อุปกรณ์นี้ไม่รองรับ GPS"
+        );
+
+        return;
+
+      }
+
+
+      navigator.geolocation.getCurrentPosition(
+
+
+        position => {
+
+
+          document.getElementById(
+            "latitude"
+          ).value =
+            position.coords.latitude.toFixed(6);
+
+
+          document.getElementById(
+            "longitude"
+          ).value =
+            position.coords.longitude.toFixed(6);
+
+
+          autoSave();
+
+
+          alert(
+            "✓ บันทึกตำแหน่งเรียบร้อย"
+          );
+
+        },
+
+
+        error => {
+
+          alert(
+            "ไม่สามารถดึงตำแหน่งได้ กรุณาอนุญาตการเข้าถึงตำแหน่ง"
+          );
+
+        }
+
+      );
+
+    }
+
+
+
+    /* =========================
+       AUTO SAVE
+    ========================= */
+
+    let saveTimer;
+
+
+    function autoSave() {
+
+
+      clearTimeout(
+        saveTimer
+      );
+
+
+      document.getElementById(
+        "saveStatus"
+      ).textContent =
+        "● กำลังบันทึก...";
+
+
+      saveTimer =
+        setTimeout(() => {
+
+
+          saveDraft(false);
+
+
+          document.getElementById(
+            "saveStatus"
+          ).textContent =
+            "✓ บันทึกแล้ว";
+
+
+          setTimeout(() => {
+
+            document.getElementById(
+              "saveStatus"
+            ).textContent =
+              "● Auto Save";
+
+          }, 2000);
+
+
+        }, 700);
+
+    }
+
+
+
+    /* =========================
+       SAVE DRAFT
+    ========================= */
+
+    function saveDraft(
+      showMessage = true
+    ) {
+
+
+      if (!currentForm) return;
+
+
+      const data = {
+
+
+        location:
+          document.getElementById(
+            "location"
+          ).value,
+
+
+        stationId:
+          document.getElementById(
+            "stationId"
+          ).value,
+
+
+        meaNo:
+          document.getElementById(
+            "meaNo"
+          ).value,
+
+
+        inspectionDate:
+          document.getElementById(
+            "inspectionDate"
+          ).value,
+
+
+        inspectionTime:
+          document.getElementById(
+            "inspectionTime"
+          ).value,
+
+
+        latitude:
+          document.getElementById(
+            "latitude"
+          ).value,
+
+
+        longitude:
+          document.getElementById(
+            "longitude"
+          ).value,
+
+
+        additionalInfo:
+          document.getElementById(
+            "additionalInfo"
+          ).value,
+
+
+        improvement:
+          document.getElementById(
+            "improvement"
+          ).value,
+
+
+        inspector:
+          document.getElementById(
+            "inspector"
+          ).value,
+
+
+        inspectorPosition:
+          document.getElementById(
+            "inspectorPosition"
+          ).value,
+
+
+        verifier:
+          document.getElementById(
+            "verifier"
+          ).value,
+
+
+        verifierPosition:
+          document.getElementById(
+            "verifierPosition"
+          ).value,
+
+
+        results: results,
+
+
+        defects: {}
+
+      };
+
+
+      currentForm.items.forEach(
+        (item, index) => {
+
+
+          const defect =
+            document.getElementById(
+              `defect-${index}`
+            );
+
+
+          if (defect) {
+
+            data.defects[index] =
+              defect.value;
+
+          }
+
+        }
+      );
+
+
+      localStorage.setItem(
+
+        "inspection-" +
+        currentForm.id,
+
+        JSON.stringify(data)
+
+      );
+
+
+      if (showMessage) {
+
+        alert(
+          "✓ บันทึกแบบร่างเรียบร้อย"
+        );
+
+      }
+
+    }
+
+
+
+    /* =========================
+       LOAD DRAFT
+    ========================= */
+
+    function loadDraft() {
+
+
+      const saved =
+        localStorage.getItem(
+
+          "inspection-" +
+          currentForm.id
+
+        );
+
+
+      if (!saved) return;
+
+
+      const data =
+        JSON.parse(saved);
+
+
+      document.getElementById(
+        "location"
+      ).value =
+        data.location || "";
+
+
+      document.getElementById(
+        "stationId"
+      ).value =
+        data.stationId || "";
+
+
+      document.getElementById(
+        "meaNo"
+      ).value =
+        data.meaNo || "";
+
+
+      document.getElementById(
+        "inspectionDate"
+      ).value =
+        data.inspectionDate || "";
+
+
+      document.getElementById(
+        "inspectionTime"
+      ).value =
+        data.inspectionTime || "";
+
+
+      document.getElementById(
+        "latitude"
+      ).value =
+        data.latitude || "";
+
+
+      document.getElementById(
+        "longitude"
+      ).value =
+        data.longitude || "";
+
+
+      document.getElementById(
+        "additionalInfo"
+      ).value =
+        data.additionalInfo || "";
+
+
+      document.getElementById(
+        "improvement"
+      ).value =
+        data.improvement || "";
+
+
+      document.getElementById(
+        "inspector"
+      ).value =
+        data.inspector || "";
+
+
+      document.getElementById(
+        "inspectorPosition"
+      ).value =
+        data.inspectorPosition || "";
+
+
+      document.getElementById(
+        "verifier"
+      ).value =
+        data.verifier || "";
+
+
+      document.getElementById(
+        "verifierPosition"
+      ).value =
+        data.verifierPosition || "";
+
+
+      results =
+        data.results || {};
+
+
+      Object.keys(results).forEach(
+        index => {
+
+
+          const status =
+            results[index];
+
+
+          const button =
+            document.getElementById(
+              `${status}-${index}`
+            );
+
+
+          if (button) {
+
+            button.classList.add(
+              "selected"
+            );
+
+
+            button.innerHTML = "✓";
+
+          }
+
+
+          if (
+            status === "damaged"
+          ) {
+
+
+            const defectRow =
+              document.getElementById(
+                `defectRow-${index}`
+              );
+
+
+            defectRow.style.display =
+              "table-row";
+
+
+            const defect =
+              document.getElementById(
+                `defect-${index}`
+              );
+
+
+            if (
+              defect &&
+              data.defects
+            ) {
+
+              defect.value =
+                data.defects[index] || "";
+
+            }
+
+          }
+
+        }
+      );
+
+    }
+
+
+
+    /* =========================
+       SUBMIT FORM
+    ========================= */
+
+    function submitForm() {
+
+
+      const completed =
+        Object.keys(results).length;
+
+
+      const total =
+        currentForm.items.length;
+
+
+      if (
+        completed < total
+      ) {
+
+        alert(
+
+          `⚠ กรุณาตรวจสอบให้ครบก่อนส่ง\n\n` +
+
+          `ตรวจสอบแล้ว ${completed} จาก ${total} รายการ`
+
+        );
+
+
+        return;
+
+      }
+
+
+      saveDraft(false);
+
+
+      alert(
+
+        "✓ ส่งใบตรวจสอบเรียบร้อย"
+
+      );
+
+    }
+
+
+
+    /* =========================
+       GO HOME
+    ========================= */
+
+    function goHome() {
+
+
+      document.getElementById(
+        "inspectionPage"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "homePage"
+      ).style.display =
+        "block";
+
+
+      currentForm = null;
+
+
+      results = {};
+
+    }
+
+
+
+    /* =========================
+       START APP
+    ========================= */
+
+    createFormCards();
+
+
+  </script>
+
 
 </body>
 </html>
+```
