@@ -33,7 +33,7 @@
     <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-md px-4 py-3 flex flex-wrap justify-between items-center">
         <div class="flex items-center space-x-3">
             <span class="text-xl font-bold text-blue-400">⚡ Digital Inspection</span>
-            <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">MEA Standard (ครบถ้วน 11 แบบฟอร์ม)</span>
+            <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">MEA Standard (11 แบบฟอร์ม ข้อมูลทั่วไปเฉพาะตัว)</span>
         </div>
         <div class="flex items-center space-x-3 text-sm">
             <span class="text-xs text-emerald-400 flex items-center gap-1" x-text="autoSaveStatus"></span>
@@ -53,7 +53,7 @@
         <div x-show="currentView === 'home'" class="max-w-6xl mx-auto space-y-6">
             <div class="text-center space-y-2 mb-8">
                 <h1 class="text-3xl font-bold text-slate-900">ระบบใบตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
-                <p class="text-slate-600">เลือกประเภทใบตรวจสอบภาคสนาม รายละเอียดครบถ้วนตรงตามเอกสารต้นฉบับ กฟน. (MEA)</p>
+                <p class="text-slate-600">เลือกประเภทใบตรวจสอบภาคสนาม ข้อมูลทั่วไปและรายการตรวจสอบตรงตามต้นฉบับ กฟน. (MEA)</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -109,30 +109,154 @@
                     </div>
                 </div>
 
-                <!-- Section 1: General Info -->
+                <!-- Section 1: Dynamic General Info (ข้อมูลทั่วไปเฉพาะของแต่ละใบ) -->
                 <div class="space-y-3">
                     <h3 class="font-bold text-sm bg-slate-100 px-2 py-1 border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                        <div>
-                            <label class="block font-medium text-slate-600 mb-1">Station ID / FIX ID</label>
-                            <input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="ระบุ Station ID">
+                    
+                    <!-- Form 015: หม้อแปลงจำหน่าย -->
+                    <template x-if="activeFormCode === 'SF-07-0-015'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA No.1</label><input type="text" x-model="formData.mea_no1" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA No.2</label><input type="text" x-model="formData.mea_no2" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA No.3</label><input type="text" x-model="formData.mea_no3" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">จำนวนเฟส</label><input type="text" x-model="formData.phases" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ (TR)</label><input type="text" x-model="formData.brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ขนาด</label><input type="text" x-model="formData.capacity" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ชนิด</label><input type="text" x-model="formData.type" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ลักษณะการติดตั้ง</label><input type="text" x-model="formData.install_style" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
                         </div>
-                        <div>
-                            <label class="block font-medium text-slate-600 mb-1">สถานที่</label>
-                            <input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="ระบุสถานที่ติดตั้ง">
+                    </template>
+
+                    <!-- Form 016: Load Break Switch -->
+                    <template x-if="activeFormCode === 'SF-07-0-016'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ LBS</label><input type="text" x-model="formData.lbs_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">LBS MEA No.</label><input type="text" x-model="formData.lbs_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">Switch No.</label><input type="text" x-model="formData.switch_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ VT</label><input type="text" x-model="formData.vt_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">VT MEA No.</label><input type="text" x-model="formData.vt_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ตู้ OFDF No.</label><input type="text" x-model="formData.ofdf_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
                         </div>
-                        <div>
-                            <label class="block font-medium text-slate-600 mb-1">Latitude (Lat.)</label>
-                            <input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly placeholder="กดดึงพิกัด">
+                    </template>
+
+                    <!-- Form 017: Sectionalizer -->
+                    <template x-if="activeFormCode === 'SF-07-0-017'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ SZ</label><input type="text" x-model="formData.sz_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">SZ MEA No.</label><input type="text" x-model="formData.sz_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">Switch No.</label><input type="text" x-model="formData.switch_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
                         </div>
-                        <div>
-                            <label class="block font-medium text-slate-600 mb-1">Longitude (Long.)</label>
-                            <div class="flex gap-1">
-                                <input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly placeholder="กดดึงพิกัด">
-                                <button @click="getGPS()" class="bg-blue-600 hover:bg-blue-500 text-white px-2 rounded text-xs" title="ดึงพิกัด GPS">📍</button>
-                            </div>
+                    </template>
+
+                    <!-- Form 018: Ring Main Unit (RMU) -->
+                    <template x-if="activeFormCode === 'SF-07-0-018'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ RMU</label><input type="text" x-model="formData.rmu_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">RMU MEA No.</label><input type="text" x-model="formData.rmu_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
                         </div>
-                    </div>
+                    </template>
+
+                    <!-- Form 019: UNITSUBSTATION -->
+                    <template x-if="activeFormCode === 'SF-07-0-019'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ TR</label><input type="text" x-model="formData.tr_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">TR MEA No.</label><input type="text" x-model="formData.tr_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ RMU</label><input type="text" x-model="formData.rmu_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">RMU MEA No.</label><input type="text" x-model="formData.rmu_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                        </div>
+                    </template>
+
+                    <!-- Form 020: Capacitor Bank -->
+                    <template x-if="activeFormCode === 'SF-07-0-020'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สายป้อน</label><input type="text" x-model="formData.feeder" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ชนิด Control</label><input type="text" x-model="formData.ctrl_type" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ (Control)</label><input type="text" x-model="formData.ctrl_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ชนิด Switch</label><input type="text" x-model="formData.switch_type" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">ยี่ห้อ (Switch)</label><input type="text" x-model="formData.switch_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                        </div>
+                    </template>
+
+                    <!-- Form 021 & 022: Mesh Network Transformer -->
+                    <template x-if="activeFormCode === 'SF-07-0-021' || activeFormCode === 'SF-07-0-022'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">STATION / สถานที่</label><input type="text" x-model="formData.station" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">FIX ID</label><input type="text" x-model="formData.fix_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">WLN</label><input type="text" x-model="formData.wln" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA NO.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <template x-if="activeFormCode === 'SF-07-0-021'">
+                                <>
+                                <div><label class="block font-medium text-slate-600 mb-1">ACB NO.</label><input type="text" x-model="formData.acb_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                                <div><label class="block font-medium text-slate-600 mb-1">RELAY NO.</label><input type="text" x-model="formData.relay_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                                </>
+                            </template>
+                            <template x-if="activeFormCode === 'SF-07-0-022'">
+                                <div><label class="block font-medium text-slate-600 mb-1">SW. MEA NO.</label><input type="text" x-model="formData.sw_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- Form 023: Oil Filtering -->
+                    <template x-if="activeFormCode === 'SF-07-0-023'">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">STATION ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">SW. ยี่ห้อ</label><input type="text" x-model="formData.sw_brand" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">TR. MEA No.</label><input type="text" x-model="formData.tr_mea" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                        </div>
+                    </template>
+
+                    <!-- Form 024: Hot Spot -->
+                    <template x-if="activeFormCode === 'SF-07-0-024'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สายป้อน</label><input type="text" x-model="formData.feeder" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">อุปกรณ์</label><input type="text" x-model="formData.equipment" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">Emissivity</label><input type="text" x-model="formData.emissivity" class="w-full border border-slate-300 rounded p-1.5 outline-none" value="0.95"></div>
+                        </div>
+                    </template>
+
+                    <!-- Form 025: Acoustic Camera -->
+                    <template x-if="activeFormCode === 'SF-07-0-025'">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div><label class="block font-medium text-slate-600 mb-1">Station ID</label><input type="text" x-model="formData.station_id" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สถานที่</label><input type="text" x-model="formData.location" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-300 rounded p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">สายป้อน</label><input type="text" x-model="formData.feeder" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                            <div><label class="block font-medium text-slate-600 mb-1">อุปกรณ์</label><input type="text" x-model="formData.equipment" class="w-full border border-slate-300 rounded p-1.5 outline-none"></div>
+                        </div>
+                    </template>
+
                 </div>
 
                 <!-- Section 2: Inspection Checklist Table -->
@@ -235,21 +359,18 @@
                 ],
 
                 formData: {
-                    station_id: '',
-                    location: '',
-                    latitude: '',
-                    longitude: '',
-                    remarks: '',
-                    rectification: '',
-                    inspector_name: '',
-                    inspector_pos: '',
-                    verifier_name: '',
-                    verifier_pos: ''
+                    station_id: '', location: '', latitude: '', longitude: '',
+                    mea_no1: '', mea_no2: '', mea_no3: '', phases: '', brand: '', capacity: '', type: '', install_style: '',
+                    lbs_brand: '', lbs_mea: '', switch_no: '', vt_brand: '', vt_mea: '', ofdf_no: '',
+                    sz_brand: '', sz_mea: '', rmu_brand: '', rmu_mea: '', tr_brand: '', tr_mea: '',
+                    mea_no: '', feeder: '', ctrl_type: '', ctrl_brand: '', switch_type: '', switch_brand: '',
+                    station: '', fix_id: '', wln: '', acb_no: '', relay_no: '', sw_mea: '', sw_brand: '',
+                    equipment: '', emissivity: '0.95',
+                    remarks: '', rectification: '', inspector_name: '', inspector_pos: '', verifier_name: '', verifier_pos: ''
                 },
 
                 currentChecklistItems: [],
 
-                // ฐานข้อมูลรายการตรวจสอบครบถ้วนทุกข้อตาม PDF ต้นฉบับทั้ง 11 แบบฟอร์ม
                 checklistDatabase: {
                     'SF-07-0-015': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
