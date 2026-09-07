@@ -39,7 +39,6 @@
             </div>
         </div>
         <div class="flex items-center space-x-2 text-sm mt-1 sm:mt-0">
-            <!-- Navigation Switcher Buttons -->
             <button @click="currentTab = 'forms'" :class="currentTab === 'forms' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition">
                 📋 เลือกใบตรวจสอบ
             </button>
@@ -83,7 +82,7 @@
                 <div class="text-center py-16 space-y-2 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md mx-auto p-8">
                     <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl mx-auto">👆</div>
                     <h3 class="text-sm font-bold text-slate-900">กรุณาเลือกใบงานด้านบนเพื่อเริ่มต้นกรอกข้อมูล</h3>
-                    <p class="text-[11px] text-slate-500">ข้อมูลจะถูกบันทึกออโต้และลิงก์เข้าสู่ระบบแผนงาน PM ทันทีเมื่อกดบันทึก</p>
+                    <p class="text-[11px] text-slate-500">ข้อมูลรายละเอียดครบถ้วนทุกข้อตามต้นฉบับ กฟน. บันทึกออโต้ทันที</p>
                 </div>
             </template>
 
@@ -142,7 +141,7 @@
                         <!-- Section 2: Checklist Table -->
                         <div class="space-y-2">
                             <div class="flex justify-between items-center bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">
-                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500">2. รายการตรวจสอบบำรุงรักษา</h3>
+                                <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500">2. รายการตรวจสอบบำรุงรักษา (ครบถ้วนทุกรายการตามต้นฉบับ)</h3>
                             </div>
                             <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
                                 <table class="w-full text-left border-collapse text-xs">
@@ -193,7 +192,6 @@
         <!-- ================= TAB 2: PM PLAN & COST MANAGEMENT ================= -->
         <div x-show="currentTab === 'pm_plan'" class="space-y-6">
             
-            <!-- Dashboard Summary Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                     <div>
@@ -218,7 +216,6 @@
                 </div>
             </div>
 
-            <!-- PM Plan Table Management -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
@@ -270,7 +267,7 @@
                             </template>
                             <template x-if="pmPlans.length === 0">
                                 <tr>
-                                    <td colspan="6" class="text-center py-8 text-slate-400 text-xs">ยังไม่มีข้อมูลแผนงาน PM (สามารถกดปุ่ม "เพิ่มแผนงาน PM ใหม่" หรือกดบันทึกจากใบตรวจสอบได้)</td>
+                                    <td colspan="6" class="text-center py-8 text-slate-400 text-xs">ยังไม่มีข้อมูลแผนงาน PM</td>
                                 </tr>
                             </template>
                         </tbody>
@@ -286,7 +283,7 @@
     <script>
         function inspectionApp() {
             return {
-                currentTab: 'forms', // 'forms' หรือ 'pm_plan'
+                currentTab: 'forms',
                 activeFormCode: '',
                 activeFormTitle: '',
                 searchQuery: '',
@@ -319,26 +316,178 @@
                     { formCode: 'SF-07-0-018', stationId: 'RMU-089', location: 'ย่านธุรกิจใจกลางเมือง', priority: 'Medium', cost: 8500, status: 'Completed' }
                 ],
 
+                // ฐานข้อมูลรายการตรวจสอบครบถ้วนทุกข้อตามเอกสาร PDF ต้นฉบับทั้ง 11 แบบฟอร์ม
                 checklistDatabase: {
                     'SF-07-0-015': [
                         { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
                         { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
-                        { id: 3, no: '2.8', name: 'ตัวถังหม้อแปลง', result: '', defect: '' },
-                        { id: 4, no: '2.9', name: 'Bushing HV-LV', result: '', defect: '' }
+                        { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'Low Voltage Capacitor', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'ตัวถังหม้อแปลง', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'Bushing HV-LV', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'Cover (Bushing, L/A, Term. kit)', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'สายหน้าหม้อแปลง LV', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'LV Ground', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'HV Ground', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
                     ],
                     'SF-07-0-016': [
                         { id: 1, no: '2.1', name: 'ตัวถัง LBS / สลักล็อคการปลดสับ', result: '', defect: '' },
-                        { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' }
+                        { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'VT', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'Drop Fuse ลง VT', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'สายควบคุม LBS', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'อุปกรณ์ป้องกันสัตว์ Control/FRTU/Ground', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'Ground HV (L/A, LBS)', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'Ground LV (ดู Control)', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'ทดสอบ ปลด/สับ ทาง Remote', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'ทดสอบ ปลด/สับ ทาง Local', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'แรงดันไฟฟ้าเลี้ยงอุปกรณ์ (ทดสอบ ATS)', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'การทดสอบ ATS', result: '', defect: '' }
                     ],
-                    'SF-07-0-017': [{ id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' }],
-                    'SF-07-0-018': [{ id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '' }],
-                    'SF-07-0-019': [{ id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '' }],
-                    'SF-07-0-020': [{ id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' }],
-                    'SF-07-0-021': [{ id: 1, no: '1.1', name: 'สถานะ MV.SW. (CLOSE)', result: '', defect: '' }],
-                    'SF-07-0-022': [{ id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก', result: '', defect: '' }],
-                    'SF-07-0-023': [{ id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงครั้งที่ 1 (Breakdown Voltage)', result: '', defect: '' }],
-                    'SF-07-0-024': [{ id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Hot Spot Inspection)', result: '', defect: '' }],
-                    'SF-07-0-025': [{ id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Acoustic Camera)', result: '', defect: '' }]
+                    'SF-07-0-017': [
+                        { id: 1, no: '2.1', name: 'ตัวถัง SZ / สลักล็อคการปลดสับ', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'สถานะก๊าซ SF6', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'Bushing', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'กับดักฟ้าผ่า', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'สายควบคุม SZ', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'อุปกรณ์ป้องกันสัตว์ Control/Ground', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'ไฟสถานะหน้าตู้', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'แหล่งจ่ายไฟฟ้า และสายควบคุม', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'สภาพแบตเตอรี่หรือ Capacitor', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'Ground HV (L/A, SZ)', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'Ground LV (ตู้ Control)', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'ทดลอง ปลด/สับ ทาง Local', result: '', defect: '' }
+                    ],
+                    'SF-07-0-018': [
+                        { id: 1, no: '2.1', name: 'ตู้ครอบ RMU: สภาพภายนอก', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'ตู้ครอบ RMU: ประตู', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'ตู้ครอบ RMU: ฐานตู้', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU / ห้อง', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิทซ์', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด-สับ', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่หรือ UPS', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่นๆ', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'ทดสอบการปลดสับ: ด้วย REMOTE', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'ทดสอบการปลดสับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'ทดสอบการปลดสับ: ด้วยคันสับ', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' }
+                    ],
+                    'SF-07-0-019': [
+                        { id: 1, no: '2.1', name: 'ตู้ครอบ Encloser: สภาพภายนอก', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'ตู้ครอบ Encloser: ประตู', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'ตู้ครอบ Encloser: ฐานตู้ / นั่งร้าน', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'RMU: สภาพ RMU', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'RMU: ก๊าซ SF6', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'RMU: ตัวแสดงสถานะสวิตช์', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'RMU: กุญแจล็อคป้องกันการปลด - สับ', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'RMU: คันสับ', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'RMU: ตัวตรวจสอบแรงดัน', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'RMU: ตัวตรวจสอบการลัดวงจร', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'ระบบไฟฟ้า: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'ระบบไฟฟ้า: สภาพแบตเตอรี่ หรือ UPS', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'ระบบไฟฟ้า: FRTU', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'ระบบไฟฟ้า: อุปกรณ์ควบคุมอื่น ๆ', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'ทดสอบการปลด-สับ: ด้วย REMOTE', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'ทดสอบการปลด-สับ: ด้วย LOCAL กดปุ่ม', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'ทดสอบการปลด-สับ: ด้วยคันสับ', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'ระบบ ATF: แรงดันไฟฟ้าเลี้ยงอุปกรณ์', result: '', defect: '' },
+                        { id: 19, no: '2.19', name: 'ระบบ ATF: การทดสอบ ATF', result: '', defect: '' },
+                        { id: 20, no: '2.20', name: 'หม้อแปลง: ตัวถังหม้อแปลง', result: '', defect: '' },
+                        { id: 21, no: '2.21', name: 'หม้อแปลง: Bushing HV-LV', result: '', defect: '' },
+                        { id: 22, no: '2.22', name: 'หม้อแปลง: สายหน้าหม้อแปลง HV - LV', result: '', defect: '' },
+                        { id: 23, no: '2.23', name: 'หม้อแปลง: LV Ground', result: '', defect: '' },
+                        { id: 24, no: '2.24', name: 'หม้อแปลง: HV Ground', result: '', defect: '' },
+                        { id: 25, no: '2.25', name: 'อุปกรณ์ด้านแรงต่ำ: สภาพทั่วไป CB หรือ FUSE', result: '', defect: '' },
+                        { id: 26, no: '2.26', name: 'อุปกรณ์ด้านแรงต่ำ: สายไฟฟ้า', result: '', defect: '' },
+                        { id: 27, no: '2.27', name: 'อุปกรณ์ด้านแรงต่ำ: บัสบาร์', result: '', defect: '' },
+                        { id: 28, no: '2.28', name: 'อุปกรณ์ด้านแรงต่ำ: เครื่องวัดไฟฟ้า', result: '', defect: '' },
+                        { id: 29, no: '2.29', name: 'อุปกรณ์ด้านแรงต่ำ: CT-TLM Meter (ถ้ามี)', result: '', defect: '' }
+                    ],
+                    'SF-07-0-020': [
+                        { id: 1, no: '2.1', name: 'Drop Fuse', result: '', defect: '' },
+                        { id: 2, no: '2.2', name: 'Station Post Type Insulator', result: '', defect: '' },
+                        { id: 3, no: '2.3', name: 'สายเข้า-ออก Drop Fuse', result: '', defect: '' },
+                        { id: 4, no: '2.4', name: 'คอนสาย', result: '', defect: '' },
+                        { id: 5, no: '2.5', name: 'อุปกรณ์ป้องกันสัตว์', result: '', defect: '' },
+                        { id: 6, no: '2.6', name: 'กับดักฟ้าผ่า (L/A)', result: '', defect: '' },
+                        { id: 7, no: '2.7', name: 'Cover (Bushing, L/A)', result: '', defect: '' },
+                        { id: 8, no: '2.8', name: 'HV Ground', result: '', defect: '' },
+                        { id: 9, no: '2.9', name: 'Vacuum CB', result: '', defect: '' },
+                        { id: 10, no: '2.10', name: 'Supply', result: '', defect: '' },
+                        { id: 11, no: '2.11', name: 'Fuse Control ภายในตู้', result: '', defect: '' },
+                        { id: 12, no: '2.12', name: 'หลอดไฟแสดงสถานะในตู้', result: '', defect: '' },
+                        { id: 13, no: '2.13', name: 'หน้าจอ Digital Control', result: '', defect: '' },
+                        { id: 14, no: '2.14', name: 'เสียงนาฬิกาเดิน', result: '', defect: '' },
+                        { id: 15, no: '2.15', name: 'อุปกรณ์ทั่วไปภายในตู้', result: '', defect: '' },
+                        { id: 16, no: '2.16', name: 'คาปาซิเตอร์เซลล์: ตัวถังคาปาซิเตอร์', result: '', defect: '' },
+                        { id: 17, no: '2.17', name: 'คาปาซิเตอร์เซลล์: Bushing', result: '', defect: '' },
+                        { id: 18, no: '2.18', name: 'คาปาซิเตอร์เซลล์: Fuse ภายใน', result: '', defect: '' },
+                        { id: 19, no: '2.19', name: 'คาปาซิเตอร์เซลล์: ค่าคาปาซิแตนท์ที่วัดได้', result: '', defect: '' }
+                    ],
+                    'SF-07-0-021': [
+                        { id: 1, no: '1.1', name: 'สภาพภายนอก: สถานะ MV.SW. (CLOSE)', result: '', defect: '' },
+                        { id: 2, no: '1.2', name: 'สภาพภายนอก: สถานะ NP (CLOSE)', result: '', defect: '' },
+                        { id: 3, no: '1.3', name: 'สภาพภายนอก: เบอร์ตู้/สีตู้ (ชัดเจน ไม่ลอก)', result: '', defect: '' },
+                        { id: 4, no: '1.4', name: 'สภาพภายนอก: ระบบกราวด์ (มีทั้งกราวด์ N และ G)', result: '', defect: '' },
+                        { id: 5, no: '1.5', name: 'สภาพภายนอก: อุปกรณ์ป้องกันแรงดันเกินภายนอก (ด้าน N และ T ไม่ชำรุด)', result: '', defect: '' },
+                        { id: 6, no: '1.6', name: 'สภาพภายนอก: ตัวถัง รอยต่อหม้อแปลง (ไม่เสียหาย/ไม่มีน้ำมันรั่วซึม)', result: '', defect: '' },
+                        { id: 7, no: '1.7', name: 'สภาพภายนอก: ฝาตู้ (ปิดแน่นสนิท)', result: '', defect: '' },
+                        { id: 8, no: '1.8', name: 'สภาพภายนอก: มีการแขวนป้ายแดงห้ามปลด-สับ (ที่ SW และ NP)', result: '', defect: '' },
+                        { id: 9, no: '2.1', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 1 (NP OPEN)', result: '', defect: '' },
+                        { id: 10, no: '2.2', name: 'การทดสอบ MV.SW: สับ MV.SW. ครั้งที่ 1 (NP CLOSE)', result: '', defect: '' },
+                        { id: 11, no: '2.3', name: 'การทดสอบ MV.SW: ปลด MV.SW. ครั้งที่ 2 (NP OPEN)', result: '', defect: '' },
+                        { id: 12, no: '3.1', name: 'สภาพภายใน: อุปกรณ์ภายใน (ไม่มีน้ำหรือหยดน้ำเกาะ)', result: '', defect: '' },
+                        { id: 13, no: '3.2', name: 'สภาพภายใน: รีเลย์ (อยู่ในสถานะถูกต้อง)', result: '', defect: '' },
+                        { id: 14, no: '4.1', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ตู้อุปกรณ์ (ไม่ชำรุดเสียหาย)', result: '', defect: '' },
+                        { id: 15, no: '4.2', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: ไฟเลี้ยง / CB & FUSE', result: '', defect: '' },
+                        { id: 16, no: '4.3', name: 'อุปกรณ์ส่งข้อมูลระยะไกล: อินเตอร์เน็ตสวิตช์', result: '', defect: '' },
+                        { id: 17, no: '5.1', name: 'สับ SW.แรงกลาง เมื่อลงจากเสาแล้ว (NP CLOSE)', result: '', defect: '' }
+                    ],
+                    'SF-07-0-022': [
+                        { id: 1, no: '1.1', name: 'สวิตช์แรงกลาง: สภาพภายนอก (ไม่มีรอยแตก ปลด-สับได้)', result: '', defect: '' },
+                        { id: 2, no: '1.2', name: 'สวิตช์แรงกลาง: ก๊าซ SF6 (อยู่ในโซนที่กำหนด)', result: '', defect: '' },
+                        { id: 3, no: '1.3', name: 'สวิตช์แรงกลาง: หัวต่อสาย/สายไฟฟ้า (ไม่มีรอยปิ่น ไหม้ หรือแตกร้าว)', result: '', defect: '' },
+                        { id: 4, no: '1.4', name: 'สวิตช์แรงกลาง: ระบบกราวด์ (มีกราวด์ทั้งแรงสูง แรงต่ำ)', result: '', defect: '' },
+                        { id: 5, no: '2.1', name: 'หม้อแปลง: ตัวถัง (ไม่มีรอยแตก บุบ ฉีกขาด)', result: '', defect: '' },
+                        { id: 6, no: '2.2', name: 'หม้อแปลง: น้ำมัน (ไม่รั่วไหล อยู่ในระดับที่กำหนด)', result: '', defect: '' },
+                        { id: 7, no: '2.3', name: 'หม้อแปลง: ฟิวส์ 12 kV (ไม่ชำรุด)', result: '', defect: '' },
+                        { id: 8, no: '2.4', name: 'หม้อแปลง: อุณหภูมิสูงสุด (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
+                        { id: 9, no: '2.5', name: 'หม้อแปลง: อุณหภูมิจริง (ไม่เกิน 90 องศาเซลเซียส)', result: '', defect: '' },
+                        { id: 10, no: '3.1', name: 'ด้านแรงต่ำ: สายไฟฟ้า (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' },
+                        { id: 11, no: '3.2', name: 'ด้านแรงต่ำ: คาปาซิเตอร์แรงต่ำ (ไม่มีจุดชำรุดเสียหาย)', result: '', defect: '' }
+                    ],
+                    'SF-07-0-023': [
+                        { id: 1, no: '1', name: 'ทดสอบน้ำมันหม้อแปลงด้วยเครื่องทดสอบ 5 ครั้ง (Breakdown Voltage ค่าเฉลี่ย)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'กรองน้ำมันครั้งที่ 1 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' },
+                        { id: 3, no: '3', name: 'กรองน้ำมันครั้งที่ 2 และดำเนินการทดสอบใหม่ (5 ครั้ง)', result: '', defect: '' }
+                    ],
+                    'SF-07-0-024': [
+                        { id: 1, no: '1', name: 'ตรวจสอบข้อมูลภาพถ่ายความร้อน (Thermal Imaging & Hot Spot Inspection)', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'บันทึกอุณหภูมิเปรียบเทียบที่จุดวัด (Delta T) และประเมินระดับความสำคัญ', result: '', defect: '' },
+                        { id: 3, no: '3', name: 'สรุปรายละเอียดการตรวจสอบและส่งต่อแก้ไขตามมาตรฐาน', result: '', defect: '' }
+                    ],
+                    'SF-07-0-025': [
+                        { id: 1, no: '1', name: 'ตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge) ด้วยกล้อง Acoustic Camera', result: '', defect: '' },
+                        { id: 2, no: '2', name: 'บันทึกระดับความเข้มเสียง (dB) และประเมินระดับความรุนแรงจากซอฟต์แวร์', result: '', defect: '' }
+                    ]
                 },
 
                 selectForm(code) {
@@ -391,7 +540,6 @@
                         return;
                     }
                     
-                    // เพิ่มข้อมูลลงในตาราง PM Plan อัตโนมัติ
                     this.pmPlans.push({
                         formCode: this.activeFormCode,
                         stationId: this.formData.station_id || 'N/A',
@@ -403,7 +551,7 @@
                     this.savePmPlans();
 
                     alert('✓ บันทึกใบตรวจสอบและอัปเดตเข้าสู่ระบบแผนงาน PM สำเร็จ!');
-                    this.currentTab = 'pm_plan'; // สลับไปหน้าแผน PM อัตโนมัติ
+                    this.currentTab = 'pm_plan';
                 },
 
                 addNewPmPlan() {
