@@ -41,8 +41,11 @@
             </div>
         </div>
 
-        <!-- Form Code Quick Buttons (11 แบบฟอร์มครบถ้วน) -->
-        <div id="pillsContainer" class="flex gap-2 overflow-x-auto pb-3 mb-3 scrollbar-thin"></div>
+        <!-- Form Code Quick Buttons Container (จัดกรอบแยกสัดส่วนชัดเจน) -->
+        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-xs mb-3">
+            <div class="text-slate-500 font-semibold mb-2">เลือกแบบฟอร์มตรวจสอบ:</div>
+            <div id="pillsContainer" class="flex flex-wrap gap-2"></div>
+        </div>
 
         <!-- Photo Inspection Section -->
         <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-xs mb-3">
@@ -230,9 +233,9 @@
             
             document.querySelectorAll('.pill-btn').forEach(btn => {
                 if(btn.dataset.key === key) {
-                    btn.className = "pill-btn px-4 py-1.5 bg-blue-600 text-white rounded-xl font-semibold whitespace-nowrap shadow-sm cursor-pointer transition transform active:scale-95";
+                    btn.className = "pill-btn px-3 py-1.5 bg-blue-600 text-white rounded-lg font-semibold text-xs whitespace-nowrap shadow-xs cursor-pointer transition transform active:scale-95";
                 } else {
-                    btn.className = "pill-btn px-4 py-1.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-medium whitespace-nowrap hover:bg-slate-50 hover:border-slate-300 shadow-2xs cursor-pointer transition transform active:scale-95";
+                    btn.className = "pill-btn px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-lg font-medium text-xs whitespace-nowrap hover:bg-slate-100 hover:border-slate-300 shadow-2xs cursor-pointer transition transform active:scale-95";
                 }
             });
 
@@ -295,6 +298,7 @@
             const form = formsContent[key];
             const btn = document.createElement('button');
             btn.dataset.key = key;
+            btn.className = "pill-btn";
             btn.innerText = `${form.code}`;
             btn.onclick = () => renderForm(key);
             pillsContainer.appendChild(btn);
