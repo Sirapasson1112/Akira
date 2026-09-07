@@ -30,50 +30,46 @@
 <body class="bg-slate-100 text-slate-800 antialiased" x-data="inspectionApp()">
 
     <!-- HEADER BAR -->
-    <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3.5 flex flex-wrap justify-between items-center border-b border-slate-800">
+    <header class="no-print sticky top-0 z-50 bg-slate-900 text-white shadow-lg px-6 py-3 flex flex-wrap justify-between items-center border-b border-slate-800">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-xl font-bold shadow">⚡</div>
+            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-sm font-bold shadow">⚡</div>
             <div>
-                <h1 class="text-base font-bold tracking-wide text-white">Digital Inspection (Field Mode)</h1>
-                <p class="text-xs text-slate-400">ระบบใบตรวจสอบไฟฟ้า กฟน. ใช้งานง่าย ไม่ต้องเลื่อนหา</p>
+                <h1 class="text-sm font-bold tracking-wide text-white">Digital Inspection (Compact Mode)</h1>
+                <p class="text-[11px] text-slate-400">ระบบใบตรวจสอบไฟฟ้า กฟน. ใช้งานง่าย บันทึกออโต้</p>
             </div>
         </div>
-        <div class="flex items-center space-x-3 text-sm mt-2 sm:mt-0">
-            <span class="text-xs bg-slate-800 text-emerald-400 px-3 py-1.5 rounded-full border border-slate-700 font-medium" x-text="autoSaveStatus"></span>
+        <div class="flex items-center space-x-3 text-sm mt-1 sm:mt-0">
+            <span class="text-[11px] bg-slate-800 text-emerald-400 px-2.5 py-1 rounded-full border border-slate-700 font-medium" x-text="autoSaveStatus"></span>
             <template x-if="activeFormCode">
-                <button @click="exportPDF()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition font-medium text-xs shadow flex items-center gap-1.5">
-                    🖨️ พิมพ์ / Export PDF
+                <button @click="exportPDF()" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 rounded-lg transition font-medium text-xs shadow flex items-center gap-1">
+                    🖨️ พิมพ์ / PDF
                 </button>
             </template>
         </div>
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="py-6 px-4 max-w-7xl mx-auto space-y-6">
+    <main class="py-4 px-4 max-w-7xl mx-auto space-y-4">
 
-        <!-- FORM SELECTOR GRID (เปลี่ยนจากแถบเลื่อน เป็น Grid เลือกง่ายเห็นชัดเจน) -->
-        <div class="no-print bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <!-- COMPACT FORM SELECTOR GRID (ปรับแท็บให้เล็กกระชับ ไม่กินพื้นที่) -->
+        <div class="no-print bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">📋 เลือกประเภทใบตรวจสอบภาคสนาม</h2>
-                    <p class="text-xs text-slate-500">คลิกเลือกแบบฟอร์มที่ต้องการปฏิบัติงานด้านล่างนี้</p>
+                    <h2 class="text-sm font-bold text-slate-900">📋 เลือกประเภทใบตรวจสอบภาคสนาม</h2>
                 </div>
-                <div class="w-full sm:w-72">
-                    <input type="text" x-model="searchQuery" placeholder="🔍 ค้นหารหัส หรือ ชื่ออุปกรณ์..." class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-500 bg-slate-50">
+                <div class="w-full sm:w-64">
+                    <input type="text" x-model="searchQuery" placeholder="🔍 ค้นหารหัส หรือ ชื่ออุปกรณ์..." class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs outline-none focus:border-blue-500 bg-slate-50">
                 </div>
             </div>
 
-            <!-- Grid Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-64 overflow-y-auto p-1">
+            <!-- Compact Grid Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1">
                 <template x-for="form in filteredForms" :key="form.code">
                     <button @click="selectForm(form.code)" 
-                        :class="activeFormCode === form.code ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'"
-                        class="p-3 rounded-2xl text-left transition border flex flex-col justify-between gap-2">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-md" :class="activeFormCode === form.code ? 'bg-blue-500 text-white' : 'bg-slate-200 text-slate-600'" x-text="form.code"></span>
-                            <span class="text-xs">⚡</span>
-                        </div>
-                        <span class="text-xs font-semibold line-clamp-2" x-text="form.name"></span>
+                        :class="activeFormCode === form.code ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'"
+                        class="p-2 rounded-xl text-left transition border flex flex-col justify-between gap-1">
+                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded w-max" :class="activeFormCode === form.code ? 'bg-blue-500 text-white' : 'bg-slate-200 text-slate-600'" x-text="form.code"></span>
+                        <span class="text-[11px] font-semibold line-clamp-1" x-text="form.name"></span>
                     </button>
                 </template>
             </div>
@@ -81,46 +77,46 @@
 
         <!-- Welcome State -->
         <template x-if="!activeFormCode">
-            <div class="text-center py-16 space-y-3 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-xl mx-auto p-8">
-                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto">👆</div>
-                <h3 class="text-xl font-bold text-slate-900">กรุณาเลือกใบงานด้านบนเพื่อเริ่มต้น</h3>
-                <p class="text-xs text-slate-500">ข้อมูลจะถูกบันทึกออโต้ทันที มีปุ่มลัดติ๊กปกติทั้งหมดเพื่อความรวดเร็ว</p>
+            <div class="text-center py-12 space-y-2 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md mx-auto p-6">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl mx-auto">👆</div>
+                <h3 class="text-sm font-bold text-slate-900">กรุณาเลือกใบงานด้านบนเพื่อเริ่มต้น</h3>
+                <p class="text-[11px] text-slate-500">ข้อมูลจะถูกบันทึกออโต้ทันที มีปุ่มลัดติ๊กปกติทั้งหมด</p>
             </div>
         </template>
 
         <!-- Active Form Layout -->
         <template x-if="activeFormCode">
-            <div class="space-y-6">
+            <div class="space-y-4">
                 
                 <!-- Quick Control Toolbar -->
-                <div class="max-w-[210mm] mx-auto bg-white p-4 rounded-2xl shadow-sm border border-slate-200 no-print flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-3 w-full sm:w-auto">
-                        <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                <div class="max-w-[210mm] mx-auto bg-white p-3 rounded-xl shadow-sm border border-slate-200 no-print flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button @click="markAllNormal()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
                             ✅ ติ๊ก "ปกติ" ทั้งหมดด่วน
                         </button>
-                        <button @click="resetForm()" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold transition">
-                            🔄 ล้างข้อมูลใหม่
+                        <button @click="resetForm()" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                            🔄 ล้างข้อมูล
                         </button>
                     </div>
-                    <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
                         <div class="text-xs font-semibold text-slate-600">
-                            ตรวจแล้ว: <span class="text-blue-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> ข้อ (<span x-text="progressPercentage"></span>%)
+                            ตรวจแล้ว: <span class="text-blue-600 font-bold" x-text="checkedCount"></span> / <span x-text="totalItems"></span> (<span x-text="progressPercentage"></span>%)
                         </div>
-                        <button @click="validateAndSubmit()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
+                        <button @click="validateAndSubmit()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg font-bold text-xs transition shadow-sm">
                             ✓ ส่งใบตรวจสอบ
                         </button>
                     </div>
                 </div>
 
                 <!-- A4 Form Sheet -->
-                <div class="a4-page rounded-2xl border border-slate-200 text-slate-900 text-sm space-y-6">
+                <div class="a4-page rounded-xl border border-slate-200 text-slate-900 text-sm space-y-4">
                     
                     <!-- Header -->
-                    <div class="border-b border-slate-200 pb-4 flex justify-between items-start">
+                    <div class="border-b border-slate-200 pb-3 flex justify-between items-start">
                         <div>
-                            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100" x-text="activeFormCode"></span>
-                            <h2 class="text-xl font-bold text-slate-900 mt-2" x-text="activeFormTitle"></h2>
-                            <p class="text-xs text-slate-400 mt-0.5">การไฟฟ้านครหลวง (MEA) • ระบบบันทึกข้อมูลภาคสนามดิจิทัล</p>
+                            <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-100" x-text="activeFormCode"></span>
+                            <h2 class="text-base font-bold text-slate-900 mt-1.5" x-text="activeFormTitle"></h2>
+                            <p class="text-[11px] text-slate-400">การไฟฟ้านครหลวง (MEA) • ระบบบันทึกข้อมูลภาคสนามดิจิทัล</p>
                         </div>
                         <div class="text-right text-xs text-slate-500 font-medium">
                             วันที่: <span class="text-slate-900 font-semibold" x-text="currentDate"></span>
@@ -128,52 +124,52 @@
                     </div>
 
                     <!-- Section 1: General Info -->
-                    <div class="space-y-3">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                            <div><label class="block font-medium text-slate-500 mb-1">Station ID / FIX ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                            <div><label class="block font-medium text-slate-500 mb-1">สถานที่ติดตั้ง</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 outline-none focus:border-blue-500 bg-slate-50/50"></div>
-                            <div><label class="block font-medium text-slate-500 mb-1">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly></div>
-                            <div><label class="block font-medium text-slate-500 mb-1">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2.5 rounded-xl hover:bg-blue-500 transition">📍</button></div></div>
-                            <div><label class="block font-medium text-slate-500 mb-1">MEA No.</label><input type="text" x-model="formData.mea_no" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
-                            <div><label class="block font-medium text-slate-500 mb-1">ยี่ห้อ (Brand)</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-xl p-2 bg-slate-50/50"></div>
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">1. ข้อมูลทั่วไป</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 text-xs">
+                            <div><label class="block font-medium text-slate-500 mb-0.5">Station ID / FIX ID</label><input type="text" x-model="formData.station_id" @input="saveToStorage()" class="w-full border border-slate-200 rounded-lg p-1.5 outline-none bg-slate-50/50"></div>
+                            <div><label class="block font-medium text-slate-500 mb-0.5">สถานที่ติดตั้ง</label><input type="text" x-model="formData.location" @input="saveToStorage()" class="w-full border border-slate-200 rounded-lg p-1.5 outline-none bg-slate-50/50"></div>
+                            <div><label class="block font-medium text-slate-500 mb-0.5">GIS Lat.</label><input type="text" x-model="formData.latitude" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50" readonly></div>
+                            <div><label class="block font-medium text-slate-500 mb-0.5">GIS Long.</label><div class="flex gap-1"><input type="text" x-model="formData.longitude" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50" readonly><button @click="getGPS()" class="bg-blue-600 text-white px-2 rounded-lg">📍</button></div></div>
+                            <div><label class="block font-medium text-slate-500 mb-0.5">MEA No.</label><input type="text" x-model="formData.mea_no" @input="saveToStorage()" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50/50"></div>
+                            <div><label class="block font-medium text-slate-500 mb-0.5">ยี่ห้อ (Brand)</label><input type="text" x-model="formData.brand" @input="saveToStorage()" class="w-full border border-slate-200 rounded-lg p-1.5 bg-slate-50/50"></div>
                         </div>
                     </div>
 
                     <!-- Section 2: Checklist Table -->
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">
-                            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500">2. รายการตรวจสอบบำรุงรักษา</h3>
-                            <span class="text-[11px] text-blue-600 font-semibold">💡 คลิกเลือกสถานะได้ทันทีทุกข้อ</span>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">
+                            <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500">2. รายการตรวจสอบบำรุงรักษา</h3>
+                            <span class="text-[10px] text-blue-600 font-semibold">💡 คลิกเลือกสถานะได้ทันทีทุกข้อ</span>
                         </div>
-                        <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm">
+                        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
                             <table class="w-full text-left border-collapse text-xs">
                                 <thead>
                                     <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-600">
-                                        <th class="p-3 w-16 text-center font-semibold">ลำดับ</th>
-                                        <th class="p-3 font-semibold">รายการตรวจสอบ</th>
-                                        <th class="p-3 w-20 text-center font-semibold text-emerald-600">ปกติ</th>
-                                        <th class="p-3 w-20 text-center font-semibold text-rose-600">ชำรุด</th>
-                                        <th class="p-3 w-20 text-center font-semibold text-slate-500">ไม่มี</th>
-                                        <th class="p-3 w-56 font-semibold">ข้อบกพร่อง / การดำเนินการ</th>
+                                        <th class="p-2 w-12 text-center font-semibold">ลำดับ</th>
+                                        <th class="p-2 font-semibold">รายการตรวจสอบ</th>
+                                        <th class="p-2 w-16 text-center font-semibold text-emerald-600">ปกติ</th>
+                                        <th class="p-2 w-16 text-center font-semibold text-rose-600">ชำรุด</th>
+                                        <th class="p-2 w-16 text-center font-semibold text-slate-500">ไม่มี</th>
+                                        <th class="p-2 w-48 font-semibold">ข้อบกพร่อง / การดำเนินการ</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
                                     <template x-for="(item, index) in currentChecklistItems" :key="item.id">
                                         <tr class="hover:bg-blue-50/30 transition">
-                                            <td class="p-3 text-center font-bold text-slate-500" x-text="item.no"></td>
-                                            <td class="p-3 font-medium text-slate-800" x-text="item.name"></td>
-                                            <td class="p-3 text-center">
-                                                <input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" @change="saveToStorage()" class="w-4 h-4 text-emerald-600 cursor-pointer accent-emerald-600">
+                                            <td class="p-2 text-center font-bold text-slate-500" x-text="item.no"></td>
+                                            <td class="p-2 font-medium text-slate-800" x-text="item.name"></td>
+                                            <td class="p-2 text-center">
+                                                <input type="radio" :name="'item_' + item.id" value="normal" x-model="item.result" @change="saveToStorage()" class="w-3.5 h-3.5 text-emerald-600 cursor-pointer accent-emerald-600">
                                             </td>
-                                            <td class="p-3 text-center">
-                                                <input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" @change="saveToStorage()" class="w-4 h-4 text-rose-600 cursor-pointer accent-rose-600">
+                                            <td class="p-2 text-center">
+                                                <input type="radio" :name="'item_' + item.id" value="damaged" x-model="item.result" @change="saveToStorage()" class="w-3.5 h-3.5 text-rose-600 cursor-pointer accent-rose-600">
                                             </td>
-                                            <td class="p-3 text-center">
-                                                <input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" @change="saveToStorage()" class="w-4 h-4 text-slate-400 cursor-pointer accent-slate-500">
+                                            <td class="p-2 text-center">
+                                                <input type="radio" :name="'item_' + item.id" value="none" x-model="item.result" @change="saveToStorage()" class="w-3.5 h-3.5 text-slate-400 cursor-pointer accent-slate-500">
                                             </td>
-                                            <td class="p-3">
-                                                <input type="text" x-model="item.defect" @input="saveToStorage()" placeholder="ระบุข้อบกพร่อง (ถ้ามี)" class="w-full border border-slate-200 rounded-xl p-2 text-xs outline-none focus:border-blue-500 bg-slate-50/30">
+                                            <td class="p-2">
+                                                <input type="text" x-model="item.defect" @input="saveToStorage()" placeholder="ระบุข้อบกพร่อง" class="w-full border border-slate-200 rounded-lg p-1.5 text-xs outline-none focus:border-blue-500 bg-slate-50/30">
                                             </td>
                                         </tr>
                                     </template>
@@ -183,30 +179,30 @@
                     </div>
 
                     <!-- Section 3 & 4 -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">3. ข้อเสนอแนะ / ข้อมูลเพิ่มเติม</h3>
-                            <textarea x-model="formData.remarks" @input="saveToStorage()" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุรายละเอียดเพิ่มเติม..."></textarea>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="space-y-1.5">
+                            <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">3. ข้อเสนอแนะ / ข้อมูลเพิ่มเติม</h3>
+                            <textarea x-model="formData.remarks" @input="saveToStorage()" rows="2" class="w-full border border-slate-200 rounded-xl p-2.5 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุรายละเอียด..."></textarea>
                         </div>
-                        <div class="space-y-2">
-                            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border-l-4 border-blue-600">4. การปรับปรุงข้อบกพร่อง</h3>
-                            <textarea x-model="formData.rectification" @input="saveToStorage()" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุการดำเนินการแก้ไข..."></textarea>
+                        <div class="space-y-1.5">
+                            <h3 class="font-bold text-[11px] uppercase tracking-wider text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border-l-4 border-blue-600">4. การปรับปรุงข้อบกพร่อง</h3>
+                            <textarea x-model="formData.rectification" @input="saveToStorage()" rows="2" class="w-full border border-slate-200 rounded-xl p-2.5 text-xs outline-none focus:border-blue-500 bg-slate-50/30" placeholder="ระบุการแก้ไข..."></textarea>
                         </div>
                     </div>
 
                     <!-- Section 5: Signatures -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-200 text-xs">
-                        <div class="space-y-2 text-center border border-slate-200 p-4 rounded-2xl bg-slate-50/50 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-slate-200 text-xs">
+                        <div class="space-y-1.5 text-center border border-slate-200 p-3 rounded-xl bg-slate-50/50 shadow-sm">
                             <p class="font-bold text-slate-700">ผู้ตรวจ (Inspector)</p>
-                            <div class="h-12 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">ลายมือชื่อดิจิทัล</div>
-                            <input type="text" x-model="formData.inspector_name" @input="saveToStorage()" placeholder="ชื่อ-นามสกุล ผู้ตรวจ" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs mb-1 bg-white">
-                            <input type="text" x-model="formData.inspector_pos" @input="saveToStorage()" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs bg-white">
+                            <div class="h-8 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-[10px]">ลายมือชื่อดิจิทัล</div>
+                            <input type="text" x-model="formData.inspector_name" @input="saveToStorage()" placeholder="ชื่อ-นามสกุล ผู้ตรวจ" class="w-full border border-slate-200 rounded-lg p-1.5 text-center text-xs mb-1 bg-white">
+                            <input type="text" x-model="formData.inspector_pos" @input="saveToStorage()" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-lg p-1.5 text-center text-xs bg-white">
                         </div>
-                        <div class="space-y-2 text-center border border-slate-200 p-4 rounded-2xl bg-slate-50/50 shadow-sm">
+                        <div class="space-y-1.5 text-center border border-slate-200 p-3 rounded-xl bg-slate-50/50 shadow-sm">
                             <p class="font-bold text-slate-700">ผู้ตรวจสอบ (Verifier)</p>
-                            <div class="h-12 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">ลายมือชื่อดิจิทัล</div>
-                            <input type="text" x-model="formData.verifier_name" @input="saveToStorage()" placeholder="ชื่อ-นามสกุล ผู้ตรวจสอบ" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs mb-1 bg-white">
-                            <input type="text" x-model="formData.verifier_pos" @input="saveToStorage()" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-xl p-2 text-center text-xs bg-white">
+                            <div class="h-8 border-b border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-[10px]">ลายมือชื่อดิจิทัล</div>
+                            <input type="text" x-model="formData.verifier_name" @input="saveToStorage()" placeholder="ชื่อ-นามสกุล ผู้ตรวจสอบ" class="w-full border border-slate-200 rounded-lg p-1.5 text-center text-xs mb-1 bg-white">
+                            <input type="text" x-model="formData.verifier_pos" @input="saveToStorage()" placeholder="ตำแหน่ง" class="w-full border border-slate-200 rounded-lg p-1.5 text-center text-xs bg-white">
                         </div>
                     </div>
 
@@ -326,7 +322,6 @@
                         this.formData = parsed.formData || {};
                         this.currentChecklistItems = parsed.items || [];
                     } else {
-                        // โหลดข้อมูลชื่อผู้ตรวจล่าสุดจาก LocalStorage ถ้ามี
                         const lastInspector = localStorage.getItem('mea_last_inspector') || '';
                         const lastPos = localStorage.getItem('mea_last_pos') || '';
                         
@@ -343,7 +338,6 @@
                     };
                     localStorage.setItem('mea_form_' + this.activeFormCode, JSON.stringify(dataToSave));
                     
-                    // บันทึกชื่อผู้ตรวจจำไว้ใช้รอบหน้า
                     if (this.formData.inspector_name) localStorage.setItem('mea_last_inspector', this.formData.inspector_name);
                     if (this.formData.inspector_pos) localStorage.setItem('mea_last_pos', this.formData.inspector_pos);
 
