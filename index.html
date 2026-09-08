@@ -100,9 +100,12 @@
                             <td class="border border-slate-900"><input type="text"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="bg-slate-50 border border-slate-900">GIS</td>
-                            <td colspan="2" class="border border-slate-900">Lat. <input type="text" class="inline-block w-3/4"></td>
-                            <td colspan="2" class="border border-slate-900">Long. <input type="text" class="inline-block w-3/4"></td>
+                            <td colspan="2" class="bg-slate-50 border border-slate-900 flex items-center justify-between">
+                                <span>GIS</span>
+                                <button onclick="getGPSLocation()" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button>
+                            </td>
+                            <td colspan="2" class="border border-slate-900">Lat. <input type="text" id="latInput" class="inline-block w-3/4"></td>
+                            <td colspan="2" class="border border-slate-900">Long. <input type="text" id="longInput" class="inline-block w-3/4"></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="bg-slate-50 border border-slate-900">MEA No1.</td>
@@ -555,6 +558,28 @@
             btn.onclick = () => loadForm(key);
             pillsContainer.appendChild(btn);
         });
+
+        // ฟังก์ชันดึงพิกัด GPS
+        function getGPSLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude.toFixed(6);
+                        const lon = position.coords.longitude.toFixed(6);
+                        const latInput = document.getElementById('latInput');
+                        const longInput = document.getElementById('longInput');
+                        if (latInput) latInput.value = lat;
+                        if (longInput) longInput.value = lon;
+                        alert("ดึงพิกัด GPS สำเร็จ: " + lat + ", " + lon);
+                    },
+                    (error) => {
+                        alert("ไม่สามารถดึงพิกัดได้: กรุณาอนุญาตการเข้าถึงตำแหน่ง (GPS)");
+                    }
+                );
+            } else {
+                alert("เบราว์เซอร์ของคุณไม่รองรับการระบุตำแหน่ง GPS");
+            }
+        }
 
         function handleGoogleLogin() { alert("เชื่อมต่อบัญชี Google สำเร็จ"); }
         function saveNewRecord() { alert("บันทึกรายการใหม่สำเร็จ"); }
