@@ -80,7 +80,7 @@
     </div>
 
     <script>
-        let currentFormKey = "015";
+        let currentFormKey = "016";
 
         const formsData = {
             "015": {
@@ -149,9 +149,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox" class="accent-slate-800"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox" class="accent-slate-800"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox" class="accent-slate-800"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}" class="cursor-pointer"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}" class="cursor-pointer"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}" class="cursor-pointer"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -162,10 +162,10 @@
                         <tr>
                             <td colspan="6" class="border border-slate-900 p-1.5 space-y-1">
                                 <div class="flex flex-wrap items-center gap-4">
-                                    <label><input type="checkbox"> กลางวัน</label>
-                                    <label><input type="checkbox"> กลางคืน</label>
+                                    <label><input type="radio" name="shift015"> กลางวัน</label>
+                                    <label><input type="radio" name="shift015"> กลางคืน</label>
                                     <span>เวลา : <input type="text" class="border-b border-slate-900 w-24 inline-block"></span>
-                                    <span>วิธีการ: <label><input type="checkbox"> วัดหน้างาน</label> <label><input type="checkbox"> TLM</label></span>
+                                    <span>วิธีการ: <label><input type="radio" name="meth015"> วัดหน้างาน</label> <label><input type="radio" name="meth015"> TLM</label></span>
                                 </div>
                                 <div class="grid grid-cols-6 gap-1 pt-1 border-t border-slate-200">
                                     <div class="col-span-1 bg-slate-50 font-bold p-1">แรงดันไฟฟ้า (V)</div>
@@ -235,7 +235,7 @@
                             <td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td>
                             <td colspan="2" class="border border-slate-900"><input type="text"></td>
                             <td class="bg-slate-50 border border-slate-900 flex items-center justify-between">
-                                <span>GIS Lat.</span>
+                                <span>GIS Lat/Long</span>
                                 <button onclick="getGPSLocation('latInput016', 'longInput016')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button>
                             </td>
                             <td class="border border-slate-900">Lat: <input type="text" id="latInput016" class="w-16 inline-block"> Long: <input type="text" id="longInput016" class="w-16 inline-block"></td>
@@ -264,8 +264,8 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="border border-slate-900 p-1">
-                                - สถานะสวิตช์: &nbsp;&nbsp;&nbsp;&nbsp; [ ] ปลด &nbsp;&nbsp;&nbsp;&nbsp; [ ] สับ<br>
-                                - สถานะระบบ SCADA/EMS/DMS: &nbsp;&nbsp;&nbsp;&nbsp; [ ] online &nbsp;&nbsp;&nbsp;&nbsp; [ ] offline
+                                - สถานะสวิตช์: &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="swState016"> ปลด</label> &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="swState016"> สับ</label><br>
+                                - สถานะระบบ SCADA/EMS/DMS: &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="scada016"> online</label> &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="scada016"> offline</label>
                             </td>
                         </tr>
                         <tr>
@@ -284,9 +284,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -299,9 +299,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub1_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub1_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub1_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -313,9 +313,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub2_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub2_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub2_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -327,9 +327,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub3_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub3_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk016_sub3_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -402,7 +402,7 @@
                         </tr>
                         <tr>
                             <td class="bg-slate-100 font-bold text-center border border-slate-900">2</td>
-                            <td colspan="5" class="bg-slate-100 font-bold border border-slate-900">รายการตรวจสอบบำรุงรักษา &nbsp;&nbsp; [ ] ปลด &nbsp;&nbsp; [ ] สับ</td>
+                            <td colspan="5" class="bg-slate-100 font-bold border border-slate-900">รายการตรวจสอบบำรุงรักษา &nbsp;&nbsp; <label><input type="radio" name="szState017"> ปลด</label> &nbsp;&nbsp; <label><input type="radio" name="szState017"> สับ</label></td>
                         </tr>
                         <tr>
                             <td rowspan="2" colspan="2" class="bg-slate-50 text-center font-bold border border-slate-900">รายการ</td>
@@ -422,9 +422,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk017_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk017_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk017_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -493,9 +493,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
-                                <td class="text-center border border-slate-900"><input type="checkbox"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk018_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk018_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk018_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -535,7 +535,7 @@
                             "2.21 Bushing HV-LV", "2.22 สายหน้าหม้อแปลง HV - LV", "2.23 LV Ground", "2.24 HV Ground",
                             "2.25 สภาพทั่วไป CB หรือ FUSE", "2.26 สายไฟฟ้า", "2.27 บัสบาร์", "2.28 เครื่องวัดไฟฟ้า", "2.29 CT-TLM Meter (ถ้ามี)"
                         ].map((item, i) => `
-                            <tr><td colspan="2" class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="border border-slate-900"><input type="text"></td></tr>
+                            <tr><td colspan="2" class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="radio" name="chk019_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk019_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk019_${i}"></td><td class="border border-slate-900"><input type="text"></td></tr>
                         `).join('')}
                     </table>
                     <div class="grid grid-cols-2 gap-2 my-2">
@@ -571,7 +571,7 @@
                             "2.13 หน้าจอ Digital Control", "2.14 เสียงนาฬิกาเดิน", "2.15 อุปกรณ์ทั่วไปภายในตู้",
                             "2.16 ตัวถังคาปาซิเตอร์", "2.17 Bushing", "2.18 Fuse ภายใน", "2.19 ค่าคาปาซิแตนท์ที่วัดได้"
                         ].map((item, i) => `
-                            <tr><td colspan="2" class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="border border-slate-900"><input type="text"></td></tr>
+                            <tr><td colspan="2" class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="radio" name="chk020_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk020_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk020_${i}"></td><td class="border border-slate-900"><input type="text"></td></tr>
                         `).join('')}
                     </table>
                     <div class="grid grid-cols-2 gap-2 my-2">
@@ -602,7 +602,7 @@
                             "2.1 ปลด MV.SW. ครั้งที่ 1", "2.2 สับ MV.SW. ครั้งที่ 1", "2.3 ปลด MV.SW. ครั้งที่ 2",
                             "3.1 อุปกรณ์ภายใน", "3.2 รีเลย์", "4.1 ตู้อุปกรณ์", "4.2 ไฟเลี้ยง /CB & FUSE", "4.3 อินเตอร์เน็ตสวิตช์"
                         ].map((item, i) => `
-                            <tr><td class="text-center border border-slate-900">${i+1}</td><td class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900"><input type="text"></td></tr>
+                            <tr><td class="text-center border border-slate-900">${i+1}</td><td class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="radio" name="chk021_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk021_${i}"></td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900"><input type="text"></td></tr>
                         `).join('')}
                     </table>
                     <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></div>
@@ -628,7 +628,7 @@
                             "2.1 ตัวถังหม้อแปลง", "2.2 น้ำมันหม้อแปลง", "2.3 ฟิวส์ 12 kV", "2.4 อุณหภูมิสูงสุด", "2.5 อุณหภูมิจริง",
                             "3.1 สายไฟฟ้า", "3.2 คาปาซิเตอร์แรงต่ำ"
                         ].map((item, i) => `
-                            <tr><td class="text-center border border-slate-900">${i+1}</td><td class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="text-center border border-slate-900"><input type="checkbox"></td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900"><input type="text"></td></tr>
+                            <tr><td class="text-center border border-slate-900">${i+1}</td><td class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="radio" name="chk022_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk022_${i}"></td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900"><input type="text"></td></tr>
                         `).join('')}
                     </table>
                     <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></div>
@@ -707,10 +707,10 @@
                         <div>จุดที่ผิดปกติ: <input type="text" class="border-b border-slate-900 w-2/3 inline-block"></div>
                         <div>ระดับความเข้มเสียง: <input type="text" class="border-b border-slate-900 w-20 inline-block"> dB</div>
                         <div>ระดับความรุนแรง (NL CLOUD): 
-                            <label class="ml-2"><input type="checkbox"> สูงมาก</label>
-                            <label class="ml-2"><input type="checkbox"> สูง</label>
-                            <label class="ml-2"><input type="checkbox"> ปานกลาง</label>
-                            <label class="ml-2"><input type="checkbox"> ต่ำ</label>
+                            <label class="ml-2"><input type="radio" name="sev025"> สูงมาก</label>
+                            <label class="ml-2"><input type="radio" name="sev025"> สูง</label>
+                            <label class="ml-2"><input type="radio" name="sev025"> ปานกลาง</label>
+                            <label class="ml-2"><input type="radio" name="sev025"> ต่ำ</label>
                         </div>
                     </div>
                     <div class="flex justify-between text-[9px] mt-4 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-025</span></div>
