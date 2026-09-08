@@ -22,11 +22,32 @@
         }
         table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #1e293b; padding: 3px 6px; font-size: 10px; }
-        input[type="text"], input[type="date"] { border: none; outline: none; background: transparent; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; }
+        /* สไตล์ช่องกรอกข้อมูลให้มีกรอบชัดเจน */
+        input[type="text"], input[type="date"] { 
+            border: 1px solid #cbd5e1; 
+            outline: none; 
+            background: #f8fafc; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            width: 100%; 
+            font-family: 'Sarabun', sans-serif; 
+            font-size: 10px; 
+        }
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+        }
+        textarea {
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border-radius: 3px;
+            padding: 3px;
+        }
         @media print {
             body { background: white !important; }
             .no-print { display: none !important; }
             .a4-sheet { box-shadow: none !important; margin: 0 !important; width: 100% !important; padding: 8mm !important; border-radius: 0 !important; border: none !important; }
+            input[type="text"], input[type="date"], textarea { border: none !important; background: transparent !important; }
         }
     </style>
 </head>
@@ -80,7 +101,7 @@
     </div>
 
     <script>
-        let currentFormKey = "025";
+        let currentFormKey = "015";
 
         const formsData = {
             "015": {
@@ -164,23 +185,23 @@
                                 <div class="flex flex-wrap items-center gap-4">
                                     <label><input type="radio" name="shift015"> กลางวัน</label>
                                     <label><input type="radio" name="shift015"> กลางคืน</label>
-                                    <span>เวลา : <input type="text" class="border-b border-slate-900 w-24 inline-block"></span>
+                                    <span>เวลา : <input type="text" class="w-24 inline-block"></span>
                                     <span>วิธีการ: <label><input type="radio" name="meth015"> วัดหน้างาน</label> <label><input type="radio" name="meth015"> TLM</label></span>
                                 </div>
-                                <div class="grid grid-cols-6 gap-1 pt-1 border-t border-slate-200">
+                                <div class="grid grid-cols-6 gap-1 pt-1 border-t border-slate-200 items-center">
                                     <div class="col-span-1 bg-slate-50 font-bold p-1">แรงดันไฟฟ้า (V)</div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">V1-N=<input type="text" class="border-b w-8 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">V2-N=<input type="text" class="border-b w-8 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">V3-N=<input type="text" class="border-b w-8 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">V1-2=<input type="text" class="border-b w-8 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">V1-3=<input type="text" class="border-b w-8 inline-block"> V2-3=<input type="text" class="border-b w-8 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">V1-N=<input type="text" class="w-12 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">V2-N=<input type="text" class="w-12 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">V3-N=<input type="text" class="w-12 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">V1-2=<input type="text" class="w-12 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">V1-3=<input type="text" class="w-10 inline-block"> V2-3=<input type="text" class="w-10 inline-block"></div>
                                 </div>
-                                <div class="grid grid-cols-5 gap-1 pt-1 border-t border-slate-200">
+                                <div class="grid grid-cols-5 gap-1 pt-1 border-t border-slate-200 items-center">
                                     <div class="col-span-1 bg-slate-50 font-bold p-1">กระแสไฟฟ้า(A)</div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">IN=<input type="text" class="border-b w-10 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">I1=<input type="text" class="border-b w-10 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">I2=<input type="text" class="border-b w-10 inline-block"> I3=<input type="text" class="border-b w-10 inline-block"></div>
-                                    <div class="col-span-1 border-l border-slate-300 p-1">ผลรวมกระแสหน้าหม้อแปลงฯ ทั้งหมด <input type="text" class="border-b w-12 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">IN=<input type="text" class="w-14 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">I1=<input type="text" class="w-14 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">I2=<input type="text" class="w-10 inline-block"> I3=<input type="text" class="w-10 inline-block"></div>
+                                    <div class="col-span-1 border-l border-slate-300 p-1">ผลรวมหม้อแปลง <input type="text" class="w-14 inline-block"></div>
                                 </div>
                             </td>
                         </tr>
@@ -189,29 +210,29 @@
                             <td colspan="5" class="bg-slate-100 font-bold border border-slate-900">สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="border border-slate-900 h-10 align-top"><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></td>
+                            <td colspan="6" class="border border-slate-900 h-10 align-top"><textarea class="w-full h-8 outline-none resize-none"></textarea></td>
                         </tr>
                         <tr>
                             <td class="bg-slate-100 font-bold text-center border border-slate-900">5</td>
                             <td colspan="5" class="bg-slate-100 font-bold border border-slate-900">การปรับปรุงข้อบกพร่อง :</td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="border border-slate-900 h-10 align-top"><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></td>
+                            <td colspan="6" class="border border-slate-900 h-10 align-top"><textarea class="w-full h-8 outline-none resize-none"></textarea></td>
                         </tr>
                     </table>
 
                     <table class="mt-2 border border-slate-900">
                         <tr>
-                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
-                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
+                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
-                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td>
-                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td>
                         </tr>
                     </table>
 
@@ -338,29 +359,29 @@
                             <td colspan="5" class="bg-slate-100 font-bold border border-slate-900">สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="border border-slate-900 h-8 align-top"><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></td>
+                            <td colspan="6" class="border border-slate-900 h-8 align-top"><textarea class="w-full h-6 outline-none resize-none"></textarea></td>
                         </tr>
                         <tr>
                             <td class="bg-slate-100 font-bold text-center border border-slate-900">4</td>
                             <td colspan="5" class="bg-slate-100 font-bold border border-slate-900">การปรับปรุงข้อบกพร่อง :</td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="border border-slate-900 h-8 align-top"><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></td>
+                            <td colspan="6" class="border border-slate-900 h-8 align-top"><textarea class="w-full h-6 outline-none resize-none"></textarea></td>
                         </tr>
                     </table>
 
                     <table class="mt-2 border border-slate-900">
                         <tr>
-                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
-                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
+                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="w-1/2 border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
-                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td>
-                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td>
                         </tr>
                     </table>
 
@@ -456,13 +477,13 @@
                         </tr>
                     </table>
                     <div class="grid grid-cols-1 gap-2 my-2">
-                        <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
-                        <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
                     </div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-017</span></div>
                 `
@@ -527,13 +548,13 @@
                         `).join('')}
                     </table>
                     <div class="grid grid-cols-2 gap-2 my-2">
-                        <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
-                        <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
                     </div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-018</span></div>
                 `
@@ -565,13 +586,13 @@
                         `).join('')}
                     </table>
                     <div class="grid grid-cols-2 gap-2 my-2">
-                        <div class="border border-slate-900 p-1"><span class="font-bold">4 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
-                        <div class="border border-slate-900 p-1"><span class="font-bold">5 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">4 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">5 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
                     </div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่...</span><span class="font-mono">SF-07-0-019</span></div>
                 `
@@ -601,13 +622,13 @@
                         `).join('')}
                     </table>
                     <div class="grid grid-cols-2 gap-2 my-2">
-                        <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
-                        <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
+                        <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
                     </div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-020</span></div>
                 `
@@ -631,11 +652,11 @@
                             <tr><td class="text-center border border-slate-900">${i+1}</td><td class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="radio" name="chk021_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk021_${i}"></td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></div>
+                    <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full h-8 outline-none resize-none"></textarea></div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-021</span></div>
                 `
@@ -657,11 +678,11 @@
                             <tr><td class="text-center border border-slate-900">${i+1}</td><td class="border border-slate-900">${item}</td><td class="text-center border border-slate-900"><input type="radio" name="chk022_${i}"></td><td class="text-center border border-slate-900"><input type="radio" name="chk022_${i}"></td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></div>
+                    <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full h-8 outline-none resize-none"></textarea></div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-022</span></div>
                 `
@@ -690,11 +711,11 @@
                         <tr class="bg-slate-100 text-center"><th class="w-16 border border-slate-900">ครั้งที่ 1</th><th class="w-16 border border-slate-900">ครั้งที่ 2</th><th class="w-16 border border-slate-900">ครั้งที่ 3</th><th class="w-16 border border-slate-900">ครั้งที่ 4</th><th class="w-16 border border-slate-900">ครั้งที่ 5</th><th class="border border-slate-900">ค่าเฉลี่ย</th></tr>
                         <tr><td class="border border-slate-900"><input type="text" class="text-center"></td><td class="border border-slate-900"><input type="text" class="text-center"></td><td class="border border-slate-900"><input type="text" class="text-center"></td><td class="border border-slate-900"><input type="text" class="text-center"></td><td class="border border-slate-900"><input type="text" class="text-center"></td><td class="border border-slate-900"><input type="text" class="text-center"></td></tr>
                     </table>
-                    <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
+                    <div class="border border-slate-900 p-1 my-2"><span class="font-bold">ข้อเสนอแนะ/ข้อมูลเพิ่มเติม :</span><textarea class="w-full h-6 outline-none resize-none"></textarea></div>
                     <table class="border border-slate-900">
-                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
-                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="border-b border-slate-900 w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ผู้ตรวจ <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ผู้ตรวจสอบ <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">ตำแหน่ง <input type="text" class="w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td><td colspan="3" class="border border-slate-900">วันที่ <input type="date" class="w-3/4 inline-block"></td></tr>
                     </table>
                     <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-023</span></div>
                 `
@@ -771,7 +792,7 @@
                             <td colspan="5" class="border border-slate-900"><input type="text"></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="border border-slate-900">ระดับความเข้มเสียงที่ตรวจวัดได้ : <input type="text" class="border-b border-slate-900 w-24 inline-block"> dB</td>
+                            <td colspan="6" class="border border-slate-900">ระดับความเข้มเสียงที่ตรวจวัดได้ : <input type="text" class="w-24 inline-block"> dB</td>
                         </tr>
                         <tr>
                             <td colspan="6" class="border border-slate-900">
@@ -791,11 +812,11 @@
                     <div class="grid grid-cols-2 gap-2 mb-3">
                         <div class="border border-slate-900 p-1.5">
                             <div class="font-bold mb-1">ภาพถ่ายจากกล้องปกติ</div>
-                            <div class="h-44 border border-dashed border-slate-400 flex items-center justify-center text-slate-400 bg-slate-50">พื้นที่วางรูปภาพปกติ</div>
+                            <div class="h-40 border border-dashed border-slate-400 flex items-center justify-center text-slate-400 bg-slate-50 rounded">พื้นที่วางรูปภาพปกติ</div>
                         </div>
                         <div class="border border-slate-900 p-1.5">
                             <div class="font-bold mb-1">ภาพถ่ายจาก Acoustic Camera</div>
-                            <div class="h-44 border border-dashed border-slate-400 flex items-center justify-center text-slate-400 bg-slate-50">พื้นที่วางรูป Acoustic Camera</div>
+                            <div class="h-40 border border-dashed border-slate-400 flex items-center justify-center text-slate-400 bg-slate-50 rounded">พื้นที่วางรูป Acoustic Camera</div>
                         </div>
                     </div>
 
@@ -803,8 +824,8 @@
                     <table class="border border-slate-900 mb-2">
                         <tr>
                             <td class="border border-slate-900 p-2">
-                                ส่งต่อให้กลุ่มงาน <input type="text" class="border-b border-slate-900 w-1/3 inline-block"> โปรดดำเนินการแก้ไข <input type="text" class="border-b border-slate-900 w-1/4 inline-block"> วันที่:<input type="date" class="border-b border-slate-900 w-28 inline-block">
-                                <div class="text-center mt-3 text-slate-500">(หยพบจ./ชพบจ.)</div>
+                                ส่งต่อให้กลุ่มงาน <input type="text" class="w-1/3 inline-block"> โปรดดำเนินการแก้ไข <input type="text" class="w-1/4 inline-block"> วันที่:<input type="date" class="w-28 inline-block">
+                                <div class="text-center mt-2 text-slate-500">(หยพบจ./ชพบจ.)</div>
                             </td>
                         </tr>
                     </table>
@@ -812,12 +833,12 @@
                     <div class="bg-slate-100 font-bold p-1 border border-slate-900 border-b-0">3. การดำเนินการปรับปรุง</div>
                     <table class="border border-slate-900">
                         <tr>
-                            <td class="border border-slate-900 p-2 space-y-3">
-                                ดำเนินการแก้ไขเมื่อวันที่ <input type="date" class="border-b border-slate-900 w-32 inline-block"> จึงเสนอมาเพื่อโปรดทราบ <input type="text" class="border-b border-slate-900 w-1/3 inline-block"> ตำแหน่ง <input type="text" class="border-b border-slate-900 w-1/4 inline-block">
+                            <td class="border border-slate-900 p-2 space-y-2">
+                                ดำเนินการแก้ไขเมื่อวันที่ <input type="date" class="w-32 inline-block"> จึงเสนอมาเพื่อโปรดทราบ <input type="text" class="w-1/3 inline-block"> ตำแหน่ง <input type="text" class="w-1/4 inline-block">
                                 <div class="text-center text-slate-500">(ผู้ดำเนินการปรับปรุง)</div>
-                                <div class="flex justify-between items-center pt-2">
-                                    <span>ทราบ <input type="text" class="border-b border-slate-900 w-48 inline-block"></span>
-                                    <span>วันที่: <input type="date" class="border-b border-slate-900 w-32 inline-block"></span>
+                                <div class="flex justify-between items-center pt-1">
+                                    <span>ทราบ <input type="text" class="w-48 inline-block"></span>
+                                    <span>วันที่: <input type="date" class="w-32 inline-block"></span>
                                 </div>
                                 <div class="text-center text-slate-500">(หยพบจ./ชพบจ.)</div>
                             </td>
@@ -887,7 +908,7 @@
         function clearFormInputs() { loadForm(currentFormKey); alert("ล้างฟอร์มสำเร็จ"); }
         function exportCSV() { alert("ดาวน์โหลด CSV สำเร็จ"); }
 
-        loadForm("025");
+        loadForm("015");
     </script>
 </body>
 </html>
