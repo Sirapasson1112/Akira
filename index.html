@@ -102,10 +102,10 @@
                         <tr>
                             <td colspan="2" class="bg-slate-50 border border-slate-900 flex items-center justify-between">
                                 <span>GIS</span>
-                                <button onclick="getGPSLocation()" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button>
+                                <button onclick="getGPSLocation('latInput015', 'longInput015')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button>
                             </td>
-                            <td colspan="2" class="border border-slate-900">Lat. <input type="text" id="latInput" class="inline-block w-3/4"></td>
-                            <td colspan="2" class="border border-slate-900">Long. <input type="text" id="longInput" class="inline-block w-3/4"></td>
+                            <td colspan="2" class="border border-slate-900">Lat. <input type="text" id="latInput015" class="inline-block w-3/4"></td>
+                            <td colspan="2" class="border border-slate-900">Long. <input type="text" id="longInput015" class="inline-block w-3/4"></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="bg-slate-50 border border-slate-900">MEA No1.</td>
@@ -228,7 +228,7 @@
                     <div class="text-center font-bold text-sm mb-2">แบบตรวจสอบบำรุงรักษา Load Break Switch</div>
                     <table>
                         <tr><td class="bg-slate-100 font-bold text-center w-8 border border-slate-900">1</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">GIS Lat/Long</td><td class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900 flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput016', 'longInput016')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td class="border border-slate-900">Lat: <input type="text" id="latInput016" class="w-20 inline-block"> Long: <input type="text" id="longInput016" class="w-20 inline-block"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">สถานที่</td><td colspan="4" class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ยี่ห้อ LBS</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">LBS MEA No.</td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900">Switch No. <input type="text" class="inline-block w-1/2"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ยี่ห้อ VT</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">VT MEA No.</td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900">ตู้ OFDF No. <input type="text" class="inline-block w-1/2"></td></tr>
@@ -265,7 +265,7 @@
                     <div class="text-center font-bold text-sm mb-2">แบบตรวจสอบบำรุงรักษา Sectionalizer</div>
                     <table>
                         <tr><td class="bg-slate-100 font-bold text-center w-8 border border-slate-900">1</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">GIS Lat/Long</td><td class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900 flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput017', 'longInput017')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td class="border border-slate-900">Lat: <input type="text" id="latInput017" class="w-20 inline-block"> Long: <input type="text" id="longInput017" class="w-20 inline-block"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">สถานที่</td><td colspan="4" class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ยี่ห้อ SZ</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">SZ MEA No.</td><td class="border border-slate-900"><input type="text"></td><td class="border border-slate-900">Switch No. <input type="text" class="inline-block w-1/2"></td></tr>
                         <tr><td class="bg-slate-100 font-bold text-center border border-slate-900">2</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">รายการตรวจสอบบำรุงรักษา &nbsp;&nbsp; [ ] ปลด &nbsp;&nbsp; [ ] สับ</td></tr>
@@ -299,7 +299,7 @@
                     <div class="text-center font-bold text-sm mb-2">แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)</div>
                     <table>
                         <tr><td class="bg-slate-100 font-bold text-center w-8 border border-slate-900">1</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">GIS Lat/Long</td><td class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900 flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput018', 'longInput018')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td class="border border-slate-900">Lat: <input type="text" id="latInput018" class="w-20 inline-block"> Long: <input type="text" id="longInput018" class="w-20 inline-block"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">สถานที่</td><td colspan="2" class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">ยี่ห้อ RMU</td><td class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">RMU MEA No.</td><td colspan="4" class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td class="bg-slate-100 font-bold text-center border border-slate-900">2</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">รายการตรวจสอบบำรุงรักษา</td></tr>
@@ -334,7 +334,7 @@
                     <div class="text-center font-bold text-sm mb-2">แบบตรวจสอบบำรุงรักษา UNITSUBSTATION</div>
                     <table>
                         <tr><td class="bg-slate-100 font-bold text-center w-8 border border-slate-900">1</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">GIS Lat/Long</td><td colspan="2" class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900 flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput019', 'longInput019')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td colspan="2" class="border border-slate-900">Lat: <input type="text" id="latInput019" class="w-16 inline-block"> Long: <input type="text" id="longInput019" class="w-16 inline-block"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">สถานที่</td><td colspan="4" class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ยี่ห้อ TR / MEA No.</td><td class="border border-slate-900"><input type="text"></td><td colspan="3" class="border border-slate-900">TR MEA No. <input type="text" class="inline-block w-1/2"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ยี่ห้อ RMU / MEA No.</td><td class="border border-slate-900"><input type="text"></td><td colspan="3" class="border border-slate-900">RMU MEA No. <input type="text" class="inline-block w-1/2"></td></tr>
@@ -373,7 +373,7 @@
                     <table>
                         <tr><td class="bg-slate-100 font-bold text-center w-8 border border-slate-900">1</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">ข้อมูลทั่วไป</td></tr>
                         <tr><td colspan="2" class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">สถานที่</td><td colspan="2" class="border border-slate-900"><input type="text"></td></tr>
-                        <tr><td colspan="2" class="bg-slate-50 border border-slate-900">MEA No.</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">GIS Lat/Long</td><td colspan="2" class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-slate-50 border border-slate-900">MEA No.</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900 flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput020', 'longInput020')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td colspan="2" class="border border-slate-900">Lat: <input type="text" id="latInput020" class="w-16 inline-block"> Long: <input type="text" id="longInput020" class="w-16 inline-block"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ชนิด Control</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">ยี่ห้อ / สายป้อน</td><td colspan="2" class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td colspan="2" class="bg-slate-50 border border-slate-900">ชนิด Switch</td><td colspan="4" class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td class="bg-slate-100 font-bold text-center border border-slate-900">2</td><td colspan="5" class="bg-slate-100 font-bold border border-slate-900">รายการตรวจสอบบำรุงรักษา</td></tr>
@@ -495,7 +495,7 @@
                     <div class="text-center font-bold text-sm mb-2">รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)</div>
                     <table class="border border-slate-900">
                         <tr><td class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 w-28 border border-slate-900">สถานที่</td><td class="border border-slate-900"><input type="text"></td></tr>
-                        <tr><td class="bg-slate-50 border border-slate-900">GIS Lat/Long</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">อุปกรณ์</td><td class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td class="bg-slate-50 border border-slate-900 flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput024', 'longInput024')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td class="border border-slate-900">Lat: <input type="text" id="latInput024" class="w-16 inline-block"> Long: <input type="text" id="longInput024" class="w-16 inline-block"></td><td class="bg-slate-50 border border-slate-900">อุปกรณ์</td><td class="border border-slate-900"><input type="text"></td></tr>
                         <tr><td class="bg-slate-50 border border-slate-900">MEA No.</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 border border-slate-900">สายป้อน</td><td class="border border-slate-900"><input type="text"></td></tr>
                     </table>
                     <div class="font-bold text-[11px] mt-2 mb-1">เกณฑ์ Delta T (°C)</div>
@@ -515,7 +515,7 @@
                 render: () => `
                     <div class="text-center font-bold text-sm mb-2">รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge) ด้วย Acoustic Camera</div>
                     <table class="border border-slate-900">
-                        <tr><td class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 w-28 border border-slate-900">อุปกรณ์</td><td class="border border-slate-900"><input type="text"></td></tr>
+                        <tr><td class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 w-28 border border-slate-900 flex items-center justify-between"><span>อุปกรณ์ / GIS</span><button onclick="getGPSLocation('latInput025', 'longInput025')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td class="border border-slate-900">Lat: <input type="text" id="latInput025" class="w-16 inline-block"> Long: <input type="text" id="longInput025" class="w-16 inline-block"></td></tr>
                     </table>
                     <div class="font-bold text-[11px] mt-3 mb-1">ผลการตรวจสอบและระดับความรุนแรง</div>
                     <div class="border border-slate-900 p-2 text-[11px] space-y-2">
@@ -559,15 +559,15 @@
             pillsContainer.appendChild(btn);
         });
 
-        // ฟังก์ชันดึงพิกัด GPS
-        function getGPSLocation() {
+        // ฟังก์ชันดึงพิกัด GPS รองรับหลายฟอร์มแบบไดนามิก
+        function getGPSLocation(latId, longId) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const lat = position.coords.latitude.toFixed(6);
                         const lon = position.coords.longitude.toFixed(6);
-                        const latInput = document.getElementById('latInput');
-                        const longInput = document.getElementById('longInput');
+                        const latInput = document.getElementById(latId);
+                        const longInput = document.getElementById(longId);
                         if (latInput) latInput.value = lat;
                         if (longInput) longInput.value = lon;
                         alert("ดึงพิกัด GPS สำเร็จ: " + lat + ", " + lon);
