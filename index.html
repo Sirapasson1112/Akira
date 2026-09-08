@@ -80,7 +80,7 @@
     </div>
 
     <script>
-        let currentFormKey = "017";
+        let currentFormKey = "025";
 
         const formsData = {
             "015": {
@@ -724,22 +724,110 @@
                 title: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)",
                 code: "SF-07-0-025",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-2">รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge) ด้วย Acoustic Camera</div>
-                    <table class="border border-slate-900">
-                        <tr><td class="bg-slate-50 w-28 border border-slate-900">Station ID</td><td class="border border-slate-900"><input type="text"></td><td class="bg-slate-50 w-28 border border-slate-900 flex items-center justify-between"><span>อุปกรณ์ / GIS</span><button onclick="getGPSLocation('latInput025', 'longInput025')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td><td class="border border-slate-900">Lat: <input type="text" id="latInput025" class="w-16 inline-block"> Long: <input type="text" id="longInput025" class="w-16 inline-block"></td></tr>
+                    <div class="text-center font-bold text-sm mb-2">รายงานผลการตรวจสอบการคายประจุไฟฟ้าบางส่วน (Partial Discharge)<br>โดยใช้กล้อง Acoustic Camera</div>
+                    <table class="border border-slate-900 mb-2">
+                        <tr>
+                            <td class="bg-slate-50 w-20 border border-slate-900">ผู้ตรวจ:</td>
+                            <td class="border border-slate-900">1. <input type="text" class="w-3/4 inline-block"></td>
+                            <td class="bg-slate-50 w-20 border border-slate-900">ตำแหน่ง</td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                            <td class="bg-slate-50 w-24 border border-slate-900">วันที่ตรวจ</td>
+                            <td class="border border-slate-900 w-28"><input type="date"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-slate-50 border border-slate-900">ผู้ตรวจ:</td>
+                            <td colspan="3" class="border border-slate-900">2. <input type="text" class="w-3/4 inline-block"></td>
+                            <td class="bg-slate-50 border border-slate-900">ตำแหน่ง</td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                        </tr>
                     </table>
-                    <div class="font-bold text-[11px] mt-3 mb-1">ผลการตรวจสอบและระดับความรุนแรง</div>
-                    <div class="border border-slate-900 p-2 text-[11px] space-y-2">
-                        <div>จุดที่ผิดปกติ: <input type="text" class="border-b border-slate-900 w-2/3 inline-block"></div>
-                        <div>ระดับความเข้มเสียง: <input type="text" class="border-b border-slate-900 w-20 inline-block"> dB</div>
-                        <div>ระดับความรุนแรง (NL CLOUD): 
-                            <label class="ml-2"><input type="radio" name="sev025"> สูงมาก</label>
-                            <label class="ml-2"><input type="radio" name="sev025"> สูง</label>
-                            <label class="ml-2"><input type="radio" name="sev025"> ปานกลาง</label>
-                            <label class="ml-2"><input type="radio" name="sev025"> ต่ำ</label>
+
+                    <div class="bg-slate-100 font-bold p-1 border border-slate-900 border-b-0">1. ข้อมูลภาพถ่าย</div>
+                    <table class="border border-slate-900 mb-2">
+                        <tr>
+                            <td class="bg-slate-50 w-20 border border-slate-900">Station ID</td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                            <td class="bg-slate-50 w-20 border border-slate-900">อุปกรณ์</td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                            <td class="bg-slate-50 w-20 border border-slate-900">MEA No.</td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-slate-50 border border-slate-900">สถานที่</td>
+                            <td colspan="3" class="border border-slate-900"><input type="text"></td>
+                            <td class="bg-slate-50 border border-slate-900">สายป้อน</td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-slate-50 border border-slate-900 flex items-center justify-between">
+                                <span>GIS</span>
+                                <button onclick="getGPSLocation('latInput025', 'longInput025')" class="no-print bg-blue-500 hover:bg-blue-600 text-white px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button>
+                            </td>
+                            <td colspan="2" class="border border-slate-900">Lat. <input type="text" id="latInput025" class="w-3/4 inline-block"></td>
+                            <td colspan="3" class="border border-slate-900">Long. <input type="text" id="longInput025" class="w-3/4 inline-block"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-slate-50 border border-slate-900">จุดที่ผิดปกติ</td>
+                            <td colspan="5" class="border border-slate-900"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="border border-slate-900">ระดับความเข้มเสียงที่ตรวจวัดได้ : <input type="text" class="border-b border-slate-900 w-24 inline-block"> dB</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="border border-slate-900">
+                                ระดับความรุนแรง * &nbsp;&nbsp;&nbsp;&nbsp; 
+                                <label><input type="radio" name="sev025"> สูงมาก</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+                                <label><input type="radio" name="sev025"> สูง</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+                                <label><input type="radio" name="sev025"> ปานกลาง</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+                                <label><input type="radio" name="sev025"> ต่ำ</label>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="border border-slate-900 p-1 mb-2 text-[9px]">
+                        หมายเหตุ *ระดับความรุนแรงเป็นการประเมินจาก software ของ NL CLOUD
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <div class="border border-slate-900 p-1.5">
+                            <div class="font-bold mb-1">ภาพถ่ายจากกล้องปกติ</div>
+                            <div class="h-44 border border-dashed border-slate-400 flex items-center justify-center text-slate-400 bg-slate-50">พื้นที่วางรูปภาพปกติ</div>
+                        </div>
+                        <div class="border border-slate-900 p-1.5">
+                            <div class="font-bold mb-1">ภาพถ่ายจาก Acoustic Camera</div>
+                            <div class="h-44 border border-dashed border-slate-400 flex items-center justify-center text-slate-400 bg-slate-50">พื้นที่วางรูป Acoustic Camera</div>
                         </div>
                     </div>
-                    <div class="flex justify-between text-[9px] mt-4 pt-1 border-t border-slate-900"><span>ปรับปรุงครั้งที่ 0 วันที่....</span><span class="font-mono">SF-07-0-025</span></div>
+
+                    <div class="bg-slate-100 font-bold p-1 border border-slate-900 border-b-0">2. การส่งต่อดำเนินการแก้ไข</div>
+                    <table class="border border-slate-900 mb-2">
+                        <tr>
+                            <td class="border border-slate-900 p-2">
+                                ส่งต่อให้กลุ่มงาน <input type="text" class="border-b border-slate-900 w-1/3 inline-block"> โปรดดำเนินการแก้ไข <input type="text" class="border-b border-slate-900 w-1/4 inline-block"> วันที่:<input type="date" class="border-b border-slate-900 w-28 inline-block">
+                                <div class="text-center mt-3 text-slate-500">(หยพบจ./ชพบจ.)</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="bg-slate-100 font-bold p-1 border border-slate-900 border-b-0">3. การดำเนินการปรับปรุง</div>
+                    <table class="border border-slate-900">
+                        <tr>
+                            <td class="border border-slate-900 p-2 space-y-3">
+                                ดำเนินการแก้ไขเมื่อวันที่ <input type="date" class="border-b border-slate-900 w-32 inline-block"> จึงเสนอมาเพื่อโปรดทราบ <input type="text" class="border-b border-slate-900 w-1/3 inline-block"> ตำแหน่ง <input type="text" class="border-b border-slate-900 w-1/4 inline-block">
+                                <div class="text-center text-slate-500">(ผู้ดำเนินการปรับปรุง)</div>
+                                <div class="flex justify-between items-center pt-2">
+                                    <span>ทราบ <input type="text" class="border-b border-slate-900 w-48 inline-block"></span>
+                                    <span>วันที่: <input type="date" class="border-b border-slate-900 w-32 inline-block"></span>
+                                </div>
+                                <div class="text-center text-slate-500">(หยพบจ./ชพบจ.)</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-slate-900">
+                        <span>ปรับปรุงครั้งที่ 0 วันที่...</span>
+                        <span class="font-mono">SF-07-0-025</span>
+                    </div>
                 `
             }
         };
@@ -799,7 +887,7 @@
         function clearFormInputs() { loadForm(currentFormKey); alert("ล้างฟอร์มสำเร็จ"); }
         function exportCSV() { alert("ดาวน์โหลด CSV สำเร็จ"); }
 
-        loadForm("017");
+        loadForm("025");
     </script>
 </body>
 </html>
