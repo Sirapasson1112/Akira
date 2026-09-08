@@ -80,7 +80,7 @@
     </div>
 
     <script>
-        let currentFormKey = "016";
+        let currentFormKey = "017";
 
         const formsData = {
             "015": {
@@ -149,9 +149,9 @@
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
-                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}" class="cursor-pointer"></td>
-                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}" class="cursor-pointer"></td>
-                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}" class="cursor-pointer"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk015_${i}"></td>
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
@@ -414,11 +414,12 @@
                             <td class="bg-slate-50 text-center w-12 border border-slate-900">ชำรุด</td>
                             <td class="bg-slate-50 text-center w-12 border border-slate-900">ไม่มี</td>
                         </tr>
+                        <tr>
+                            <td colspan="6" class="bg-slate-50 font-bold border border-slate-900">สภาพ SZ และอุปกรณ์ประกอบ</td>
+                        </tr>
                         ${[
                             "2.1 ตัวถัง SZ /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า",
-                            "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 อุปกรณ์ป้องกันสัตว์", "2.8 ไฟสถานะหน้าตู้",
-                            "2.9 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.10 สภาพแบตเตอรี่หรือ Capacitor", "2.11 Ground HV (L/A, SZ)",
-                            "2.12 Ground LV (ตู้ Control)", "2.13 ทดลอง ทาง Local"
+                            "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 อุปกรณ์ป้องกันสัตว์"
                         ].map((item, i) => `
                             <tr>
                                 <td colspan="2" class="border border-slate-900">${item}</td>
@@ -428,8 +429,33 @@
                                 <td class="border border-slate-900"><input type="text"></td>
                             </tr>
                         `).join('')}
+                        <tr>
+                            <td colspan="6" class="bg-slate-50 font-bold border border-slate-900">ตู้ Control /Ground</td>
+                        </tr>
+                        ${[
+                            "2.8 ไฟสถานะหน้าตู้", "2.9 แหล่งจ่ายไฟฟ้า และสายควบคุม", "2.10 สภาพแบตเตอรี่หรือ Capacitor",
+                            "2.11 Ground HV (L/A, SZ)", "2.12 Ground LV (ตู้ Control)"
+                        ].map((item, i) => `
+                            <tr>
+                                <td colspan="2" class="border border-slate-900">${item}</td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk017_sub_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk017_sub_${i}"></td>
+                                <td class="text-center border border-slate-900"><input type="radio" name="chk017_sub_${i}"></td>
+                                <td class="border border-slate-900"><input type="text"></td>
+                            </tr>
+                        `).join('')}
+                        <tr>
+                            <td colspan="6" class="bg-slate-50 font-bold border border-slate-900">ทดสอบ ปลด/สับ</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-slate-900">2.13 ทดลอง ทาง Local</td>
+                            <td class="text-center border border-slate-900"><input type="radio" name="chk017_local"></td>
+                            <td class="text-center border border-slate-900"><input type="radio" name="chk017_local"></td>
+                            <td class="text-center border border-slate-900"><input type="radio" name="chk017_local"></td>
+                            <td class="border border-slate-900"><input type="text"></td>
+                        </tr>
                     </table>
-                    <div class="grid grid-cols-2 gap-2 my-2">
+                    <div class="grid grid-cols-1 gap-2 my-2">
                         <div class="border border-slate-900 p-1"><span class="font-bold">3 สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
                         <div class="border border-slate-900 p-1"><span class="font-bold">4 การปรับปรุงข้อบกพร่อง :</span><textarea class="w-full border-0 outline-none text-[10px] resize-none h-6 bg-transparent"></textarea></div>
                     </div>
@@ -744,7 +770,6 @@
             pillsContainer.appendChild(btn);
         });
 
-        // ฟังก์ชันดึงพิกัด GPS รองรับหลายฟอร์มแบบไดนามิก
         function getGPSLocation(latId, longId) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -774,7 +799,7 @@
         function clearFormInputs() { loadForm(currentFormKey); alert("ล้างฟอร์มสำเร็จ"); }
         function exportCSV() { alert("ดาวน์โหลด CSV สำเร็จ"); }
 
-        loadForm("016");
+        loadForm("017");
     </script>
 </body>
 </html>
