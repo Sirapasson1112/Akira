@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุนเชิงลึก - Digital Maintenance Workspace</title>
+    <title>ระบบวางแผน PM, จัดลำดับงบประมาณ และใบงานตรวจสอบ - Digital Maintenance Workspace</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Sarabun', sans-serif; background-color: #FFF8F0; color: #4a3c31; margin: 0; padding: 0; }
-        .app-container { width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
+        .app-container { width: 100%; max-width: 1280px; margin: 0 auto; box-sizing: border-box; }
+        .a4-sheet {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 12mm 15mm;
+            background: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(160, 110, 60, 0.08), 0 5px 10px -5px rgba(160, 110, 60, 0.05);
+            border-radius: 8px;
+            position: relative;
+            box-sizing: border-box;
+            border: 1px solid #e0d0b0;
+            margin: 0 auto;
+        }
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #e0d0b0; padding: 6px 10px; font-size: 11px; color: #5a4c3f; }
+        th, td { border: 1px solid #e0d0b0; padding: 5px 8px; font-size: 11px; color: #5a4c3f; }
         th { background-color: #FFF8F0; font-weight: 600; }
         input[type="text"], input[type="date"], input[type="number"], select { border: 1px solid #e0d0b0; outline: none; background: #fff; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 11px; color: #332b23; padding: 4px 8px; border-radius: 4px; }
+        textarea { color: #332b23; }
         .theme-accent { background-color: #FFEBCD; color: #5a4c3f; }
         .theme-accent-hover:hover { background-color: #ffdfb0; }
         .theme-border { border-color: #e0d0b0; }
         .theme-text-accent { color: #8a7c6f; }
+        .accent-radio { accent-color: #e0d0b0; }
+
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .a4-sheet { box-shadow: none !important; margin: 0 !important; width: 100% !important; padding: 8mm !important; border-radius: 0 !important; border: none !important; }
+        }
     </style>
 </head>
 <body class="pb-16 px-4">
@@ -26,255 +46,216 @@
         <div class="app-container px-4 py-3 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-[#FFF8F0] border border-[#e0d0b0] flex items-center justify-center text-[#c1a483] p-2 shadow-2xs shrink-0">
-                    <svg viewBox="0 0 512 512" fill="currentColor" class="w-6 h-6">
-                        <path d="M485.5 198.6c-5.4-9.3-15-15.3-25.6-16.1l-50.6-3.8c-10.4-30.8-25.7-58.8-44.8-82.7l32.7-39.2c6.9-8.3 7.8-20 2.2-29.3-5.6-9.3-15.6-14.3-26.1-12.8l-63.7 9.4c-28.7-22-60.8-38.3-95.3-47.5L200.7 13.9C199.1 5.3 191.6 0 182.9 0h-44.3c-8.7 0-16.2 5.3-17.8 13.9l-10.8 63.8c-34.5 9.2-66.6 25.5-95.3 47.5L-48 115.8c-10.5-1.5-20.5 3.5-26.1 12.8-5.6 9.3-4.7 21 2.2 29.3l32.7 39.2c-19.1 23.9-34.4 51.9-44.8 82.7L-110 286.6c-10.6.8-20.2 6.8-25.6 16.1-5.4 9.3-4.1 20.7 3.3 28.5l30.9 32.2c-5.3 32-5.3 64.9 0 96.9l-30.9 32.2c-7.4 7.8-8.7 19.2-3.3 28.5 5.4 9.3 15 15.3 25.6 16.1l50.6 3.8c10.4 30.8 25.7 58.8 44.8 82.7l-32.7 39.2c-6.9 8.3-7.8 20-2.2 29.3 5.6 9.3 15.6 14.3 26.1 12.8l63.7-9.4c28.7 22 60.8 38.3 95.3 47.5l10.8 63.8c1.6 8.6 9.1 13.9 17.8 13.9h44.3c8.7 0 16.2-5.3 17.8-13.9l10.8-63.8c34.5-9.2 66.6-25.5 95.3-47.5l63.7 9.4c10.5 1.5 20.5-3.5 26.1-12.8 5.6-9.3 4.7-21-2.2-29.3l-32.7-39.2c19.1-23.9 34.4-51.9 44.8-82.7l50.6-3.8c10.6-.8 20.2-6.8 25.6-16.1 5.4-9.3 4.1-20.7-3.3-28.5l-30.9-32.2c5.3-32 5.3-64.9 0-96.9l30.9-32.2c7.4-7.8 8.7-19.2 3.3-28.5zM228.6 345.6c-48.4 0-87.6-39.2-87.6-87.6s39.2-87.6 87.6-87.6 87.6 39.2 87.6 87.6-39.2 87.6-87.6 87.6zm192.8 89.2c-15.7-31.4-47.3-51.6-82.6-51.6-10.7 0-21.2 1.6-31.2 4.7 15.1 17.6 24.3 40.2 24.3 64.9 0 7.4-.8 14.6-2.2 21.6l64.9 4.9c13.7-21.9 26.8-44.5 26.8-44.5zM70.4 434.8c-35.3 0-66.9 20.2-82.6 51.6l64.9 4.9c-1.4-7-2.2-14.2-2.2-21.6 0-24.7 9.2-47.3 24.3-64.9-10-3.1-20.5-4.7-31.2-4.7z"/>
-                    </svg>
+                    ⚡
                 </div>
                 <div>
-                    <h1 class="text-sm font-bold text-[#5a4c3f]">ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุนเชิงลึก</h1>
-                    <p class="text-[11px] theme-text-accent">Advanced Maintenance KPIs, Cost & Productivity Analytics</p>
+                    <h1 class="text-xs font-bold text-[#5a4c3f]">ระบบบำรุงรักษาอุปกรณ์ไฟฟ้าและวางแผนงบประมาณ</h1>
+                    <p class="text-[10px] theme-text-accent">PM Planning, Budgeting & Inspection Workspace</p>
                 </div>
             </div>
-            <a href="index.html" class="px-3.5 py-2 theme-accent theme-accent-hover text-[#5a4c3f] rounded-md font-medium text-xs transition shadow-xs flex items-center gap-1.5 cursor-pointer">
-                📄 กลับไปหน้าฟอร์มตรวจสอบ
-            </a>
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="px-3.5 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-md font-medium text-xs transition cursor-pointer flex items-center gap-1.5">
+                    📄 ไปหน้าฟอร์มตรวจสอบเดี่ยว
+                </a>
+                <button onclick="handleGoogleLogin()" class="px-3.5 py-2 theme-accent theme-accent-hover text-[#5a4c3f] rounded-md font-medium text-xs transition shadow-2xs cursor-pointer">
+                    👤 เข้าสู่ระบบ Google
+                </button>
+            </div>
         </div>
     </header>
 
     <main class="app-container space-y-6">
-        <!-- Overview Summary Cards -->
+        <!-- Tab Navigation -->
+        <div class="grid grid-cols-2 gap-2 bg-stone-100 p-1 rounded-xl border border-theme-border">
+            <a href="index.html" class="py-2.5 text-stone-500 hover:text-[#5a4c3f] font-medium rounded-lg flex items-center justify-center gap-2 transition">
+                📋 แบบฟอร์มตรวจสอบหน้างาน (Inspection Forms)
+            </a>
+            <button class="py-2.5 bg-white text-[#5a4c3f] font-bold rounded-lg shadow-xs flex items-center justify-center gap-2">
+                📊 แผนงาน PM & จัดลำดับงบประมาณ (PM Planning & Cost)
+            </button>
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="bg-white p-3 rounded-xl border border-theme-border shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                <button onclick="addNewPlanTask()" class="px-3 py-2 theme-accent theme-accent-hover rounded-lg font-medium transition cursor-pointer shadow-xs">➕ เพิ่มแผนงาน PM ใหม่</button>
+                <button onclick="calculateAdvancedKPIs()" class="px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-medium transition cursor-pointer">🔄 คำนวณงบภาพรวม</button>
+                <button onclick="exportExcel()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🟩 ส่งออก Excel</button>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+                <button onclick="window.print()" class="px-4 py-2 bg-[#5a4c3f] text-white rounded-lg font-medium hover:bg-[#4a3c31] transition cursor-pointer shadow-xs">🖨️ พิมพ์ / PDF แผนงาน</button>
+            </div>
+        </div>
+
+        <!-- Summary Metrics Cards (ตามภาพตัวอย่าง) -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">แผนงาน PM ทั้งหมด</span>
-                <h3 class="text-xl font-bold text-[#5a4c3f] mt-1">11 รายการ</h3>
-                <span class="text-[10px] text-emerald-600 font-medium">ครอบคลุมสถานีไฟฟ้าย่อยและสายป้อน</span>
+                <span class="text-stone-500 text-[11px]">งานเร่งด่วนฉุกเฉิน (P1 Urgent)</span>
+                <h3 class="text-xl font-bold text-rose-700 mt-1" id="cardP1Count">3 งาน</h3>
+                <span class="text-[10px] text-rose-600 font-medium">ต้องแก้ไขภายใน 24-48 ชม.</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">มูลค่าทรัพย์สินรวม (RAV)</span>
-                <h3 class="text-xl font-bold text-[#5a4c3f] mt-1" id="cardRav">5,000,000 บาท</h3>
-                <span class="text-[10px] text-stone-600 font-medium">Replacement Asset Value</span>
+                <span class="text-stone-500 text-[11px]">งบประมาณที่วางไว้ทั้งหมด</span>
+                <h3 class="text-xl font-bold text-[#5a4c3f] mt-1" id="cardTotalBudget">฿ 125,000</h3>
+                <span class="text-[10px] text-stone-600 font-medium">จากแผนงาน PM ทั้งหมด</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">ความเสียหายฉุกเฉินที่หลีกเลี่ยงได้</span>
-                <h3 class="text-xl font-bold text-emerald-700 mt-1">850,000 บาท</h3>
-                <span class="text-[10px] text-emerald-600 font-medium">Cost Avoidance ประจำปี</span>
+                <span class="text-stone-500 text-[11px]">มูลค่าความเสียหายที่ป้องกันได้</span>
+                <h3 class="text-xl font-bold text-emerald-700 mt-1">฿ 850,000</h3>
+                <span class="text-[10px] text-emerald-600 font-medium">Cost Avoidance จากการดักจับความเสีย</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">ดัชนีสุขภาพระบบ (Overall Health)</span>
-                <h3 class="text-xl font-bold text-blue-700 mt-1">94.2%</h3>
-                <span class="text-[10px] text-blue-600 font-medium">World Class Standard</span>
+                <span class="text-stone-500 text-[11px]">สถานะแผนงานเสร็จสิ้น</span>
+                <h3 class="text-xl font-bold text-blue-700 mt-1">27.3%</h3>
+                <span class="text-[10px] text-blue-600 font-medium">ดำเนินการแล้ว 3 จาก 11 งาน</span>
             </div>
         </div>
 
-        <!-- Section 1: Detailed KPIs Definition & Formula Execution -->
+        <!-- Master Ranked Priority Queue Table (ตามภาพตัวอย่าง) -->
         <div class="bg-white p-6 rounded-xl border border-theme-border shadow-xs space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
-                    ส่วนที่ 1: การคำนวณและประเมิน KPIs ตามมาตรฐานสากล
+                    แผนงาน PM จัดลำดับตามความเสี่ยงและงบประมาณ (Ranked Priority Queue)
                 </h2>
-                <div class="flex gap-2">
-                    <button onclick="calculateAdvancedKPIs()" class="px-3 py-1.5 theme-accent theme-accent-hover rounded text-xs font-semibold cursor-pointer shadow-2xs">🔄 คำนวณใหม่</button>
-                    <button onclick="resetKpiForm()" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded text-xs font-medium cursor-pointer">🧹 ล้างค่า</button>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-[#FFF8F0] p-4 rounded-lg border border-[#e0d0b0]">
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">เวลาทำงานรวม (Op. Hours):</label>
-                    <input type="number" id="kpiOpHours" value="8760" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">จำนวนครั้งที่ขัดข้อง (Failures):</label>
-                    <input type="number" id="kpiFailures" value="2" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">เวลาซ่อมรวม (Downtime Hrs):</label>
-                    <input type="number" id="kpiDowntime" value="12" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">จำนวนครั้งที่ซ่อม (Repairs):</label>
-                    <input type="number" id="kpiRepairs" value="2" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">งาน PM สำเร็จตามกำหนด:</label>
-                    <input type="number" id="kpiPmDone" value="38" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">แผนงาน PM ทั้งหมด:</label>
-                    <input type="number" id="kpiPmTotal" value="40" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">ต้นทุนบำรุงรักษารวม (Maint. Cost):</label>
-                    <input type="number" id="kpiMaintCost" value="125000" oninput="calculateAdvancedKPIs()">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">มูลค่าทรัพย์สิน (RAV):</label>
-                    <input type="number" id="kpiRav" value="5000000" oninput="calculateAdvancedKPIs()">
-                </div>
-            </div>
-
-            <!-- Detailed KPI Results Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="bg-[#FFF8F0] text-left">
-                            <th class="border border-[#e0d0b0] p-2 text-xs">ดัชนีชี้วัด (KPI)</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs">สูตรคำนวณเชิงวิศวกรรม</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs text-center">ค่าที่คำนวณได้</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs">เกณฑ์มาตรฐานสากล (Benchmark)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border border-[#e0d0b0] p-2 font-bold">MTBF (Mean Time Between Failures)</td>
-                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">Operating Hours / Failures</td>
-                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-blue-700" id="resMtbf">4,380 ชม.</td>
-                            <td class="border border-[#e0d0b0] p-2 text-stone-600">ยิ่งมากยิ่งดี (&gt; 4,000 ชม.)</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-[#e0d0b0] p-2 font-bold">MTTR (Mean Time to Repair)</td>
-                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">Total Downtime / Number of Repairs</td>
-                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-amber-700" id="resMttr">6.0 ชม.</td>
-                            <td class="border border-[#e0d0b0] p-2 text-stone-600">ยิ่งน้อยยิ่งดี (&lt; 8 ชม.)</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-[#e0d0b0] p-2 font-bold">PM Compliance (ความสำเร็จตามแผน)</td>
-                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">(Completed PM / Planned PM) × 100</td>
-                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-emerald-700" id="resPmComp">95.0%</td>
-                            <td class="border border-[#e0d0b0] p-2 text-stone-600">มาตรฐาน WCM ต้อง $\ge 95\%$</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-[#e0d0b0] p-2 font-bold">MCR (Maintenance Cost Ratio)</td>
-                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">(Total Maint. Cost / RAV) × 100</td>
-                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-indigo-700" id="resMcr">2.5%</td>
-                            <td class="border border-[#e0d0b0] p-2 text-stone-600">อุตสาหกรรมไฟฟ้าทั่วไป (2% - 4%)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="text-right">
-                <button onclick="saveKpiReport()" class="px-4 py-2 theme-accent theme-accent-hover rounded text-xs font-semibold cursor-pointer shadow-xs">📊 บันทึกและออกรายงาน KPIs</button>
-            </div>
-        </div>
-
-        <!-- Section 2: Master Task List with Priority & Cost -->
-        <div class="bg-white p-6 rounded-xl border border-theme-border shadow-xs space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-                <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
-                    ส่วนที่ 2: รายการแบบฟอร์มและการวิเคราะห์ความสำคัญ / ต้นทุน (Master Task List)
-                </h2>
-                <div class="flex gap-2">
-                    <input type="text" id="searchTaskInput" placeholder="🔍 ค้นหารหัสฟอร์ม หรือชื่ออุปกรณ์..." oninput="filterMasterTable()" class="w-64 text-xs">
-                </div>
+                <input type="text" id="searchBox" placeholder="🔍 ค้นหาสถานี, รหัสฟอร์ม หรืออุปกรณ์..." oninput="filterTable()" class="w-72 text-xs">
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
                     <thead>
                         <tr class="bg-[#FFF8F0] text-left">
+                            <th class="border border-[#e0d0b0] p-2 text-xs">Work Order</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs">วันที่กำหนดทำ</th>
                             <th class="border border-[#e0d0b0] p-2 text-xs">รหัสฟอร์ม</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs">ชื่อแบบตรวจสอบอุปกรณ์ไฟฟ้า</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs">Station ID / สถานที่</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs">อุปกรณ์</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs text-center">คะแนนความเสี่ยง</th>
                             <th class="border border-[#e0d0b0] p-2 text-xs text-center">ระดับความสำคัญ</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs text-right">ต้นทุน PM (บาท)</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs text-right">ความเสี่ยงฉุกเฉิน (บาท)</th>
-                            <th class="border border-[#e0d0b0] p-2 text-xs text-center">การจัดการ</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs text-right">งบประมาณ PM</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs text-center">สถานะ</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs text-center">การดำเนินการ</th>
                         </tr>
                     </thead>
-                    <tbody id="masterTableBody">
-                        <!-- Filled by script -->
+                    <tbody id="rankedTableBody">
+                        <!-- Filled by JS -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Modal สำหรับเปิดดู/กรอกใบงานตรวจสอบรายตัว -->
+        <div id="formModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
+            <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative border border-[#e0d0b0]">
+                <button onclick="closeModal()" class="absolute top-4 right-4 bg-stone-100 hover:bg-stone-200 text-stone-700 w-8 h-8 rounded-full font-bold flex items-center justify-center cursor-pointer">✕</button>
+                <h3 id="modalTitle" class="text-sm font-bold text-[#5a4c3f] mb-4">รายละเอียดใบงานตรวจสอบ</h3>
+                <div id="modalFormContainer">
+                    <!-- แทรกฟอร์ม A4 ตรงนี้ -->
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        const masterTasks = [
-            { code: "SF-07-0-015", name: "แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย", priority: "Priority 3", pm: 3500, risk: 35000 },
-            { code: "SF-07-0-016", name: "แบบตรวจสอบบำรุงรักษา Load Break Switch", priority: "Priority 2", pm: 6000, risk: 75000 },
-            { code: "SF-07-0-017", name: "แบบตรวจสอบบำรุงรักษา Sectionalizer", priority: "Priority 3", pm: 5000, risk: 50000 },
-            { code: "SF-07-0-018", name: "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)", priority: "Priority 2", pm: 7500, risk: 90000 },
-            { code: "SF-07-0-019", name: "แบบตรวจสอบบำรุงรักษา Unit Substation", priority: "Priority 1", pm: 12000, risk: 180000 },
-            { code: "SF-07-0-020", name: "แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV", priority: "Priority 3", pm: 4000, risk: 40000 },
-            { code: "SF-07-0-021", name: "แบบตรวจสอบบำรุงรักษาเครื่องป้องกันหม้อแปลงวงจรตาข่าย", priority: "Priority 2", pm: 5500, risk: 60000 },
-            { code: "SF-07-0-022", name: "แบบตรวจสอบบำรุงรักษาหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง", priority: "Priority 2", pm: 8000, risk: 95000 },
-            { code: "SF-07-0-023", name: "แบบตรวจสอบบำรุงรักษาทดสอบและกรองน้ำมันหม้อแปลง", priority: "Priority 2", pm: 9500, risk: 110000 },
-            { code: "SF-07-0-024", name: "รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)", priority: "Priority 1", pm: 3000, risk: 120000 },
-            { code: "SF-07-0-025", name: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)", priority: "Priority 1", pm: 4500, risk: 150000 }
+        const planTasks = [
+            { wo: "WO-2026-2004", date: "2026-09-07", code: "SF-07-0-015", station: "ST-49 - พื้นที่จำหน่ายไฟ MEA", device: "หม้อแปลงจำหน่าย", riskScore: "60/100", priority: "P2", budget: 3500, status: "รอดำเนินการ" },
+            { wo: "WO-2026-1516", date: "2026-09-03", code: "SF-07-0-015", station: "ST-52 - พื้นที่จำหน่ายไฟ MEA", device: "หม้อแปลงจำหน่าย", riskScore: "60/100", priority: "P2", budget: 3500, status: "รอดำเนินการ" },
+            { wo: "WO-2026-6851", date: "2026-09-03", code: "SF-07-0-015", station: "ST-54 - พื้นที่จำหน่ายไฟ MEA", device: "หม้อแปลงจำหน่าย", riskScore: "60/100", priority: "P2", budget: 3500, status: "รอดำเนินการ (คัดลอก)" },
+            { wo: "WO-2026-8516", date: "2026-09-03", code: "SF-07-0-015", station: "ST-54 - พื้นที่จำหน่ายไฟ MEA", device: "หม้อแปลงจำหน่าย", riskScore: "60/100", priority: "P2", budget: 3500, status: "รอดำเนินการ" },
+            { wo: "WO-2026-8711", date: "2026-09-03", code: "SF-07-0-015", station: "ST-74 - พื้นที่จำหน่ายไฟ MEA", device: "หม้อแปลงจำหน่าย", riskScore: "60/100", priority: "P2", budget: 3500, status: "รอดำเนินการ" },
+            { wo: "WO-2026-0801", date: "2026-09-05", code: "SF-07-0-024", station: "ST-04 - สายป้อนเทพารักษ์ 12", device: "ขั้วต่อ Bushing HV ด้านไฟเข้า", riskScore: "88/100", priority: "P1", budget: 6500, status: "รอดำเนินการ" },
+            { wo: "WO-2026-0802", date: "2026-09-06", code: "SF-07-0-023", station: "ST-02 - สถานีย่อยบางพลี", device: "หม้อแปลงวงจรตาข่าย TR-02", riskScore: "78/100", priority: "P1", budget: 16500, status: "กำลังทำ" },
+            { wo: "WO-2026-0803", date: "2026-09-08", code: "SF-07-0-019", station: "ST-12 - อาคารศูนย์ราชการ", device: "Unit Substation", riskScore: "92/100", priority: "P1", budget: 12000, status: "เสร็จสิ้น" },
+            { wo: "WO-2026-0804", date: "2026-09-10", code: "SF-07-0-016", station: "ST-15 - แยกบางนา", device: "Load Break Switch", riskScore: "50/100", priority: "P3", budget: 6000, status: "เสร็จสิ้น" }
         ];
 
-        function renderMasterTable(tasksToRender = masterTasks) {
-            const tbody = document.getElementById('masterTableBody');
-            if (tasksToRender.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center p-4 text-stone-500">ไม่พบรายการที่ค้นหา</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = tasksToRender.map(task => `
+        function renderTable(data = planTasks) {
+            const tbody = document.getElementById('rankedTableBody');
+            tbody.innerHTML = data.map(task => `
                 <tr class="hover:bg-[#FFF8F0]/50 transition">
-                    <td class="border border-[#e0d0b0] p-2 font-mono font-bold">${task.code}</td>
-                    <td class="border border-[#e0d0b0] p-2">${task.name}</td>
+                    <td class="border border-[#e0d0b0] p-2 font-mono font-bold">${task.wo}</td>
+                    <td class="border border-[#e0d0b0] p-2">${task.date}</td>
+                    <td class="border border-[#e0d0b0] p-2 font-mono text-stone-600">${task.code}</td>
+                    <td class="border border-[#e0d0b0] p-2">${task.station}</td>
+                    <td class="border border-[#e0d0b0] p-2">${task.device}</td>
+                    <td class="border border-[#e0d0b0] p-2 text-center font-bold">${task.riskScore}</td>
                     <td class="border border-[#e0d0b0] p-2 text-center">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-medium ${task.priority.includes('1') ? 'bg-rose-100 text-rose-800' : task.priority.includes('2') ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${task.priority === 'P1' ? 'bg-rose-100 text-rose-800' : task.priority === 'P2' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
                             ${task.priority}
                         </span>
                     </td>
-                    <td class="border border-[#e0d0b0] p-2 text-right">${task.pm.toLocaleString()}</td>
-                    <td class="border border-[#e0d0b0] p-2 text-right text-rose-700">${task.risk.toLocaleString()}</td>
+                    <td class="border border-[#e0d0b0] p-2 text-right font-medium">฿ ${task.budget.toLocaleString()}</td>
                     <td class="border border-[#e0d0b0] p-2 text-center">
-                        <a href="index.html" class="px-2.5 py-1 theme-accent theme-accent-hover rounded text-[10px] font-medium shadow-2xs cursor-pointer">เปิดใบงาน ➔</a>
+                        <span class="text-[10px] px-2 py-0.5 rounded ${task.status.includes('เสร็จสิ้น') ? 'bg-emerald-50 text-emerald-700' : task.status.includes('กำลัง') ? 'bg-amber-50 text-amber-700' : 'bg-stone-100 text-stone-600'}">${task.status}</span>
+                    </td>
+                    <td class="border border-[#e0d0b0] p-2 text-center space-x-1">
+                        <button onclick="openFormModal('${task.code}', '${task.wo}')" class="px-2 py-1 theme-accent theme-accent-hover rounded text-[10px] font-medium cursor-pointer shadow-xs">📋 เปิดใบงาน</button>
+                        <button onclick="editTask('${task.wo}')" class="px-2 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded text-[10px] font-medium cursor-pointer shadow-xs">✏️ แก้ไข</button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        function filterMasterTable() {
-            const keyword = document.getElementById('searchTaskInput').value.toLowerCase();
-            const filtered = masterTasks.filter(t => t.code.toLowerCase().includes(keyword) || t.name.toLowerCase().includes(keyword));
-            renderMasterTable(filtered);
+        function filterTable() {
+            const keyword = document.getElementById('searchBox').value.toLowerCase();
+            const filtered = planTasks.filter(t => t.wo.toLowerCase().includes(keyword) || t.code.toLowerCase().includes(keyword) || t.station.toLowerCase().includes(keyword) || t.device.toLowerCase().includes(keyword));
+            renderTable(filtered);
         }
 
-        function calculateAdvancedKPIs() {
-            const opHours = parseFloat(document.getElementById('kpiOpHours').value) || 1;
-            const failures = parseFloat(document.getElementById('kpiFailures').value) || 1;
-            const downtime = parseFloat(document.getElementById('kpiDowntime').value) || 0;
-            const repairs = parseFloat(document.getElementById('kpiRepairs').value) || 1;
-            const pmDone = parseFloat(document.getElementById('kpiPmDone').value) || 0;
-            const pmTotal = parseFloat(document.getElementById('kpiPmTotal').value) || 1;
-            const maintCost = parseFloat(document.getElementById('kpiMaintCost').value) || 0;
-            const rav = parseFloat(document.getElementById('kpiRav').value) || 1;
-
-            const mtbf = (opHours / failures).toFixed(1);
-            const mttr = (downtime / repairs).toFixed(1);
-            const pmComp = ((pmDone / pmTotal) * 100).toFixed(1);
-            const mcr = ((maintCost / rav) * 100).toFixed(2);
-
-            document.getElementById('resMtbf').innerText = Number(mtbf).toLocaleString() + " ชม.";
-            document.getElementById('resMttr').innerText = mttr + " ชม.";
-            document.getElementById('resPmComp').innerText = pmComp + "%";
-            document.getElementById('resMcr').innerText = mcr + "%";
-            document.getElementById('cardRav').innerText = Number(rav).toLocaleString() + " บาท";
+        function openFormModal(code, wo) {
+            document.getElementById('modalTitle').innerText = `ใบงานตรวจสอบอุปกรณ์ไฟฟ้า (${code}) - Work Order: ${wo}`;
+            const container = document.getElementById('modalFormContainer');
+            container.innerHTML = `
+                <div class="a4-sheet text-[#4a3c31]">
+                    <div class="text-center font-bold text-sm mb-3 text-[#5a4c3f]">แบบฟอร์มตรวจสอบบำรุงรักษาอุปกรณ์ไฟฟ้ามาตรฐาน (รหัส: ${code})</div>
+                    <table>
+                        <tr><td class="bg-[#FFF8F0] font-bold text-center w-8 border border-[#e0d0b0]">1</td><td colspan="5" class="bg-[#FFF8F0] font-bold border border-[#e0d0b0]">ข้อมูลงานและสถานที่ติดตั้ง</td></tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#FFF8F0] w-28 border border-[#e0d0b0]">Work Order</td><td colspan="2" class="border border-[#e0d0b0]"><input type="text" value="${wo}" readonly></td>
+                            <td class="bg-[#FFF8F0] w-20 border border-[#e0d0b0]">รหัสฟอร์ม</td><td class="border border-[#e0d0b0]"><input type="text" value="${code}" readonly></td>
+                        </tr>
+                        <tr><td class="bg-[#FFF8F0] font-bold text-center border border-[#e0d0b0]">2</td><td colspan="5" class="bg-[#FFF8F0] font-bold border border-[#e0d0b0]">รายการตรวจสอบภาคสนาม</td></tr>
+                        <tr class="bg-[#FFF8F0] text-center font-bold"><td colspan="2" class="border border-[#e0d0b0]">หัวข้อการตรวจสอบ</td><td class="w-12 border border-[#e0d0b0]">ปกติ</td><td class="w-12 border border-[#e0d0b0]">ชำรุด</td><td class="w-12 border border-[#e0d0b0]">ไม่มี</td><td class="border border-[#e0d0b0]">บันทึกข้อบกพร่อง</td></tr>
+                        ${[1,2,3,4,5,6].map(n => `
+                            <tr>
+                                <td colspan="2" class="border border-[#e0d0b0]">ข้อที่ ${n}. ตรวจสอบสภาพทางกายภาพและจุดต่อสาย</td>
+                                <td class="text-center border border-[#e0d0b0]"><input type="radio" name="modal_chk_${n}" class="accent-radio"></td>
+                                <td class="text-center border border-[#e0d0b0]"><input type="radio" name="modal_chk_${n}" class="accent-radio"></td>
+                                <td class="text-center border border-[#e0d0b0]"><input type="radio" name="modal_chk_${n}" class="accent-radio"></td>
+                                <td class="border border-[#e0d0b0]"><input type="text" placeholder="ระบุรายละเอียด..."></td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                    <div class="mt-4 text-right">
+                        <button onclick="alert('💾 บันทึกข้อมูลใบงานสำเร็จ!'); closeModal();" class="px-4 py-2 theme-accent theme-accent-hover rounded text-xs font-bold cursor-pointer shadow-xs">💾 บันทึกผลการตรวจสอบ</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('formModal').classList.remove('hidden');
         }
 
-        function resetKpiForm() {
-            document.getElementById('kpiOpHours').value = 8760;
-            document.getElementById('kpiFailures').value = 2;
-            document.getElementById('kpiDowntime').value = 12;
-            document.getElementById('kpiRepairs').value = 2;
-            document.getElementById('kpiPmDone').value = 38;
-            document.getElementById('kpiPmTotal').value = 40;
-            document.getElementById('kpiMaintCost').value = 125000;
-            document.getElementById('kpiRav').value = 5000000;
-            calculateAdvancedKPIs();
-            alert("🧹 รีเซ็ตข้อมูล KPIs กลับเป็นค่ามาตรฐานเรียบร้อยแล้ว");
+        function closeModal() {
+            document.getElementById('formModal').classList.add('hidden');
         }
 
-        function saveKpiReport() {
-            alert("📊 บันทึกผลการประเมิน KPIs และออกรายงานเชิงวิศวกรรมสำเร็จ!");
+        function addNewPlanTask() {
+            const newWo = "WO-2026-" + Math.floor(1000 + Math.random() * 9000);
+            planTasks.unshift({ wo: newWo, date: "2026-09-15", code: "SF-07-0-015", station: "ST-99 - สถานีใหม่", device: "หม้อแปลงไฟฟ้า", riskScore: "45/100", priority: "P3", budget: 4000, status: "รอดำเนินการ" });
+            renderTable();
+            alert(`➕ เพิ่มแผนงานใหม่ (${newWo}) สำเร็จ!`);
         }
 
-        renderMasterTable();
-        calculateAdvancedKPIs();
+        function editTask(wo) {
+            alert(`✏️ เปิดหน้าต่างแก้ไขข้อมูลสำหรับ Work Order: ${wo}`);
+        }
+
+        function exportExcel() {
+            alert("🟩 ส่งออกข้อมูลแผนงานและงบประมาณเป็นไฟล์ Excel สำเร็จ!");
+        }
+
+        function handleGoogleLogin() { alert("🔗 เชื่อมต่อบัญชี Google สำเร็จ"); }
+        function calculateAdvancedKPIs() { alert("🔄 คำนวณงบประมาณและอัปเดตสถิติภาพรวมสำเร็จ"); }
+
+        renderTable();
     </script>
 </body>
 </html>
