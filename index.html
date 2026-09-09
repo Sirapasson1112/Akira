@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบใบตรวจสอบอุปกรณ์ไฟฟ้า - BlanchedAlmond Theme</title>
+    <title>ระบบใบตรวจสอบอุปกรณ์ไฟฟ้าและวางแผนต้นทุน PM</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -23,7 +23,7 @@
         table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #e0d0b0; padding: 3px 6px; font-size: 10px; color: #5a4c3f; }
         th { background-color: #FFF8F0; font-weight: 600; }
-        input[type="text"], input[type="date"] { border: none; outline: none; background: transparent; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; color: #332b23; }
+        input[type="text"], input[type="date"], input[type="number"] { border: none; outline: none; background: transparent; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; color: #332b23; }
         textarea { color: #332b23; }
         .theme-accent { background-color: #FFEBCD; color: #5a4c3f; }
         .theme-accent-hover:hover { background-color: #ffdfb0; }
@@ -35,7 +35,7 @@
             body { background: white !important; }
             .no-print { display: none !important; }
             .a4-sheet { box-shadow: none !important; margin: 0 !important; width: 100% !important; padding: 8mm !important; border-radius: 0 !important; border: none !important; }
-            input[type="text"], input[type="date"] { border: none !important; }
+            input[type="text"], input[type="date"], input[type="number"] { border: none !important; }
         }
     </style>
 </head>
@@ -51,8 +51,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xs font-bold text-[#5a4c3f]">ระบบใบตรวจสอบอุปกรณ์ไฟฟ้า</h1>
-                    <p class="text-[10px] theme-text-accent">Digital Inspection Workspace</p>
+                    <h1 class="text-xs font-bold text-[#5a4c3f]">ระบบใบตรวจสอบอุปกรณ์ไฟฟ้าและวางแผนต้นทุน PM</h1>
+                    <p class="text-[10px] theme-text-accent">Digital Inspection & Maintenance Cost Workspace</p>
                 </div>
             </div>
             <button onclick="handleGoogleLogin()" id="loginBtn" class="flex items-center gap-2 px-3.5 py-2 border border-theme-border rounded-md text-xs font-medium hover:bg-[#fff1de] transition bg-white text-[#5a4c3f] cursor-pointer shadow-2xs">
@@ -63,6 +63,7 @@
     </header>
 
     <main class="no-print app-container px-4 mt-6 text-xs space-y-4">
+        <!-- Action Toolbar -->
         <div class="bg-white p-4 rounded-lg border border-theme-border shadow-xs flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap items-center gap-2">
                 <span id="statusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 bg-stone-100 text-stone-600 rounded-md text-xs font-medium border border-stone-200">
@@ -78,6 +79,40 @@
             </div>
         </div>
 
+        <!-- PM Cost & Priority Planning Module (เพิ่มใหม่ตามคำขอ) -->
+        <div class="bg-white p-4 rounded-lg border border-theme-border shadow-xs space-y-3">
+            <div class="text-[#5a4c3f] font-bold text-xs flex items-center justify-between">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#e0d0b0]"></span> แผนงาน PM เชื่อมโยงต้นทุนและความสำคัญ (Priority & Cost Planning)</span>
+                <span class="text-[10px] text-stone-500">ระบบคำนวณอัตโนมัติ</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-[#FFF8F0] p-3 rounded-md border border-[#e0d0b0]">
+                <div>
+                    <label class="block text-[10px] text-[#8a7c6f] font-semibold">ระดับความสำคัญ (Priority):</label>
+                    <select id="pmPriority" class="w-full bg-white border border-[#e0d0b0] p-1 rounded text-xs mt-1">
+                        <option value="1">Priority 1 - เร่งด่วนสูงสุด (&lt; 48 ชม.)</option>
+                        <option value="2">Priority 2 - สำคัญ (ภายใน 1 เดือน)</option>
+                        <option value="3">Priority 3 - ปานกลาง (รอบ PM ถัดไป)</option>
+                        <option value="4" selected>Priority 4 - ปกติ</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] text-[#8a7c6f] font-semibold">ประมาณการค่าใช้จ่าย PM (บาท):</label>
+                    <input type="number" id="pmCost" value="5000" class="w-full bg-white border border-[#e0d0b0] p-1 rounded text-xs mt-1" oninput="calculateTotalCost()">
+                </div>
+                <div>
+                    <label class="block text-[10px] text-[#8a7c6f] font-semibold">ความเสี่ยงค่าเสียหายฉุกเฉิน (บาท):</label>
+                    <input type="number" id="failureCost" value="50000" class="w-full bg-white border border-[#e0d0b0] p-1 rounded text-xs mt-1" oninput="calculateTotalCost()">
+                </div>
+                <div class="flex flex-col justify-end">
+                    <div class="bg-white border border-[#e0d0b0] p-1.5 rounded text-center">
+                        <span class="text-[9px] text-stone-500 block">ความคุ้มค่าเชิงเศรษฐศาสตร์:</span>
+                        <span id="savingsResult" class="font-bold text-xs text-emerald-700">ประหยัดได้ 45,000 บาท</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Selection Grid -->
         <div class="bg-white p-4 rounded-lg border border-theme-border shadow-xs">
             <div class="text-[#5a4c3f] font-bold mb-3 text-xs flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-[#e0d0b0]"></span> เลือกแบบฟอร์มใบงานตรวจสอบอุปกรณ์ไฟฟ้า (ครบถ้วนทั้ง 11 แบบฟอร์ม)
@@ -796,6 +831,20 @@
             pillsContainer.appendChild(btn);
         });
 
+        function calculateTotalCost() {
+            const pmCost = parseFloat(document.getElementById('pmCost').value) || 0;
+            const failureCost = parseFloat(document.getElementById('failureCost').value) || 0;
+            const savings = failureCost - pmCost;
+            const savingsEl = document.getElementById('savingsResult');
+            if (savings >= 0) {
+                savingsEl.className = "font-bold text-xs text-emerald-700";
+                savingsEl.innerText = `ประหยัดได้ ${savings.toLocaleString()} บาท`;
+            } else {
+                savingsEl.className = "font-bold text-xs text-rose-700";
+                savingsEl.innerText = `เกินดุล ${Math.abs(savings).toLocaleString()} บาท`;
+            }
+        }
+
         function getGPSLocation(latId, longId) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -818,12 +867,13 @@
         }
 
         function handleGoogleLogin() { alert("เชื่อมต่อบัญชี Google สำเร็จ"); }
-        function saveNewRecord() { alert("บันทึกรายการใหม่สำเร็จ"); }
+        function saveNewRecord() { alert("บันทึกรายการใหม่และอัปเดตแผน PM สำเร็จ"); }
         function saveCurrentRecord() { alert("บันทึกปัจจุบันสำเร็จ"); }
         function createNewForm() { alert("สร้างฟอร์มใหม่"); }
         function clearFormInputs() { loadForm(currentFormKey); alert("ล้างฟอร์มสำเร็จ"); }
 
         loadForm("015");
+        calculateTotalCost();
     </script>
 </body>
 </html>
