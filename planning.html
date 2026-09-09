@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุน - Digital Maintenance Workspace</title>
+    <title>ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุนเชิงลึก - Digital Maintenance Workspace</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -31,8 +31,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-sm font-bold text-[#5a4c3f]">ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุน</h1>
-                    <p class="text-[11px] theme-text-accent">Maintenance KPIs, Cost & Productivity Optimization Workspace</p>
+                    <h1 class="text-sm font-bold text-[#5a4c3f]">ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุนเชิงลึก</h1>
+                    <p class="text-[11px] theme-text-accent">Advanced Maintenance KPIs, Cost & Productivity Analytics</p>
                 </div>
             </div>
             <a href="index.html" class="px-3.5 py-2 theme-accent theme-accent-hover text-[#5a4c3f] rounded-md font-medium text-xs transition shadow-xs flex items-center gap-1.5 cursor-pointer">
@@ -42,100 +42,118 @@
     </header>
 
     <main class="app-container space-y-6">
-        <!-- Overview Cards -->
+        <!-- Overview Summary Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
                 <span class="text-stone-500 text-[11px]">แผนงาน PM ทั้งหมด</span>
                 <h3 class="text-xl font-bold text-[#5a4c3f] mt-1">11 รายการ</h3>
-                <span class="text-[10px] text-emerald-600 font-medium">ครอบคลุมทุกหมวดอุปกรณ์</span>
+                <span class="text-[10px] text-emerald-600 font-medium">ครอบคลุมสถานีไฟฟ้าย่อยและสายป้อน</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">งบประมาณ PM รวม (RAV)</span>
+                <span class="text-stone-500 text-[11px]">มูลค่าทรัพย์สินรวม (RAV)</span>
                 <h3 class="text-xl font-bold text-[#5a4c3f] mt-1">5,000,000 บาท</h3>
-                <span class="text-[10px] text-stone-600 font-medium">มูลค่าทดแทนทรัพย์สินรวม</span>
+                <span class="text-[10px] text-stone-600 font-medium"> Replacement Asset Value</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">ความเสียหายฉุกเฉินที่ป้องกันได้</span>
+                <span class="text-stone-500 text-[11px]">ความเสียหายฉุกเฉินที่หลีกเลี่ยงได้</span>
                 <h3 class="text-xl font-bold text-emerald-700 mt-1">850,000 บาท</h3>
-                <span class="text-[10px] text-emerald-600 font-medium">มูลค่าความเสี่ยงลดลง 85%</span>
+                <span class="text-[10px] text-emerald-600 font-medium">Cost Avoidance ประจำปี</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-                <span class="text-stone-500 text-[11px]">สถานะความพร้อมระบบ KPIs</span>
-                <h3 class="text-xl font-bold text-amber-700 mt-1">คำนวณอัตโนมัติ</h3>
-                <span class="text-[10px] text-amber-600 font-medium">มาตรฐานสากล WCM</span>
+                <span class="text-stone-500 text-[11px]">ดัชนีสุขภาพระบบ (Overall Health)</span>
+                <h3 class="text-xl font-bold text-blue-700 mt-1">94.2%</h3>
+                <span class="text-[10px] text-blue-600 font-medium">World Class Standard</span>
             </div>
         </div>
 
-        <!-- KPI Calculator & Productivity Module -->
+        <!-- Section 1: Detailed KPIs Definition & Formula Execution -->
         <div class="bg-white p-6 rounded-xl border border-theme-border shadow-xs space-y-4">
             <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
-                โมดูลคำนวณดัชนีชี้วัดประสิทธิภาพ (Maintenance KPIs & Cost Productivity Calculator)
+                ส่วนที่ 1: การคำนวณและประเมิน KPIs ตามมาตรฐานสากล
             </h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-[#FFF8F0] p-4 rounded-lg border border-[#e0d0b0]">
                 <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">เวลาทำงานรวม (Operating Hours):</label>
-                    <input type="number" id="kpiOpHours" value="8760" oninput="calculateKPIs()">
+                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">เวลาทำงานรวม (Op. Hours):</label>
+                    <input type="number" id="kpiOpHours" value="8760" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">จำนวนครั้งที่เสียหาย (Failures):</label>
-                    <input type="number" id="kpiFailures" value="2" oninput="calculateKPIs()">
+                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">จำนวนครั้งที่ขัดข้อง (Failures):</label>
+                    <input type="number" id="kpiFailures" value="2" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">เวลาซ่อมรวม (Total Downtime Hrs):</label>
-                    <input type="number" id="kpiDowntime" value="10" oninput="calculateKPIs()">
+                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">เวลาซ่อมรวม (Downtime Hrs):</label>
+                    <input type="number" id="kpiDowntime" value="12" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">จำนวนครั้งที่ซ่อม (Repairs):</label>
-                    <input type="number" id="kpiRepairs" value="2" oninput="calculateKPIs()">
+                    <input type="number" id="kpiRepairs" value="2" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">งาน PM สำเร็จตามแผน (Completed):</label>
-                    <input type="number" id="kpiPmDone" value="38" oninput="calculateKPIs()">
+                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">งาน PM สำเร็จตามกำหนด:</label>
+                    <input type="number" id="kpiPmDone" value="38" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">งาน PM ทั้งหมดตามแผน (Total Plan):</label>
-                    <input type="number" id="kpiPmTotal" value="40" oninput="calculateKPIs()">
+                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">แผนงาน PM ทั้งหมด:</label>
+                    <input type="number" id="kpiPmTotal" value="40" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">ต้นทุนบำรุงรักษารวม (Maint. Cost):</label>
-                    <input type="number" id="kpiMaintCost" value="125000" oninput="calculateKPIs()">
+                    <input type="number" id="kpiMaintCost" value="125000" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">มูลค่าทดแทนทรัพย์สิน (RAV):</label>
-                    <input type="number" id="kpiRav" value="5000000" oninput="calculateKPIs()">
+                    <label class="block text-xs font-semibold text-[#5a4c3f] mb-1">มูลค่าทรัพย์สิน (RAV):</label>
+                    <input type="number" id="kpiRav" value="5000000" oninput="calculateAdvancedKPIs()">
                 </div>
             </div>
 
-            <!-- KPI Output Summary Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-white p-4 rounded-lg border border-[#e0d0b0] text-center">
-                <div class="border-r border-[#e0d0b0] pr-2">
-                    <span class="text-[11px] text-stone-500 block">MTBF (เวลาเฉลี่ยระหว่างเสียหาย):</span>
-                    <span id="outMtbf" class="font-bold text-sm text-[#5a4c3f]">4,380 ชม.</span>
-                </div>
-                <div class="border-r border-[#e0d0b0] pr-2">
-                    <span class="text-[11px] text-stone-500 block">MTTR (เวลาเฉลี่ยในการซ่อม):</span>
-                    <span id="outMttr" class="font-bold text-sm text-[#5a4c3f]">5.0 ชม./ครั้ง</span>
-                </div>
-                <div class="border-r border-[#e0d0b0] pr-2">
-                    <span class="text-[11px] text-stone-500 block">PM Compliance (ความสำเร็จตามแผน):</span>
-                    <span id="outPmComp" class="font-bold text-sm text-emerald-700">95.0%</span>
-                </div>
-                <div>
-                    <span class="text-[11px] text-stone-500 block">MCR (สัดส่วนต้นทุนต่อทรัพย์สิน):</span>
-                    <span id="outMcr" class="font-bold text-sm text-blue-700">2.5%</span>
-                </div>
-            </div>
-            <div class="text-right">
-                <button onclick="saveKpiReport()" class="px-4 py-2 theme-accent theme-accent-hover rounded text-xs font-semibold shadow-xs cursor-pointer">📊 บันทึกและออกรายงาน KPIs</button>
+            <!-- Detailed KPI Results Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-[#FFF8F0] text-left">
+                            <th class="border border-[#e0d0b0] p-2 text-xs">ดัชนีชี้วัด (KPI)</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs">สูตรคำนวณเชิงวิศวกรรม</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs text-center">ค่าที่คำนวณได้</th>
+                            <th class="border border-[#e0d0b0] p-2 text-xs">เกณฑ์มาตรฐานสากล (Benchmark)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-[#e0d0b0] p-2 font-bold">MTBF (Mean Time Between Failures)</td>
+                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">Operating Hours / Failures</td>
+                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-blue-700" id="resMtbf">4,380 ชม.</td>
+                            <td class="border border-[#e0d0b0] p-2 text-stone-600">ยิ่งมากยิ่งดี (&gt; 4,000 ชม.)</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-[#e0d0b0] p-2 font-bold">MTTR (Mean Time to Repair)</td>
+                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">Total Downtime / Number of Repairs</td>
+                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-amber-700" id="resMttr">6.0 ชม.</td>
+                            <td class="border border-[#e0d0b0] p-2 text-stone-600">ยิ่งน้อยยิ่งดี (&lt; 8 ชม.)</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-[#e0d0b0] p-2 font-bold">PM Compliance (ความสำเร็จตามแผน)</td>
+                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">(Completed PM / Planned PM) × 100</td>
+                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-emerald-700" id="resPmComp">95.0%</td>
+                            <td class="border border-[#e0d0b0] p-2 text-stone-600">มาตรฐาน WCM ต้อง $\ge 95\%$</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-[#e0d0b0] p-2 font-bold">MCR (Maintenance Cost Ratio)</td>
+                            <td class="border border-[#e0d0b0] p-2 font-mono text-[10px]">(Total Maint. Cost / RAV) × 100</td>
+                            <td class="border border-[#e0d0b0] p-2 text-center font-bold text-indigo-700" id="resMcr">2.5%</td>
+                            <td class="border border-[#e0d0b0] p-2 text-stone-600">อุตสาหกรรมไฟฟ้าทั่วไป (2% - 4%)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Master Maintenance Table with Priority & Cost Details -->
+        <!-- Section 2: Master Task List with Priority & Cost -->
         <div class="bg-white p-6 rounded-xl border border-theme-border shadow-xs space-y-4">
             <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
-                รายการแบบฟอร์มและการวิเคราะห์ความสำคัญ / ต้นทุน (Master Task List)
+                ส่วนที่ 2: รายการแบบฟอร์มและการวิเคราะห์ความสำคัญ / ต้นทุน (Master Task List)
             </h2>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
@@ -192,7 +210,7 @@
             `).join('');
         }
 
-        function calculateKPIs() {
+        function calculateAdvancedKPIs() {
             const opHours = parseFloat(document.getElementById('kpiOpHours').value) || 1;
             const failures = parseFloat(document.getElementById('kpiFailures').value) || 1;
             const downtime = parseFloat(document.getElementById('kpiDowntime').value) || 0;
@@ -207,18 +225,14 @@
             const pmComp = ((pmDone / pmTotal) * 100).toFixed(1);
             const mcr = ((maintCost / rav) * 100).toFixed(2);
 
-            document.getElementById('outMtbf').innerText = Number(mtbf).toLocaleString() + " ชม.";
-            document.getElementById('outMttr').innerText = mttr + " ชม./ครั้ง";
-            document.getElementById('outPmComp').innerText = pmComp + "%";
-            document.getElementById('outMcr').innerText = mcr + "%";
-        }
-
-        function saveKpiReport() {
-            alert("📊 บันทึกข้อมูลและสร้างรายงาน KPIs ประจำรอบสำเร็จ!");
+            document.getElementById('resMtbf').innerText = Number(mtbf).toLocaleString() + " ชม.";
+            document.getElementById('resMttr').innerText = mttr + " ชม.";
+            document.getElementById('resPmComp').innerText = pmComp + "%";
+            document.getElementById('resMcr').innerText = mcr + "%";
         }
 
         renderMasterTable();
-        calculateKPIs();
+        calculateAdvancedKPIs();
     </script>
 </body>
 </html>
