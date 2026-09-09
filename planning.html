@@ -113,6 +113,9 @@
                     <span id="resNetSavings" class="font-bold text-xs text-emerald-700">ประหยัดได้ 40,500 บาท</span>
                 </div>
             </div>
+            <div class="text-right">
+                <button onclick="savePlanSettings()" class="px-4 py-2 theme-accent theme-accent-hover rounded text-xs font-semibold shadow-xs cursor-pointer">💾 บันทึกการตั้งค่าแผนงานนี้</button>
+            </div>
         </div>
 
         <!-- Master Maintenance Table with Priority & Cost Details -->
@@ -199,6 +202,10 @@
             document.getElementById('resTimeline').innerText = timeline;
             document.getElementById('resRiskCost').innerText = riskCost.toLocaleString() + " บาท";
             document.getElementById('resNetSavings').innerText = "ประหยัดได้ " + netSavings.toLocaleString() + " บาท";
+        }
+
+        function savePlanSettings() {
+            alert("💾 บันทึกการตั้งค่าและประมาณการงบประมาณ PM เรียบร้อยแล้ว!");
         }
 
         renderMasterTable();
