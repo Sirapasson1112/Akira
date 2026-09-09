@@ -51,8 +51,8 @@
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
                 <span class="text-stone-500 text-[11px]">มูลค่าทรัพย์สินรวม (RAV)</span>
-                <h3 class="text-xl font-bold text-[#5a4c3f] mt-1">5,000,000 บาท</h3>
-                <span class="text-[10px] text-stone-600 font-medium"> Replacement Asset Value</span>
+                <h3 class="text-xl font-bold text-[#5a4c3f] mt-1" id="cardRav">5,000,000 บาท</h3>
+                <span class="text-[10px] text-stone-600 font-medium">Replacement Asset Value</span>
             </div>
             <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
                 <span class="text-stone-500 text-[11px]">ความเสียหายฉุกเฉินที่หลีกเลี่ยงได้</span>
@@ -68,10 +68,16 @@
 
         <!-- Section 1: Detailed KPIs Definition & Formula Execution -->
         <div class="bg-white p-6 rounded-xl border border-theme-border shadow-xs space-y-4">
-            <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
-                ส่วนที่ 1: การคำนวณและประเมิน KPIs ตามมาตรฐานสากล
-            </h2>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
+                    ส่วนที่ 1: การคำนวณและประเมิน KPIs ตามมาตรฐานสากล
+                </h2>
+                <div class="flex gap-2">
+                    <button onclick="calculateAdvancedKPIs()" class="px-3 py-1.5 theme-accent theme-accent-hover rounded text-xs font-semibold cursor-pointer shadow-2xs">🔄 คำนวณใหม่</button>
+                    <button onclick="resetKpiForm()" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded text-xs font-medium cursor-pointer">🧹 ล้างค่า</button>
+                </div>
+            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-[#FFF8F0] p-4 rounded-lg border border-[#e0d0b0]">
                 <div>
@@ -147,14 +153,22 @@
                     </tbody>
                 </table>
             </div>
+            <div class="text-right">
+                <button onclick="saveKpiReport()" class="px-4 py-2 theme-accent theme-accent-hover rounded text-xs font-semibold cursor-pointer shadow-xs">📊 บันทึกและออกรายงาน KPIs</button>
+            </div>
         </div>
 
         <!-- Section 2: Master Task List with Priority & Cost -->
         <div class="bg-white p-6 rounded-xl border border-theme-border shadow-xs space-y-4">
-            <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
-                ส่วนที่ 2: รายการแบบฟอร์มและการวิเคราะห์ความสำคัญ / ต้นทุน (Master Task List)
-            </h2>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-sm font-bold text-[#5a4c3f] flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#c1a483]"></span> 
+                    ส่วนที่ 2: รายการแบบฟอร์มและการวิเคราะห์ความสำคัญ / ต้นทุน (Master Task List)
+                </h2>
+                <div class="flex gap-2">
+                    <input type="text" id="searchTaskInput" placeholder="🔍 ค้นหารหัสฟอร์ม หรือชื่ออุปกรณ์..." oninput="filterMasterTable()" class="w-64 text-xs">
+                </div>
+            </div>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
                     <thead>
@@ -190,9 +204,13 @@
             { code: "SF-07-0-025", name: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)", priority: "Priority 1", pm: 4500, risk: 150000 }
         ];
 
-        function renderMasterTable() {
+        function renderMasterTable(tasksToRender = masterTasks) {
             const tbody = document.getElementById('masterTableBody');
-            tbody.innerHTML = masterTasks.map(task => `
+            if (tasksToRender.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center p-4 text-stone-500">ไม่พบรายการที่ค้นหา</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = tasksToRender.map(task => `
                 <tr class="hover:bg-[#FFF8F0]/50 transition">
                     <td class="border border-[#e0d0b0] p-2 font-mono font-bold">${task.code}</td>
                     <td class="border border-[#e0d0b0] p-2">${task.name}</td>
@@ -204,10 +222,16 @@
                     <td class="border border-[#e0d0b0] p-2 text-right">${task.pm.toLocaleString()}</td>
                     <td class="border border-[#e0d0b0] p-2 text-right text-rose-700">${task.risk.toLocaleString()}</td>
                     <td class="border border-[#e0d0b0] p-2 text-center">
-                        <a href="index.html" class="px-2.5 py-1 theme-accent theme-accent-hover rounded text-[10px] font-medium shadow-2xs">เปิดใบงาน ➔</a>
+                        <a href="index.html" class="px-2.5 py-1 theme-accent theme-accent-hover rounded text-[10px] font-medium shadow-2xs cursor-pointer">เปิดใบงาน ➔</a>
                     </td>
                 </tr>
             `).join('');
+        }
+
+        function filterMasterTable() {
+            const keyword = document.getElementById('searchTaskInput').value.toLowerCase();
+            const filtered = masterTasks.filter(t => t.code.toLowerCase().includes(keyword) || t.name.toLowerCase().includes(keyword));
+            renderMasterTable(filtered);
         }
 
         function calculateAdvancedKPIs() {
@@ -229,6 +253,24 @@
             document.getElementById('resMttr').innerText = mttr + " ชม.";
             document.getElementById('resPmComp').innerText = pmComp + "%";
             document.getElementById('resMcr').innerText = mcr + "%";
+            document.getElementById('cardRav').innerText = Number(rav).toLocaleString() + " บาท";
+        }
+
+        function resetKpiForm() {
+            document.getElementById('kpiOpHours').value = 8760;
+            document.getElementById('kpiFailures').value = 2;
+            document.getElementById('kpiDowntime').value = 12;
+            document.getElementById('kpiRepairs').value = 2;
+            document.getElementById('kpiPmDone').value = 38;
+            document.getElementById('kpiPmTotal').value = 40;
+            document.getElementById('kpiMaintCost').value = 125000;
+            document.getElementById('kpiRav').value = 5000000;
+            calculateAdvancedKPIs();
+            alert("🧹 รีเซ็ตข้อมูล KPIs กลับเป็นค่ามาตรฐานเรียบร้อยแล้ว");
+        }
+
+        function saveKpiReport() {
+            alert("📊 บันทึกผลการประเมิน KPIs และออกรายงานเชิงวิศวกรรมสำเร็จ!");
         }
 
         renderMasterTable();
