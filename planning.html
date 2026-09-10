@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Sarabun', sans-serif; background-color: #F0F6FF; color: #1E293B; margin: 0; padding: 0; }
+        body { font-family: 'Sarabun', sans-serif; background-color: #F0F4F8; color: #1E293B; margin: 0; padding: 0; }
         .app-container { width: 210mm; max-width: 100%; margin: 0 auto; box-sizing: border-box; }
         table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #1E90FF; padding: 4px 6px; font-size: 10px; color: #1E293B; }
@@ -50,7 +50,7 @@
     <main class="no-print app-container px-4 mt-6 text-xs space-y-4">
         <!-- Tab Navigation -->
         <div class="grid grid-cols-2 gap-2 bg-[#E0F2FE] p-1 rounded-xl border border-theme-border">
-            <a href="index.html" class="py-2.5 text-[#475569] hover:text-[#1E90FF] font-medium rounded-lg flex items-center justify-center gap-2 transition">
+            <a href="index.html" class="py-2.5 text-stone-600 hover:text-[#1E90FF] font-medium rounded-lg flex items-center justify-center gap-2 transition">
                 📋 แบบฟอร์มตรวจสอบหน้างาน (Inspection Forms)
             </a>
             <button class="py-2.5 bg-white text-[#1E90FF] font-bold rounded-lg shadow-xs flex items-center justify-center gap-2 cursor-pointer">
@@ -62,7 +62,7 @@
         <div class="bg-white p-3 rounded-xl border border-theme-border shadow-xs flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap items-center gap-2 text-xs">
                 <button onclick="addNewPlanTask()" class="px-3 py-2 theme-accent theme-accent-hover rounded-lg font-medium transition cursor-pointer shadow-xs">➕ เพิ่มแผนงาน PM</button>
-                <button onclick="exportExcel()" class="px-3 py-2 bg-[#0284C7] hover:bg-[#0369A1] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🟩 ส่งออก Excel</button>
+                <button onclick="exportExcel()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🟩 ส่งออก Excel</button>
             </div>
             <div class="flex items-center gap-2 text-xs">
                 <button onclick="window.print()" class="px-4 py-2 bg-[#1E90FF] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🖨️ พิมพ์ / PDF แผนงาน</button>
@@ -210,7 +210,7 @@
         <!-- Modal สำหรับเปิดดู/กรอกใบงานตรวจสอบรายตัว -->
         <div id="formModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
             <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-5 shadow-2xl relative border border-[#1E90FF]">
-                <button onclick="closeModal()" class="absolute top-3 right-3 bg-[#E0F2FE] hover:bg-[#BAE6FD] text-[#1E90FF] w-7 h-7 rounded-full font-bold flex items-center justify-center cursor-pointer">✕</button>
+                <button onclick="closeModal()" class="absolute top-3 right-3 bg-[#E0F2FE] hover:bg-sky-200 text-[#1E90FF] w-7 h-7 rounded-full font-bold flex items-center justify-center cursor-pointer">✕</button>
                 <h3 id="modalTitle" class="text-xs font-bold text-[#1E90FF] mb-3">รายละเอียดใบงานตรวจสอบ</h3>
                 <div id="modalFormContainer"></div>
             </div>
@@ -231,7 +231,7 @@
         function renderTable(data = planTasks) {
             const tbody = document.getElementById('rankedTableBody');
             tbody.innerHTML = data.map(task => `
-                <tr class="hover:bg-[#F0F6FF] transition">
+                <tr class="hover:bg-[#F0F4F8] transition">
                     <td class="border border-[#1E90FF] p-1.5 font-mono font-bold">${task.wo}</td>
                     <td class="border border-[#1E90FF] p-1.5">${task.date}</td>
                     <td class="border border-[#1E90FF] p-1.5 font-mono text-[#1E90FF]">${task.code}</td>
@@ -249,7 +249,7 @@
                     </td>
                     <td class="border border-[#1E90FF] p-1.5 text-center space-x-1">
                         <button onclick="openFormModal('${task.code}', '${task.wo}')" class="px-2 py-0.5 theme-accent theme-accent-hover rounded text-[9px] font-medium cursor-pointer shadow-xs">📋 ฟอร์ม</button>
-                        <button onclick="editTask('${task.wo}')" class="px-2 py-0.5 bg-[#0284C7] hover:bg-[#0369A1] text-white rounded text-[9px] font-medium cursor-pointer shadow-xs">✏️ แก้ไข</button>
+                        <button onclick="editTask('${task.wo}')" class="px-2 py-0.5 bg-[#1C86EE] hover:bg-[#1874CD] text-white rounded text-[9px] font-medium cursor-pointer shadow-xs">✏️ แก้ไข</button>
                     </td>
                 </tr>
             `).join('');
