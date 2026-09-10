@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุน - MediumBlue Theme</title>
+    <title>ระบบวางแผน PM, KPIs และวิเคราะห์ต้นทุน - DodgerBlue Theme</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Sarabun', sans-serif; background-color: #F4F6FB; color: #1E293B; margin: 0; padding: 0; }
+        body { font-family: 'Sarabun', sans-serif; background-color: #F0F6FF; color: #1E293B; margin: 0; padding: 0; }
         .app-container { width: 210mm; max-width: 100%; margin: 0 auto; box-sizing: border-box; }
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #0000CD; padding: 4px 6px; font-size: 10px; color: #1E293B; }
-        th { background-color: #E6E6FA; font-weight: 600; }
-        input[type="text"], input[type="date"], input[type="number"], select { border: 1px solid #0000CD; outline: none; background: #fff; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; color: #0F172A; padding: 3px 6px; border-radius: 4px; }
+        th, td { border: 1px solid #1E90FF; padding: 4px 6px; font-size: 10px; color: #1E293B; }
+        th { background-color: #E0F2FE; font-weight: 600; }
+        input[type="text"], input[type="date"], input[type="number"], select { border: 1px solid #1E90FF; outline: none; background: #fff; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; color: #0F172A; padding: 3px 6px; border-radius: 4px; }
         
-        .theme-accent { background-color: #0000CD; color: #FFFFFF; }
-        .theme-accent-hover:hover { background-color: #00008B; }
-        .theme-border { border-color: #0000CD; }
-        .theme-text-accent { color: #0000CD; }
-        .accent-radio { accent-color: #0000CD; }
+        /* DodgerBlue Theme Accents (#1E90FF) */
+        .theme-accent { background-color: #1E90FF; color: #FFFFFF; }
+        .theme-accent-hover:hover { background-color: #1C86EE; }
+        .theme-border { border-color: #1E90FF; }
+        .theme-text-accent { color: #1E90FF; }
+        .accent-radio { accent-color: #1E90FF; }
 
         @media print {
             body { background: white !important; }
@@ -32,15 +33,15 @@
     <header class="no-print bg-white border-b border-theme-border sticky top-0 z-50 shadow-xs">
         <div class="app-container px-4 py-3 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-[#E6E6FA] border border-[#0000CD] flex items-center justify-center text-[#0000CD] p-2 shadow-2xs shrink-0 font-bold">
+                <div class="w-10 h-10 rounded-xl bg-[#E0F2FE] border border-[#1E90FF] flex items-center justify-center text-[#1E90FF] p-2 shadow-2xs shrink-0 font-bold">
                     ⚡
                 </div>
                 <div>
-                    <h1 class="text-xs font-bold text-[#0000CD]">ระบบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
-                    <p class="text-[10px] theme-text-accent">PM Planning, KPIs & Cost Optimization</p>
+                    <h1 class="text-xs font-bold text-[#1E90FF]">ระบบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
+                    <p class="text-[10px] theme-text-accent">PM Planning, KPIs & Cost Optimization (DodgerBlue Theme)</p>
                 </div>
             </div>
-            <button onclick="handleGoogleLogin()" class="flex items-center gap-2 px-3.5 py-2 border border-theme-border rounded-md text-xs font-medium hover:bg-[#E6E6FA] transition bg-white text-[#0000CD] cursor-pointer shadow-2xs">
+            <button onclick="handleGoogleLogin()" class="flex items-center gap-2 px-3.5 py-2 border border-theme-border rounded-md text-xs font-medium hover:bg-[#E0F2FE] transition bg-white text-[#1E90FF] cursor-pointer shadow-2xs">
                 👤 เข้าสู่ระบบ Google
             </button>
         </div>
@@ -48,11 +49,11 @@
 
     <main class="no-print app-container px-4 mt-6 text-xs space-y-4">
         <!-- Tab Navigation -->
-        <div class="grid grid-cols-2 gap-2 bg-[#E6E6FA] p-1 rounded-xl border border-theme-border">
-            <a href="index.html" class="py-2.5 text-[#475569] hover:text-[#0000CD] font-medium rounded-lg flex items-center justify-center gap-2 transition">
+        <div class="grid grid-cols-2 gap-2 bg-[#E0F2FE] p-1 rounded-xl border border-theme-border">
+            <a href="index.html" class="py-2.5 text-[#475569] hover:text-[#1E90FF] font-medium rounded-lg flex items-center justify-center gap-2 transition">
                 📋 แบบฟอร์มตรวจสอบหน้างาน (Inspection Forms)
             </a>
-            <button class="py-2.5 bg-white text-[#0000CD] font-bold rounded-lg shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+            <button class="py-2.5 bg-white text-[#1E90FF] font-bold rounded-lg shadow-xs flex items-center justify-center gap-2 cursor-pointer">
                 📊 แผนงาน PM & KPIs (PM Planning & Cost)
             </button>
         </div>
@@ -61,10 +62,10 @@
         <div class="bg-white p-3 rounded-xl border border-theme-border shadow-xs flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap items-center gap-2 text-xs">
                 <button onclick="addNewPlanTask()" class="px-3 py-2 theme-accent theme-accent-hover rounded-lg font-medium transition cursor-pointer shadow-xs">➕ เพิ่มแผนงาน PM</button>
-                <button onclick="exportExcel()" class="px-3 py-2 bg-[#1E3A8A] hover:bg-[#1E40AF] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🟩 ส่งออก Excel</button>
+                <button onclick="exportExcel()" class="px-3 py-2 bg-[#0284C7] hover:bg-[#0369A1] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🟩 ส่งออก Excel</button>
             </div>
             <div class="flex items-center gap-2 text-xs">
-                <button onclick="window.print()" class="px-4 py-2 bg-[#0000CD] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🖨️ พิมพ์ / PDF แผนงาน</button>
+                <button onclick="window.print()" class="px-4 py-2 bg-[#1E90FF] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🖨️ พิมพ์ / PDF แผนงาน</button>
             </div>
         </div>
 
@@ -77,7 +78,7 @@
             </div>
             <div class="bg-white p-3 rounded-xl border border-theme-border shadow-xs">
                 <span class="text-stone-500 text-[10px]">งบประมาณวางไว้ทั้งหมด</span>
-                <h3 class="text-base font-bold text-[#0000CD] mt-0.5">฿ 67,000</h3>
+                <h3 class="text-base font-bold text-[#1E90FF] mt-0.5">฿ 67,000</h3>
                 <span class="text-[9px] text-stone-600">จากแผนงาน PM ทั้งหมด</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-theme-border shadow-xs">
@@ -94,41 +95,41 @@
 
         <!-- Section: Maintenance KPIs & Productivity Calculator -->
         <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs space-y-3">
-            <h2 class="text-xs font-bold text-[#0000CD] flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-[#0000CD]"></span> 
+            <h2 class="text-xs font-bold text-[#1E90FF] flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#1E90FF]"></span> 
                 ดัชนีชี้วัดประสิทธิภาพงานบำรุงรักษา (Maintenance KPIs) & สูตรคำนวณต้นทุน/ผลิตภาพ
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-[#E6E6FA] p-3 rounded-lg border border-[#0000CD]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-[#E0F2FE] p-3 rounded-lg border border-[#1E90FF]">
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">เวลาทำงานรวม (Op. Hours):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">เวลาทำงานรวม (Op. Hours):</label>
                     <input type="number" id="kpiOpHours" value="8760" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">จำนวนครั้งขัดข้อง (Failures):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">จำนวนครั้งขัดข้อง (Failures):</label>
                     <input type="number" id="kpiFailures" value="2" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">เวลาซ่อมรวม (Downtime Hrs):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">เวลาซ่อมรวม (Downtime Hrs):</label>
                     <input type="number" id="kpiDowntime" value="12" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">จำนวนครั้งซ่อม (Repairs):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">จำนวนครั้งซ่อม (Repairs):</label>
                     <input type="number" id="kpiRepairs" value="2" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">งาน PM สำเร็จ (Completed):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">งาน PM สำเร็จ (Completed):</label>
                     <input type="number" id="kpiPmDone" value="38" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">แผน PM ทั้งหมด (Planned):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">แผน PM ทั้งหมด (Planned):</label>
                     <input type="number" id="kpiPmTotal" value="40" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">ต้นทุนบำรุงรักษารวม (Cost):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">ต้นทุนบำรุงรักษารวม (Cost):</label>
                     <input type="number" id="kpiMaintCost" value="125000" oninput="calculateAdvancedKPIs()">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-semibold text-[#0000CD] mb-1">มูลค่าทรัพย์สิน (RAV):</label>
+                    <label class="block text-[10px] font-semibold text-[#1E90FF] mb-1">มูลค่าทรัพย์สิน (RAV):</label>
                     <input type="number" id="kpiRav" value="5000000" oninput="calculateAdvancedKPIs()">
                 </div>
             </div>
@@ -137,7 +138,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
                     <thead>
-                        <tr class="bg-[#E6E6FA] text-left">
+                        <tr class="bg-[#E0F2FE] text-left">
                             <th class="p-1.5 text-[10px]">ดัชนีชี้วัด (KPI)</th>
                             <th class="p-1.5 text-[10px]">สูตรคำนวณเชิงวิศวกรรม</th>
                             <th class="p-1.5 text-[10px] text-center">ค่าที่คำนวณได้</th>
@@ -177,8 +178,8 @@
         <!-- Master Ranked Priority Queue Table -->
         <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
-                <h2 class="text-xs font-bold text-[#0000CD] flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-[#0000CD]"></span> 
+                <h2 class="text-xs font-bold text-[#1E90FF] flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#1E90FF]"></span> 
                     แผนงาน PM จัดลำดับตามความเสี่ยงและงบประมาณ (Ranked Priority Queue)
                 </h2>
                 <input type="text" id="searchBox" placeholder="🔍 ค้นหาสถานี, รหัสฟอร์ม..." oninput="filterTable()" class="w-48 text-[11px]">
@@ -186,17 +187,17 @@
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
                     <thead>
-                        <tr class="bg-[#E6E6FA] text-left">
-                            <th class="border border-[#0000CD] p-1.5 text-[10px]">Work Order</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px]">วันที่กำหนด</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px]">รหัสฟอร์ม</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px]">Station ID / สถานที่</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px]">อุปกรณ์</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px] text-center">ความเสี่ยง</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px] text-center">ลำดับ</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px] text-right">งบ PM</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px] text-center">สถานะ</th>
-                            <th class="border border-[#0000CD] p-1.5 text-[10px] text-center">การดำเนินการ</th>
+                        <tr class="bg-[#E0F2FE] text-left">
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px]">Work Order</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px]">วันที่กำหนด</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px]">รหัสฟอร์ม</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px]">Station ID / สถานที่</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px]">อุปกรณ์</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px] text-center">ความเสี่ยง</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px] text-center">ลำดับ</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px] text-right">งบ PM</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px] text-center">สถานะ</th>
+                            <th class="border border-[#1E90FF] p-1.5 text-[10px] text-center">การดำเนินการ</th>
                         </tr>
                     </thead>
                     <tbody id="rankedTableBody">
@@ -208,9 +209,9 @@
 
         <!-- Modal สำหรับเปิดดู/กรอกใบงานตรวจสอบรายตัว -->
         <div id="formModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
-            <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-5 shadow-2xl relative border border-[#0000CD]">
-                <button onclick="closeModal()" class="absolute top-3 right-3 bg-[#E6E6FA] hover:bg-[#D8BFD8] text-[#0000CD] w-7 h-7 rounded-full font-bold flex items-center justify-center cursor-pointer">✕</button>
-                <h3 id="modalTitle" class="text-xs font-bold text-[#0000CD] mb-3">รายละเอียดใบงานตรวจสอบ</h3>
+            <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-5 shadow-2xl relative border border-[#1E90FF]">
+                <button onclick="closeModal()" class="absolute top-3 right-3 bg-[#E0F2FE] hover:bg-[#BAE6FD] text-[#1E90FF] w-7 h-7 rounded-full font-bold flex items-center justify-center cursor-pointer">✕</button>
+                <h3 id="modalTitle" class="text-xs font-bold text-[#1E90FF] mb-3">รายละเอียดใบงานตรวจสอบ</h3>
                 <div id="modalFormContainer"></div>
             </div>
         </div>
@@ -230,25 +231,25 @@
         function renderTable(data = planTasks) {
             const tbody = document.getElementById('rankedTableBody');
             tbody.innerHTML = data.map(task => `
-                <tr class="hover:bg-[#F4F6FB] transition">
-                    <td class="border border-[#0000CD] p-1.5 font-mono font-bold">${task.wo}</td>
-                    <td class="border border-[#0000CD] p-1.5">${task.date}</td>
-                    <td class="border border-[#0000CD] p-1.5 font-mono text-[#0000CD]">${task.code}</td>
-                    <td class="border border-[#0000CD] p-1.5">${task.station}</td>
-                    <td class="border border-[#0000CD] p-1.5">${task.device}</td>
-                    <td class="border border-[#0000CD] p-1.5 text-center font-bold">${task.riskScore}</td>
-                    <td class="border border-[#0000CD] p-1.5 text-center">
+                <tr class="hover:bg-[#F0F6FF] transition">
+                    <td class="border border-[#1E90FF] p-1.5 font-mono font-bold">${task.wo}</td>
+                    <td class="border border-[#1E90FF] p-1.5">${task.date}</td>
+                    <td class="border border-[#1E90FF] p-1.5 font-mono text-[#1E90FF]">${task.code}</td>
+                    <td class="border border-[#1E90FF] p-1.5">${task.station}</td>
+                    <td class="border border-[#1E90FF] p-1.5">${task.device}</td>
+                    <td class="border border-[#1E90FF] p-1.5 text-center font-bold">${task.riskScore}</td>
+                    <td class="border border-[#1E90FF] p-1.5 text-center">
                         <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${task.priority === 'P1' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'}">
                             ${task.priority}
                         </span>
                     </td>
-                    <td class="border border-[#0000CD] p-1.5 text-right font-medium">฿ ${task.budget.toLocaleString()}</td>
-                    <td class="border border-[#0000CD] p-1.5 text-center">
-                        <span class="text-[9px] px-1.5 py-0.5 rounded ${task.status.includes('กำลัง') ? 'bg-amber-50 text-amber-700' : 'bg-[#E6E6FA] text-[#0000CD]'}">${task.status}</span>
+                    <td class="border border-[#1E90FF] p-1.5 text-right font-medium">฿ ${task.budget.toLocaleString()}</td>
+                    <td class="border border-[#1E90FF] p-1.5 text-center">
+                        <span class="text-[9px] px-1.5 py-0.5 rounded ${task.status.includes('กำลัง') ? 'bg-amber-50 text-amber-700' : 'bg-[#E0F2FE] text-[#1E90FF]'}">${task.status}</span>
                     </td>
-                    <td class="border border-[#0000CD] p-1.5 text-center space-x-1">
+                    <td class="border border-[#1E90FF] p-1.5 text-center space-x-1">
                         <button onclick="openFormModal('${task.code}', '${task.wo}')" class="px-2 py-0.5 theme-accent theme-accent-hover rounded text-[9px] font-medium cursor-pointer shadow-xs">📋 ฟอร์ม</button>
-                        <button onclick="editTask('${task.wo}')" class="px-2 py-0.5 bg-[#1E3A8A] hover:bg-[#1E40AF] text-white rounded text-[9px] font-medium cursor-pointer shadow-xs">✏️ แก้ไข</button>
+                        <button onclick="editTask('${task.wo}')" class="px-2 py-0.5 bg-[#0284C7] hover:bg-[#0369A1] text-white rounded text-[9px] font-medium cursor-pointer shadow-xs">✏️ แก้ไข</button>
                     </td>
                 </tr>
             `).join('');
@@ -285,15 +286,15 @@
             document.getElementById('modalTitle').innerText = `ใบงานตรวจสอบ (${code}) - Work Order: ${wo}`;
             document.getElementById('modalFormContainer').innerHTML = `
                 <div class="space-y-3 text-xs">
-                    <div class="p-3 bg-[#E6E6FA] rounded-lg border border-[#0000CD] space-y-1">
+                    <div class="p-3 bg-[#E0F2FE] rounded-lg border border-[#1E90FF] space-y-1">
                         <div><b>Work Order:</b> ${wo}</div>
                         <div><b>รหัสแบบฟอร์ม:</b> ${code}</div>
                         <div><b>สถานะ:</b> พร้อมตรวจสอบภาคสนาม</div>
                     </div>
                     <table>
-                        <tr><th class="border border-[#0000CD] p-1">หัวข้อตรวจสอบ</th><th class="w-10 border border-[#0000CD] text-center">ปกติ</th><th class="w-10 border border-[#0000CD] text-center">ชำรุด</th><th class="border border-[#0000CD] p-1">หมายเหตุ</th></tr>
-                        <tr><td class="border border-[#0000CD] p-1">1. ตรวจสอบสภาพอุปกรณ์ทางกายภาพ</td><td class="text-center border border-[#0000CD]"><input type="radio" name="m1" class="accent-radio"></td><td class="text-center border border-[#0000CD]"><input type="radio" name="m1" class="accent-radio"></td><td class="border border-[#0000CD] p-1"><input type="text"></td></tr>
-                        <tr><td class="border border-[#0000CD] p-1">2. ตรวจสอบค่าทางไฟฟ้า / จุดต่อสาย</td><td class="text-center border border-[#0000CD]"><input type="radio" name="m2" class="accent-radio"></td><td class="text-center border border-[#0000CD]"><input type="radio" name="m2" class="accent-radio"></td><td class="border border-[#0000CD] p-1"><input type="text"></td></tr>
+                        <tr><th class="border border-[#1E90FF] p-1">หัวข้อตรวจสอบ</th><th class="w-10 border border-[#1E90FF] text-center">ปกติ</th><th class="w-10 border border-[#1E90FF] text-center">ชำรุด</th><th class="border border-[#1E90FF] p-1">หมายเหตุ</th></tr>
+                        <tr><td class="border border-[#1E90FF] p-1">1. ตรวจสอบสภาพอุปกรณ์ทางกายภาพ</td><td class="text-center border border-[#1E90FF]"><input type="radio" name="m1" class="accent-radio"></td><td class="text-center border border-[#1E90FF]"><input type="radio" name="m1" class="accent-radio"></td><td class="border border-[#1E90FF] p-1"><input type="text"></td></tr>
+                        <tr><td class="border border-[#1E90FF] p-1">2. ตรวจสอบค่าทางไฟฟ้า / จุดต่อสาย</td><td class="text-center border border-[#1E90FF]"><input type="radio" name="m2" class="accent-radio"></td><td class="text-center border border-[#1E90FF]"><input type="radio" name="m2" class="accent-radio"></td><td class="border border-[#1E90FF] p-1"><input type="text"></td></tr>
                     </table>
                     <div class="text-right">
                         <button onclick="alert('💾 บันทึกผลฟอร์มสำเร็จ'); closeModal();" class="px-3.5 py-1.5 theme-accent theme-accent-hover rounded font-bold cursor-pointer shadow-xs">💾 บันทึกผลใบงาน</button>
