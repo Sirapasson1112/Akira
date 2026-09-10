@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบบำรุงรักษาอุปกรณ์ไฟฟ้า - แบบฟอร์มตรวจสอบครบถ้วน 11 ใบงาน</title>
+    <title>ระบบบำรุงรักษาอุปกรณ์ไฟฟ้า - DimGrey Theme</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Sarabun', sans-serif; background-color: #F4F4F4; color: #333333; margin: 0; padding: 0; }
+        body { font-family: 'Sarabun', sans-serif; background-color: #F0F0F0; color: #2B2B2B; margin: 0; padding: 0; }
         .app-container { width: 210mm; max-width: 100%; margin: 0 auto; box-sizing: border-box; }
         .a4-sheet {
             width: 210mm;
             min-height: 297mm;
             padding: 12mm 15mm;
             background: #ffffff;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 5px 10px -5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             position: relative;
             box-sizing: border-box;
-            border: 1px solid #BEBEBE;
+            border: 1px solid #696969;
             margin: 0 auto;
         }
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #BEBEBE; padding: 3px 6px; font-size: 10px; color: #333333; }
-        th { background-color: #EFEFEF; font-weight: 600; }
-        input[type="text"], input[type="date"] { border: none; outline: none; background: transparent; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; color: #222222; }
-        textarea { color: #222222; }
-        .theme-accent { background-color: #BEBEBE; color: #222222; }
-        .theme-accent-hover:hover { background-color: #A8A8A8; }
-        .theme-border { border-color: #BEBEBE; }
-        .theme-text-accent { color: #666666; }
-        .accent-radio { accent-color: #777777; }
+        th, td { border: 1px solid #696969; padding: 3px 6px; font-size: 10px; color: #2B2B2B; }
+        th { background-color: #D3D3D3; font-weight: 600; }
+        input[type="text"], input[type="date"] { border: none; outline: none; background: transparent; width: 100%; font-family: 'Sarabun', sans-serif; font-size: 10px; color: #111111; }
+        textarea { color: #111111; }
+        
+        /* DimGrey Theme Accents (#696969) */
+        .theme-accent { background-color: #696969; color: #FFFFFF; }
+        .theme-accent-hover:hover { background-color: #555555; }
+        .theme-border { border-color: #696969; }
+        .theme-text-accent { color: #555555; }
+        .accent-radio { accent-color: #696969; }
 
         @media print {
             body { background: white !important; }
@@ -46,15 +48,15 @@
     <header class="no-print bg-white border-b border-theme-border sticky top-0 z-50 shadow-xs">
         <div class="app-container px-4 py-3 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-[#EFEFEF] border border-[#BEBEBE] flex items-center justify-center text-[#555555] p-2 shadow-2xs shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-[#D3D3D3] border border-[#696969] flex items-center justify-center text-[#2B2B2B] p-2 shadow-2xs shrink-0 font-bold">
                     ⚡
                 </div>
                 <div>
-                    <h1 class="text-xs font-bold text-[#333333]">ระบบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
-                    <p class="text-[10px] theme-text-accent">Digital Inspection & Maintenance Workspace</p>
+                    <h1 class="text-xs font-bold text-[#2B2B2B]">ระบบบำรุงรักษาอุปกรณ์ไฟฟ้า</h1>
+                    <p class="text-[10px] theme-text-accent">Digital Inspection & Maintenance Workspace (DimGrey Theme)</p>
                 </div>
             </div>
-            <button onclick="handleGoogleLogin()" class="flex items-center gap-2 px-3.5 py-2 border border-theme-border rounded-md text-xs font-medium hover:bg-[#EFEFEF] transition bg-white text-[#333333] cursor-pointer shadow-2xs">
+            <button onclick="handleGoogleLogin()" class="flex items-center gap-2 px-3.5 py-2 border border-theme-border rounded-md text-xs font-medium hover:bg-[#D3D3D3] transition bg-white text-[#2B2B2B] cursor-pointer shadow-2xs">
                 👤 เข้าสู่ระบบ Google
             </button>
         </div>
@@ -62,11 +64,11 @@
 
     <main class="no-print app-container px-4 mt-6 text-xs space-y-4">
         <!-- Tab Navigation -->
-        <div class="grid grid-cols-2 gap-2 bg-[#EFEFEF] p-1 rounded-xl border border-theme-border">
-            <button class="py-2.5 bg-white text-[#333333] font-bold rounded-lg shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+        <div class="grid grid-cols-2 gap-2 bg-[#D3D3D3] p-1 rounded-xl border border-theme-border">
+            <button class="py-2.5 bg-white text-[#2B2B2B] font-bold rounded-lg shadow-xs flex items-center justify-center gap-2 cursor-pointer">
                 📋 แบบฟอร์มตรวจสอบหน้างาน (Inspection Forms)
             </button>
-            <a href="planning.html" class="py-2.5 text-[#666666] hover:text-[#333333] font-medium rounded-lg flex items-center justify-center gap-2 transition">
+            <a href="planning.html" class="py-2.5 text-[#555555] hover:text-[#2B2B2B] font-medium rounded-lg flex items-center justify-center gap-2 transition">
                 📊 แผนงาน PM & KPIs (PM Planning & Cost)
             </a>
         </div>
@@ -74,22 +76,22 @@
         <!-- Action Toolbar -->
         <div class="bg-white p-3 rounded-xl border border-theme-border shadow-xs flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap items-center gap-2">
-                <button onclick="saveNewRecord()" class="px-3 py-2 bg-[#777777] hover:bg-[#666666] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">💾 บันทึกใหม่</button>
-                <button onclick="saveCurrentRecord()" class="px-3 py-2 bg-[#EFEFEF] hover:bg-[#DFDFDF] text-[#333333] rounded-lg font-medium transition cursor-pointer">📝 บันทึกทับ</button>
-                <button onclick="copyNewDraft()" class="px-3 py-2 bg-[#EFEFEF] hover:bg-[#DFDFDF] text-[#333333] rounded-lg font-medium transition cursor-pointer">📄 คัดลอก</button>
-                <button onclick="createNewForm()" class="px-3 py-2 bg-[#EFEFEF] hover:bg-[#DFDFDF] text-[#333333] rounded-lg font-medium transition cursor-pointer">➕ ฟอร์มใหม่</button>
+                <button onclick="saveNewRecord()" class="px-3 py-2 bg-[#696969] hover:bg-[#555555] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">💾 บันทึกใหม่</button>
+                <button onclick="saveCurrentRecord()" class="px-3 py-2 bg-[#D3D3D3] hover:bg-[#C0C0C0] text-[#2B2B2B] rounded-lg font-medium transition cursor-pointer">📝 บันทึกทับ</button>
+                <button onclick="copyNewDraft()" class="px-3 py-2 bg-[#D3D3D3] hover:bg-[#C0C0C0] text-[#2B2B2B] rounded-lg font-medium transition cursor-pointer">📄 คัดลอก</button>
+                <button onclick="createNewForm()" class="px-3 py-2 bg-[#D3D3D3] hover:bg-[#C0C0C0] text-[#2B2B2B] rounded-lg font-medium transition cursor-pointer">➕ ฟอร์มใหม่</button>
                 <button onclick="clearFormInputs()" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-lg font-medium transition cursor-pointer">🗑️ ล้าง</button>
             </div>
             <div class="flex items-center gap-2">
                 <button onclick="exportExcel()" class="px-3 py-2 bg-[#555555] hover:bg-[#444444] text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🟩 ส่งออก Excel</button>
-                <button onclick="window.print()" class="px-3 py-2 bg-[#333333] hover:bg-black text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🖨️ พิมพ์/PDF</button>
+                <button onclick="window.print()" class="px-3 py-2 bg-[#2B2B2B] hover:bg-black text-white rounded-lg font-medium transition cursor-pointer shadow-xs">🖨️ พิมพ์/PDF</button>
             </div>
         </div>
 
         <!-- Form Selection Grid -->
         <div class="bg-white p-4 rounded-xl border border-theme-border shadow-xs">
-            <div class="text-[#333333] font-bold mb-3 text-xs flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#BEBEBE]"></span> เลือกแบบฟอร์มใบงานตรวจสอบอุปกรณ์ไฟฟ้า (ครบถ้วนทั้ง 11 แบบฟอร์ม)
+            <div class="text-[#2B2B2B] font-bold mb-3 text-xs flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#696969]"></span> เลือกแบบฟอร์มใบงานตรวจสอบอุปกรณ์ไฟฟ้า (ครบถ้วนทั้ง 11 แบบฟอร์ม)
             </div>
             <div id="pillsContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"></div>
         </div>
@@ -98,7 +100,7 @@
     <!-- A4 Document Workspace -->
     <div class="app-container px-4 mt-8 overflow-x-auto flex justify-center">
         <div id="zoomContainer" class="transition-transform duration-200 origin-top">
-            <div id="a4Paper" class="a4-sheet text-[#333333]"></div>
+            <div id="a4Paper" class="a4-sheet text-[#2B2B2B]"></div>
         </div>
     </div>
 
@@ -110,233 +112,327 @@
                 title: "แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย",
                 code: "SF-07-0-015",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย</div>
+                    <div class="text-center font-bold text-sm mb-3 text-[#2B2B2B]">แบบตรวจสอบบำรุงรักษาหม้อแปลงจำหน่าย</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] w-20 border border-[#BEBEBE]">สถานที่</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
                         <tr>
-                            <td colspan="2" class="bg-[#EFEFEF] border border-[#BEBEBE] flex items-center justify-between"><span>GIS</span><button onclick="getGPSLocation('lat015','lon015')" class="no-print theme-accent px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td>
-                            <td colspan="2" class="border border-[#BEBEBE]">Lat. <input type="text" id="lat015"></td>
-                            <td colspan="2" class="border border-[#BEBEBE]">Long. <input type="text" id="lon015"></td>
+                            <td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text" placeholder="ระบุ Station ID..."></td>
+                            <td class="bg-[#D3D3D3] w-20 border border-[#696969]">สถานที่</td><td class="border border-[#696969]"><input type="text" placeholder="ระบุสถานที่..."></td>
                         </tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] border border-[#BEBEBE]">MEA No.1</td><td class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">MEA No.2</td><td class="border border-[#BEBEBE]"><input type="text"></td><td class="border border-[#BEBEBE]">MEA No.3 <input type="text" class="w-1/3 inline"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบบำรุงรักษา</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-12 border border-[#BEBEBE]">ปกติ</td><td class="w-12 border border-[#BEBEBE]">ชำรุด</td><td class="w-12 border border-[#BEBEBE]">ไม่มี</td><td class="w-48 border border-[#BEBEBE]">ข้อบกพร่อง</td></tr>
-                        ${["2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse", "2.4 คอนสาย", "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor", "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง", "2.9 Bushing HV-LV", "2.10 Cover (Bushing,L/A)", "2.11 สายหน้าหม้อแปลง LV", "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f015_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f015_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f015_${i}" class="accent-radio"></td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] border border-[#696969] flex items-center justify-between">
+                                <span>GIS</span>
+                                <button onclick="getGPSLocation('latInput015', 'longInput015')" class="no-print theme-accent px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button>
+                            </td>
+                            <td colspan="2" class="border border-[#696969]">Lat. <input type="text" id="latInput015" class="inline-block w-3/4"></td>
+                            <td colspan="2" class="border border-[#696969]">Long. <input type="text" id="longInput015" class="inline-block w-3/4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">MEA No1.</td><td class="border border-[#696969]"><input type="text"></td>
+                            <td class="bg-[#D3D3D3] border border-[#696969]">MEA No2.</td><td class="border border-[#696969]"><input type="text"></td>
+                            <td class="border border-[#696969]">MEA No3. <input type="text" class="inline-block w-1/4"> จำนวนเฟส <input type="text" class="inline-block w-1/4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">ยี่ห้อ</td><td class="border border-[#696969]"><input type="text"></td>
+                            <td class="bg-[#D3D3D3] border border-[#696969]">ยี่ห้อ</td><td class="border border-[#696969]"><input type="text"></td>
+                            <td class="border border-[#696969]">ยี่ห้อ <input type="text" class="inline-block w-1/3"> ขนาด <input type="text" class="inline-block w-1/3"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">ชนิด</td><td colspan="2" class="border border-[#696969]"><input type="text"></td>
+                            <td class="bg-[#D3D3D3] border border-[#696969]">ลักษณะการติดตั้ง</td><td class="border border-[#696969]"><input type="text"></td>
+                        </tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบบำรุงรักษา</td></tr>
+                        <tr>
+                            <td rowspan="2" colspan="2" class="bg-[#D3D3D3] text-center font-bold border border-[#696969]">รายการ</td>
+                            <td colspan="3" class="bg-[#D3D3D3] text-center font-bold border border-[#696969]">ผลการตรวจสอบ</td>
+                            <td rowspan="2" class="bg-[#D3D3D3] text-center font-bold w-48 border border-[#696969]">ข้อบกพร่อง</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-[#D3D3D3] text-center w-12 border border-[#696969]">ปกติ</td>
+                            <td class="bg-[#D3D3D3] text-center w-12 border border-[#696969]">ชำรุด</td>
+                            <td class="bg-[#D3D3D3] text-center w-12 border border-[#696969]">ไม่มี</td>
+                        </tr>
+                        ${[
+                            "2.1 Drop Fuse", "2.2 Station Post Type Insulator", "2.3 สายเข้า-ออก Drop Fuse", "2.4 คอนสาย",
+                            "2.5 อุปกรณ์ป้องกันสัตว์", "2.6 Low Voltage Capacitor", "2.7 กับดักฟ้าผ่า (L/A)", "2.8 ตัวถังหม้อแปลง",
+                            "2.9 Bushing HV-LV", "2.10 Cover (Bushing,L/A,Term. kit)", "2.11 สายหน้าหม้อแปลง LV",
+                            "2.12 LV Ground", "2.13 HV Ground", "2.14 CT-TLM Meter (ถ้ามี)"
+                        ].map((item, i) => `
+                            <tr>
+                                <td colspan="2" class="border border-[#696969]">${item}</td>
+                                <td class="text-center border border-[#696969]"><input type="radio" name="chk015_${i}" class="accent-radio"></td>
+                                <td class="text-center border border-[#696969]"><input type="radio" name="chk015_${i}" class="accent-radio"></td>
+                                <td class="text-center border border-[#696969]"><input type="radio" name="chk015_${i}" class="accent-radio"></td>
+                                <td class="border border-[#696969]"><input type="text"></td>
+                            </tr>
                         `).join('')}
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">3</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ตรวจสอบวัดกระแสและแรงดันไฟฟ้า</td></tr>
+                        <tr>
+                            <td colspan="6" class="border border-[#696969] p-1.5 space-y-1">
+                                <div class="flex flex-wrap items-center gap-4">
+                                    <label><input type="radio" name="shift015" class="accent-radio"> กลางวัน</label>
+                                    <label><input type="radio" name="shift015" class="accent-radio"> กลางคืน</label>
+                                    <span>เวลา : <input type="text" class="border-b border-[#696969] w-24 inline-block"></span>
+                                    <span>วิธีการ: <label><input type="radio" name="meth015" class="accent-radio"> วัดหน้างาน</label> <label><input type="radio" name="meth015" class="accent-radio"> TLM</label></span>
+                                </div>
+                                <div class="grid grid-cols-6 gap-1 pt-1 border-t border-[#696969]">
+                                    <div class="col-span-1 bg-[#D3D3D3] font-bold p-1">แรงดันไฟฟ้า (V)</div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">V1-N=<input type="text" class="border-b border-[#696969] w-8 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">V2-N=<input type="text" class="border-b border-[#696969] w-8 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">V3-N=<input type="text" class="border-b border-[#696969] w-8 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">V1-2=<input type="text" class="border-b border-[#696969] w-8 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">V1-3=<input type="text" class="border-b border-[#696969] w-8 inline-block"> V2-3=<input type="text" class="border-b border-[#696969] w-8 inline-block"></div>
+                                </div>
+                                <div class="grid grid-cols-5 gap-1 pt-1 border-t border-[#696969]">
+                                    <div class="col-span-1 bg-[#D3D3D3] font-bold p-1">กระแสไฟฟ้า(A)</div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">IN=<input type="text" class="border-b border-[#696969] w-10 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">I1=<input type="text" class="border-b border-[#696969] w-10 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">I2=<input type="text" class="border-b border-[#696969] w-10 inline-block"> I3=<input type="text" class="border-b border-[#696969] w-10 inline-block"></div>
+                                    <div class="col-span-1 border-l border-[#696969] p-1">ผลรวมกระแสหน้าหม้อแปลงฯ ทั้งหมด <input type="text" class="border-b border-[#696969] w-12 inline-block"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">4</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">สิ่งที่ต้องปรับปรุงหรือข้อมูลเพิ่มเติม :</td></tr>
+                        <tr><td colspan="6" class="border border-[#696969] h-10 align-top"><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">5</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">การปรับปรุงข้อบกพร่อง :</td></tr>
+                        <tr><td colspan="6" class="border border-[#696969] h-10 align-top"><textarea class="w-full border-0 outline-none text-[10px] resize-none h-8 bg-transparent"></textarea></td></tr>
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text" class="border-b border-[#696969] w-3/4 inline-block"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text" class="border-b border-[#696969] w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">ตำแหน่ง <input type="text" class="border-b border-[#696969] w-3/4 inline-block"></td><td colspan="3" class="border border-[#696969]">ตำแหน่ง <input type="text" class="border-b border-[#696969] w-3/4 inline-block"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date" class="border-b border-[#696969] w-3/4 inline-block"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date" class="border-b border-[#696969] w-3/4 inline-block"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-015</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0 วันที่...</span><span class="font-mono">SF-07-0-015</span></div>
                 `
             },
             "016": {
                 title: "แบบตรวจสอบบำรุงรักษา Load Break Switch",
                 code: "SF-07-0-016",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษา Load Break Switch</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบบำรุงรักษา Load Break Switch</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE] flex justify-between"><span>GIS</span><button onclick="getGPSLocation('lat016','lon016')" class="no-print theme-accent px-1 rounded text-[9px]">📍 พิกัด</button></td><td class="border border-[#BEBEBE]">Lat <input type="text" id="lat016" class="w-16 inline"> Long <input type="text" id="lon016" class="w-16 inline"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบ LBS & ตู้ Control</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-12 border border-[#BEBEBE]">ปกติ</td><td class="w-12 border border-[#BEBEBE]">ชำรุด</td><td class="w-12 border border-[#BEBEBE]">ไม่มี</td><td class="w-48 border border-[#BEBEBE]">ข้อบกพร่อง</td></tr>
-                        ${["2.1 ตัวถัง LBS /สลักล็อค", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า", "2.5 VT", "2.6 Drop Fuse ลง VT", "2.7 คอนสาย", "2.8 สายควบคุม LBS", "2.9 ไฟสถานะหน้าตู้ Control", "2.10 สภาพแบตเตอรี่ / UPS", "2.11 ทดสอบ Remote/Local"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f016_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f016_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f016_${i}" class="accent-radio"></td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td>
+                            <td class="bg-[#D3D3D3] border border-[#696969] flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput016', 'longInput016')" class="no-print theme-accent px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td>
+                            <td class="border border-[#696969]">Lat: <input type="text" id="latInput016" class="w-16 inline-block"> Long: <input type="text" id="longInput016" class="w-16 inline-block"></td>
+                        </tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">สถานที่</td><td colspan="4" class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">ยี่ห้อ LBS</td><td class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">LBS MEA No.</td><td class="border border-[#696969]"><input type="text"></td><td class="border border-[#696969]">Switch No. <input type="text" class="inline-block w-1/2"></td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">ยี่ห้อ VT</td><td class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">VT MEA No.</td><td class="border border-[#696969]"><input type="text"></td><td class="border border-[#696969]">ตู้ OFDF No. <input type="text" class="inline-block w-1/2"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบบำรุงรักษา</td></tr>
+                        <tr><td colspan="6" class="border border-[#696969] p-1">- สถานะสวิตช์: &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="swState016" class="accent-radio"> ปลด</label> &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="swState016" class="accent-radio"> สับ</label><br>- สถานะระบบ SCADA/EMS/DMS: &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="scada016" class="accent-radio"> online</label> &nbsp;&nbsp;&nbsp;&nbsp; <label><input type="radio" name="scada016" class="accent-radio"> offline</label></td></tr>
+                        <tr>
+                            <td rowspan="2" colspan="2" class="bg-[#D3D3D3] text-center font-bold border border-[#696969]">รายการ</td>
+                            <td colspan="3" class="bg-[#D3D3D3] text-center font-bold border border-[#696969]">ผลการตรวจสอบ</td>
+                            <td rowspan="2" class="bg-[#D3D3D3] text-center font-bold w-48 border border-[#696969]">ข้อบกพร่อง</td>
+                        </tr>
+                        <tr><td class="bg-[#D3D3D3] text-center w-12 border border-[#696969]">ปกติ</td><td class="bg-[#D3D3D3] text-center w-12 border border-[#696969]">ชำรุด</td><td class="bg-[#D3D3D3] text-center w-12 border border-[#696969]">ไม่มี</td></tr>
+                        ${["2.1 ตัวถัง LBS /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า", "2.5 VT", "2.6 Drop Fuse ลง VT", "2.7 คอนสาย", "2.8 สายควบคุม LBS", "2.9 อุปกรณ์ป้องกันสัตว์"].map((item, i) => `
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="chk016_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="chk016_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="chk016_${i}" class="accent-radio"></td><td class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-016</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-016</span></div>
                 `
             },
             "017": {
                 title: "แบบตรวจสอบบำรุงรักษา Sectionalizer",
                 code: "SF-07-0-017",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษา Sectionalizer</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบบำรุงรักษา Sectionalizer</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">ยี่ห้อ SZ</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบ Sectionalizer</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-12 border border-[#BEBEBE]">ปกติ</td><td class="w-12 border border-[#BEBEBE]">ชำรุด</td><td class="w-12 border border-[#BEBEBE]">ไม่มี</td><td class="w-48 border border-[#BEBEBE]">ข้อบกพร่อง</td></tr>
-                        ${["2.1 ตัวถัง SZ / สลักล็อค", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า", "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 ตู้ Control / แบตเตอรี่", "2.8 ทดสอบระบบปลดสับ Local/Remote"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f017_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f017_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f017_${i}" class="accent-radio"></td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td>
+                            <td class="bg-[#D3D3D3] border border-[#696969] flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput017', 'longInput017')" class="no-print theme-accent px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td>
+                            <td class="border border-[#696969]">Lat: <input type="text" id="latInput017" class="w-16 inline-block"> Long: <input type="text" id="longInput017" class="w-16 inline-block"></td>
+                        </tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">สถานที่</td><td colspan="4" class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">ยี่ห้อ SZ</td><td class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">SZ MEA No.</td><td class="border border-[#696969]"><input type="text"></td><td class="border border-[#696969]">Switch No. <input type="text" class="inline-block w-1/2"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบบำรุงรักษา</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td colspan="2" class="border border-[#696969]">รายการ</td><td class="w-12 border border-[#696969]">ปกติ</td><td class="w-12 border border-[#696969]">ชำรุด</td><td class="w-12 border border-[#696969]">ไม่มี</td><td class="w-48 border border-[#696969]">ข้อบกพร่อง</td></tr>
+                        ${["2.1 ตัวถัง SZ /สลักล็อคการปลดสับ", "2.2 สถานะก๊าซ SF6", "2.3 Bushing", "2.4 กับดักฟ้าผ่า", "2.5 คอนสาย", "2.6 สายควบคุม SZ", "2.7 อุปกรณ์ป้องกันสัตว์", "2.8 ตู้ Control / แบตเตอรี่"].map((item, i) => `
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="chk017_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="chk017_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="chk017_${i}" class="accent-radio"></td><td class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-017</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-017</span></div>
                 `
             },
             "018": {
                 title: "แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)",
                 code: "SF-07-0-018",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบบำรุงรักษา Ring Main Unit (RMU)</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">ยี่ห้อ RMU</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบ RMU</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-12 border border-[#BEBEBE]">ปกติ</td><td class="w-12 border border-[#BEBEBE]">ชำรุด</td><td class="w-12 border border-[#BEBEBE]">ไม่มี</td><td class="w-48 border border-[#BEBEBE]">ข้อบกพร่อง</td></tr>
-                        ${["2.1 สภาพตู้ครอบภายนอก", "2.2 สภาพห้อง / ตัวถัง RMU", "2.3 ความดันก๊าซ SF6", "2.4 ตัวแสดงสถานะสวิทซ์", "2.5 กุญแจล็อคป้องกันการปลด-สับ", "2.6 ระบบไฟฟ้าเลี้ยงอุปกรณ์ / UPS", "2.7 ทดสอบปลดสับ Remote/Local"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f018_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f018_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f018_${i}" class="accent-radio"></td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr>
+                            <td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td>
+                            <td class="bg-[#D3D3D3] border border-[#696969] flex items-center justify-between"><span>GIS Lat/Long</span><button onclick="getGPSLocation('latInput018', 'longInput018')" class="no-print theme-accent px-1.5 py-0.5 rounded text-[9px] cursor-pointer">📍 ดึงพิกัด</button></td>
+                            <td class="border border-[#696969]">Lat: <input type="text" id="latInput018" class="w-16 inline-block"> Long: <input type="text" id="longInput018" class="w-16 inline-block"></td>
+                        </tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">สถานที่</td><td colspan="2" class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">ยี่ห้อ RMU</td><td class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบบำรุงรักษา</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td colspan="2" class="border border-[#696969]">รายการ</td><td class="w-12 border border-[#696969]">ปกติ</td><td class="w-12 border border-[#696969]">ชำรุด</td><td class="w-12 border border-[#696969]">ไม่มี</td><td class="w-48 border border-[#696969]">ข้อบกพร่อง</td></tr>
+                        ${["2.1 สภาพตู้ครอบภายนอก", "2.2 สภาพ RMU / ห้อง", "2.3 ก๊าซ SF6", "2.4 ตัวแสดงสถานะสวิทซ์", "2.5 กุญแจล็อคป้องกันการปลด-สับ", "2.6 ระบบแรงดันไฟฟ้าเลี้ยงอุปกรณ์", "2.7 ระบบปลดสับด้วย Remote/Local"].map((item, i) => `
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="chk018_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="chk018_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="chk018_${i}" class="accent-radio"></td><td class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-018</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-018</span></div>
                 `
             },
             "019": {
                 title: "แบบตรวจสอบบำรุงรักษา Unit Substation",
                 code: "SF-07-0-019",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษา Unit Substation</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบบำรุงรักษา Unit Substation</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">ยี่ห้อ TR / RMU</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#e0d0b0]">รายการตรวจสอบ Unit Substation</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-12 border border-[#BEBEBE]">ปกติ</td><td class="w-12 border border-[#BEBEBE]">ชำรุด</td><td class="w-12 border border-[#BEBEBE]">ไม่มี</td><td class="w-48 border border-[#BEBEBE]">ข้อบกพร่อง</td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969] flex justify-between"><span>GIS</span><button onclick="getGPSLocation('lat019','lon019')" class="no-print theme-accent px-1 rounded text-[9px]">📍 พิกัด</button></td><td colspan="2" class="border border-[#696969]">Lat: <input type="text" id="lat019" class="w-16 inline"> Long: <input type="text" id="lon019" class="w-16 inline"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบ Unit Substation</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td colspan="2" class="border border-[#696969]">รายการ</td><td class="w-12 border border-[#696969]">ปกติ</td><td class="w-12 border border-[#696969]">ชำรุด</td><td class="w-12 border border-[#696969]">ไม่มี</td><td class="w-48 border border-[#696969]">ข้อบกพร่อง</td></tr>
                         ${["2.1 ตู้ครอบ Enclosure / ประตู", "2.2 สภาพ RMU และก๊าซ SF6", "2.3 ตัวถังหม้อแปลงและน้ำมัน", "2.4 Bushing HV-LV และสายหน้า", "2.5 ระบบกราวด์ HV-LV", "2.6 อุปกรณ์แรงต่ำ CB / FUSE / Busbar"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f019_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f019_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f019_${i}" class="accent-radio"></td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="f019_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="f019_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="f019_${i}" class="accent-radio"></td><td class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-019</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-019</span></div>
                 `
             },
             "020": {
                 title: "แบบตรวจสอบบำรุงรักษา Capacitor Bank",
                 code: "SF-07-0-020",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบบำรุงรักษา Capacitor Bank 12-24 kV</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">สายป้อน</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบ Capacitor Bank</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-12 border border-[#BEBEBE]">ปกติ</td><td class="w-12 border border-[#BEBEBE]">ชำรุด</td><td class="w-12 border border-[#BEBEBE]">ไม่มี</td><td class="w-48 border border-[#BEBEBE]">ข้อบกพร่อง</td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">สายป้อน</td><td colspan="2" class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบ Capacitor Bank</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td colspan="2" class="border border-[#696969]">รายการ</td><td class="w-12 border border-[#696969]">ปกติ</td><td class="w-12 border border-[#696969]">ชำรุด</td><td class="w-12 border border-[#696969]">ไม่มี</td><td class="w-48 border border-[#696969]">ข้อบกพร่อง</td></tr>
                         ${["2.1 Drop Fuse และ Insulator", "2.2 กับดักฟ้าผ่า (L/A) และ Ground", "2.3 Vacuum CB และตู้ Control", "2.4 หน้าจอ Digital Control", "2.5 ตัวถัง Capacitor Cell", "2.6 ค่าคาปาซิแตนท์ที่วัดได้"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f020_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f020_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f020_${i}" class="accent-radio"></td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="f020_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="f020_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="f020_${i}" class="accent-radio"></td><td class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-020</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-020</span></div>
                 `
             },
             "021": {
                 title: "แบบตรวจสอบเครื่องป้องกันหม้อแปลงวงจรตาข่าย",
                 code: "SF-07-0-021",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบบำรุงรักษาเครื่องป้องกันหม้อแปลงวงจรตาข่าย</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบเครื่องป้องกันหม้อแปลงวงจรตาข่าย</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลสถานีและรีเลย์</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station / FIX ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">Relay No.</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบเครื่องป้องกัน</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการตรวจสอบ</td><td class="w-16 border border-[#BEBEBE]">ปกติ</td><td class="w-16 border border-[#BEBEBE]">ไม่ปกติ</td><td colspan="2" class="border border-[#BEBEBE]">ข้อบกพร่อง / การแก้ไข</td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลสถานีและรีเลย์</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station / FIX ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">Relay No.</td><td class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบเครื่องป้องกัน</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td colspan="2" class="border border-[#696969]">รายการตรวจสอบ</td><td class="w-16 border border-[#696969]">ปกติ</td><td class="w-16 border border-[#696969]">ไม่ปกติ</td><td colspan="2" class="border border-[#696969]">ข้อบกพร่อง / การแก้ไข</td></tr>
                         ${["1.1 สถานะ MV.SW. (CLOSE)", "1.2 สถานะ Network Protector (CLOSE)", "1.3 สภาพภายนอกและป้ายเตือน", "1.4 ระบบกราวด์ N และ G", "2.1 ทดสอบปลด-สับ MV.SW.", "3.1 สภาพภายในตู้และรีเลย์", "4.1 อุปกรณ์สื่อสารระยะไกล (RTU)"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f021_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f021_${i}" class="accent-radio"></td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="f021_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="f021_${i}" class="accent-radio"></td><td colspan="2" class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-021</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-021</span></div>
                 `
             },
             "022": {
                 title: "แบบตรวจสอบหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง",
                 code: "SF-07-0-022",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบหม้อแปลงวงจรตาข่ายและสวิตช์แรงกลาง</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station / FIX ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">TR MEA No.</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">รายการตรวจสอบสวิตช์และหม้อแปลง</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td colspan="2" class="border border-[#BEBEBE]">รายการ</td><td class="w-16 border border-[#BEBEBE]">ปกติ</td><td class="w-16 border border-[#BEBEBE]">ไม่ปกติ</td><td colspan="2" class="border border-[#BEBEBE]">ข้อบกพร่อง / การแก้ไข</td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station / FIX ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">TR MEA No.</td><td class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">รายการตรวจสอบสวิตช์และหม้อแปลง</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td colspan="2" class="border border-[#696969]">รายการ</td><td class="w-16 border border-[#696969]">ปกติ</td><td class="w-16 border border-[#696969]">ไม่ปกติ</td><td colspan="2" class="border border-[#696969]">ข้อบกพร่อง / การแก้ไข</td></tr>
                         ${["1.1 สวิตช์แรงกลาง (สภาพภายนอก/ปลดสับ)", "1.2 ก๊าซ SF6", "1.3 หัวต่อสาย/สายไฟฟ้า", "2.1 ตัวถังหม้อแปลง", "2.2 ระดับน้ำมันหม้อแปลง", "2.3 ฟิวส์ 12 kV", "3.1 ระบบแรงต่ำและคาปาซิเตอร์"].map((item, i) => `
-                            <tr><td colspan="2" class="border border-[#BEBEBE]">${item}</td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f022_${i}" class="accent-radio"></td><td class="text-center border border-[#BEBEBE]"><input type="radio" name="f022_${i}" class="accent-radio"></td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td></tr>
+                            <tr><td colspan="2" class="border border-[#696969]">${item}</td><td class="text-center border border-[#696969]"><input type="radio" name="f022_${i}" class="accent-radio"></td><td class="text-center border border-[#696969]"><input type="radio" name="f022_${i}" class="accent-radio"></td><td colspan="2" class="border border-[#696969]"><input type="text"></td></tr>
                         `).join('')}
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-022</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-022</span></div>
                 `
             },
             "023": {
                 title: "แบบตรวจสอบทดสอบและกรองน้ำมันหม้อแปลง",
                 code: "SF-07-0-023",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">แบบตรวจสอบทดสอบและกรองน้ำมันหม้อแปลงวงจรตาข่าย</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">แบบตรวจสอบทดสอบและกรองน้ำมันหม้อแปลงวงจรตาข่าย</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลทั่วไป</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">TR MEA No.</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">บันทึกผลการทดสอบ Breakdown Voltage (kV)</td></tr>
-                        <tr class="bg-[#EFEFEF] text-center font-bold"><td class="border border-[#BEBEBE]">ขั้นตอนการทดสอบ</td><td class="border border-[#BEBEBE]">ครั้งที่ 1</td><td class="border border-[#BEBEBE]">ครั้งที่ 2</td><td class="border border-[#BEBEBE]">ครั้งที่ 3</td><td class="border border-[#BEBEBE]">ครั้งที่ 4</td><td class="border border-[#BEBEBE]">ครั้งที่ 5 / เฉลี่ย</td></tr>
-                        <tr><td class="border border-[#BEBEBE]">ก่อนกรองน้ำมัน</td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td></tr>
-                        <tr><td class="border border-[#BEBEBE]">หลังกรองรอบที่ 1</td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td></tr>
-                        <tr><td class="border border-[#BEBEBE]">หลังกรองรอบที่ 2</td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลทั่วไป</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">TR MEA No.</td><td class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">บันทึกผลการทดสอบ Breakdown Voltage (kV)</td></tr>
+                        <tr class="bg-[#D3D3D3] text-center font-bold"><td class="border border-[#696969]">ขั้นตอนการทดสอบ</td><td class="border border-[#696969]">ครั้งที่ 1</td><td class="border border-[#696969]">ครั้งที่ 2</td><td class="border border-[#696969]">ครั้งที่ 3</td><td class="border border-[#696969]">ครั้งที่ 4</td><td class="border border-[#696969]">ครั้งที่ 5 / เฉลี่ย</td></tr>
+                        <tr><td class="border border-[#696969]">ก่อนกรองน้ำมัน</td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td></tr>
+                        <tr><td class="border border-[#696969]">หลังกรองรอบที่ 1</td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td></tr>
+                        <tr><td class="border border-[#696969]">หลังกรองรอบที่ 2</td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td><td><input type="text" class="text-center"></td></tr>
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-023</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-023</span></div>
                 `
             },
             "024": {
                 title: "รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot)",
                 code: "SF-07-0-024",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot) ด้วย Thermovision</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">รายงานผลการตรวจสอบจุดร้อนแดง (Hot Spot) ด้วย Thermovision</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลภาพถ่ายความร้อน</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">Emissivity</td><td class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] border border-[#BEBEBE]">อุปกรณ์ / สายป้อน</td><td colspan="4" class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">อุณหภูมิเปรียบเทียบ (Delta T) และระดับความสำคัญ</td></tr>
-                        <tr><td colspan="6" class="border border-[#BEBEBE] p-2">อุณหภูมิสูงสุด $\Delta T$: <input type="text" class="w-32 border-b border-[#BEBEBE] inline"> °C &nbsp;&nbsp;&nbsp; <b>ระดับความสำคัญ:</b> [ ] P1 (&gt;40°C) &nbsp; [ ] P2 (20-40°C) &nbsp; [ ] P3 (10-20°C)</td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลภาพถ่ายความร้อน</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">Emissivity</td><td class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">อุปกรณ์ / สายป้อน</td><td colspan="4" class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">อุณหภูมิเปรียบเทียบ (Delta T) และระดับความสำคัญ</td></tr>
+                        <tr><td colspan="6" class="border border-[#696969] p-2">อุณหภูมิสูงสุด $\Delta T$: <input type="text" class="w-32 border-b border-[#696969] inline"> °C &nbsp;&nbsp;&nbsp; <b>ระดับความสำคัญ:</b> [ ] P1 (&gt;40°C) &nbsp; [ ] P2 (20-40°C) &nbsp; [ ] P3 (10-20°C)</td></tr>
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-024</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-024</span></div>
                 `
             },
             "025": {
                 title: "รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)",
                 code: "SF-07-0-025",
                 render: () => `
-                    <div class="text-center font-bold text-sm mb-3 text-[#333333]">รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)</div>
+                    <div class="text-center font-bold text-sm mb-2 text-[#2B2B2B]">รายงานผลการตรวจสอบการคายประจุไฟฟ้า (Partial Discharge)</div>
                     <table>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center w-8 border border-[#BEBEBE]">1</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ข้อมูลการตรวจวัด Acoustic Camera</td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] w-28 border border-[#BEBEBE]">Station ID</td><td colspan="2" class="border border-[#BEBEBE]"><input type="text"></td><td class="bg-[#EFEFEF] border border-[#BEBEBE]">ระดับความเข้มเสียง</td><td class="border border-[#BEBEBE]"><input type="text" placeholder="ระบุหน่วย dB"></td></tr>
-                        <tr><td colspan="2" class="bg-[#EFEFEF] border border-[#BEBEBE]">จุดที่พบความผิดปกติ</td><td colspan="4" class="border border-[#BEBEBE]"><input type="text"></td></tr>
-                        <tr><td class="bg-[#EFEFEF] font-bold text-center border border-[#BEBEBE]">2</td><td colspan="5" class="bg-[#EFEFEF] font-bold border border-[#BEBEBE]">ประเมินระดับความรุนแรง (NL Cloud Software)</td></tr>
-                        <tr><td colspan="6" class="border border-[#BEBEBE] p-2">[ ] สูงมาก &nbsp;&nbsp;&nbsp; [ ] สูง &nbsp;&nbsp;&nbsp; [ ] ปานกลาง &nbsp;&nbsp;&nbsp; [ ] ต่ำ</td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center w-8 border border-[#696969]">1</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ข้อมูลการตรวจวัด Acoustic Camera</td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] w-28 border border-[#696969]">Station ID</td><td colspan="2" class="border border-[#696969]"><input type="text"></td><td class="bg-[#D3D3D3] border border-[#696969]">ระดับความเข้มเสียง</td><td class="border border-[#696969]"><input type="text" placeholder="ระบุหน่วย dB"></td></tr>
+                        <tr><td colspan="2" class="bg-[#D3D3D3] border border-[#696969]">จุดที่พบความผิดปกติ</td><td colspan="4" class="border border-[#696969]"><input type="text"></td></tr>
+                        <tr><td class="bg-[#D3D3D3] font-bold text-center border border-[#696969]">2</td><td colspan="5" class="bg-[#D3D3D3] font-bold border border-[#696969]">ประเมินระดับความรุนแรง (NL Cloud Software)</td></tr>
+                        <tr><td colspan="6" class="border border-[#696969] p-2">[ ] สูงมาก &nbsp;&nbsp;&nbsp; [ ] สูง &nbsp;&nbsp;&nbsp; [ ] ปานกลาง &nbsp;&nbsp;&nbsp; [ ] ต่ำ</td></tr>
                     </table>
-                    <table class="mt-2 border border-[#BEBEBE]">
-                        <tr><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#BEBEBE]">ผู้ตรวจสอบ <input type="text"></td></tr>
-                        <tr><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#BEBEBE]">วันที่ <input type="date"></td></tr>
+                    <table class="mt-2 border border-[#696969]">
+                        <tr><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจ <input type="text"></td><td colspan="3" class="w-1/2 border border-[#696969]">ผู้ตรวจสอบ <input type="text"></td></tr>
+                        <tr><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td><td colspan="3" class="border border-[#696969]">วันที่ <input type="date"></td></tr>
                     </table>
-                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#BEBEBE] text-[#666666]"><span>แบบฟอร์มตรวจสอบ</span><span class="font-mono">SF-07-0-025</span></div>
+                    <div class="flex justify-between text-[9px] mt-2 pt-1 border-t border-[#696969] text-[#555555]"><span>ปรับปรุงครั้งที่ 0</span><span class="font-mono">SF-07-0-025</span></div>
                 `
             }
         };
@@ -351,9 +447,9 @@
 
             document.querySelectorAll('.form-pill').forEach(btn => {
                 if(btn.dataset.key === key) {
-                    btn.className = "form-pill px-3.5 py-2.5 theme-accent text-[#222222] rounded-md font-semibold text-xs whitespace-nowrap shadow-xs cursor-pointer transition-all";
+                    btn.className = "form-pill px-3.5 py-2.5 theme-accent text-white rounded-md font-semibold text-xs whitespace-nowrap shadow-xs cursor-pointer transition-all";
                 } else {
-                    btn.className = "form-pill px-3.5 py-2.5 bg-white border border-theme-border text-[#333333] rounded-md font-medium text-xs whitespace-nowrap hover:bg-[#EFEFEF] cursor-pointer transition-all";
+                    btn.className = "form-pill px-3.5 py-2.5 bg-white border border-theme-border text-[#2B2B2B] rounded-md font-medium text-xs whitespace-nowrap hover:bg-[#D3D3D3] cursor-pointer transition-all";
                 }
             });
         }
